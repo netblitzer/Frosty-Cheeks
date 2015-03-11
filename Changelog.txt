@@ -1,0 +1,11 @@
+// Add changes that you do to here, as well as in the commit message. Commit message can be less specific. IE: "Added to the GamePiece, gave character functionality"
+// In THIS file should be specifically what you added. IE: "Added to Gamepiece: -Character movement -Character Collisions - Character Drawing"
+
+// Format: V# - Major Reason/Addition
+
+
+V1 - Initial Release
+	- Project Created
+	- MethodsLibrary Impelemented
+		- Clamps (int, double, float, Vector2)
+		- InRange (int, double, float, Vector2)
