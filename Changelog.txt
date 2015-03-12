@@ -6,7 +6,7 @@
 =======
 Dicks McGee - Where'd this come from?
 >>>>>>> ed0113c0c5ceb04c7c9fa751e1d6e406a9c0b10a
-
+	dicks mcgee is back in town!
 V1 - Initial Release
 	- Project Created
 	- MethodsLibrary Impelemented
