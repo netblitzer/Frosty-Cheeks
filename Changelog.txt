@@ -2,6 +2,10 @@
 // In THIS file should be specifically what you added. IE: "Added to Gamepiece: -Character movement -Character Collisions - Character Drawing"
 
 // Format: V# - Major Reason/Addition
+<<<<<<< HEAD
+=======
+Dicks McGee - Where'd this come from?
+>>>>>>> ed0113c0c5ceb04c7c9fa751e1d6e406a9c0b10a
 
 V1 - Initial Release
 	- Project Created
