@@ -36,8 +36,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GamePiece.cs" />
+    <Compile Include="LongerPowerup.cs" />
+    <Compile Include="MoveableGamePiece.cs" />
+    <Compile Include="Obstacle.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Powerup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShorterPowerup.cs" />
+    <Compile Include="SuperSaiyan.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

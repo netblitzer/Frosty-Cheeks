@@ -17,3 +17,29 @@ V1 - Initial Release
 	- MethodsLibrary Impelemented
 		- Clamps (int, double, float, Vector2)
 		- InRange (int, double, float, Vector2)
+
+Joh 3-15-15
+------------------------------------------------
+Added basic object and character classes:
+- Powerup
+	- LongerPowerup
+	- ShorterPowerup
+	- SuperSaiyan
+- GamePiece
+	- MoveableGamePiece
+		- Obstacle
+		- Player
+
+Added basic fields with properties to several classes
+- Powerup.cs
+	-float strength
+- GamePiece.cs
+	- Vector2 globalPosition
+	- Vector2 localPosition (We'll have to talk about whether we still want to use this)
+- MoveableGamePiece.cs
+	- float speed
+- Player.cs
+	- float Tempurature
+	- float shorts length
+
+Have a happy day!
