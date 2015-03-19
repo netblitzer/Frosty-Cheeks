@@ -5,8 +5,16 @@ using System.Text;
 
 namespace Frosty_Cheeks
 {
+    /*AUTHOR: JOH of the JUNGLE
+     3-15-15*/
     class Player : MoveableGamePiece
     {
+        private float jumpHeight;
+        public float JumpHeight
+        {
+            get { return jumpHeight; }
+            set { jumpHeight = value; }
+        }
         private float tempurature;//The player's tempurate. 0 - coldest, 100 - hottest. Coorelate to hypothermia meter.
         public float Tempurature
         {
@@ -14,11 +22,27 @@ namespace Frosty_Cheeks
             set { tempurature = value; }
         }
 
-        private float shortsLength;//The lenght of the player's shorts. Influcenced by power ups
+        private float shortsLength;//The length of the player's shorts. Influcenced by power ups
         public float ShortsLength
         {
             get { return shortsLength; }
             set { shortsLength = value; }
+        }
+        public Player(float jump, float shorts, float temp, float _speed) : base(_speed)
+        {
+
+        }
+        public void Jump()
+        {
+
+        }
+        public void HitObstacle()
+        {
+
+        }
+        public void PlayAnimation()
+        {
+
         }
     }
 }

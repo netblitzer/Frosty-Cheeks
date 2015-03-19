@@ -29,5 +29,13 @@ namespace Frosty_Cheeks
             get { return sprite; }
             set { sprite = value; }
         }*/
+        public GamePiece(Vector2 pos)
+        {
+            globalPosition = pos;
+        }
+        public GamePiece()
+        {
+            globalPosition = Vector2.Zero;
+        }
     }
 }

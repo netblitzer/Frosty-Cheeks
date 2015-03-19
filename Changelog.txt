@@ -43,3 +43,12 @@ Added basic fields with properties to several classes
 	- float shorts length
 
 Have a happy day!
+
+Joh 3/19/15
+------------------------------------------------------------------------
+- Added float speed and Vector2 velocity to MoveableGamepiece.cs
+- Added constructors to MoveableGamePiece, Player and GamePiece
+- Added method stubs to Player class for Jump, HitObstacle and PlayAnimation
+
+
+
