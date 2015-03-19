@@ -21,5 +21,15 @@ namespace Frosty_Cheeks
             get { return speed; }
             set { speed = value; }
         }
+        private Vector2 velocity;
+        public Vector2 Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
+        public MoveableGamePiece(float _speed) : base()
+        {
+            speed = _speed;
+        }
     }
 }

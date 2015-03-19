@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Frosty_Cheeks
 {
+    /*AUTHOR: JOH of the JUNGLE
+     3-15-15*/
     //Collectable powerup that inceases the player's speed and make him invincible for a period of time
     class SuperSaiyan : Powerup
     {

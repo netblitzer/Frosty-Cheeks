@@ -44,6 +44,7 @@ Added basic fields with properties to several classes
 
 Have a happy day!
 
+<<<<<<< HEAD
 Ethan Nichols 3/19/2015
 Added following classes:
 - Sprite
@@ -51,3 +52,13 @@ Added following classes:
 	- Button
 	- Slider
 	- Meter
+=======
+Joh 3/19/15
+------------------------------------------------------------------------
+- Added float speed and Vector2 velocity to MoveableGamepiece.cs
+- Added constructors to MoveableGamePiece, Player and GamePiece
+- Added method stubs to Player class for Jump, HitObstacle and PlayAnimation
+
+
+
+>>>>>>> 566eff990cc8500924153caec0f3ae33a88f96e7

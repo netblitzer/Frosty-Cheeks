@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Frosty_Cheeks
 {
+    /*AUTHOR: JOH of the JUNGLE
+     3-15-15*/
     class Powerup : MoveableGamePiece
     {
         private float strength;
