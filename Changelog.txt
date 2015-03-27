@@ -1,17 +1,6 @@
 // Add changes that you do to here, as well as in the commit message. Commit message can be less specific. IE: "Added to the GamePiece, gave character functionality"
 // In THIS file should be specifically what you added. IE: "Added to Gamepiece: -Character movement -Character Collisions - Character Drawing"
-<<<<<<< HEAD
 
-// Format: V# - Major Reason/Addition
-<<<<<<< HEAD
-=======
-Dicks McGee - Where'd this come from?
->>>>>>> ed0113c0c5ceb04c7c9fa751e1d6e406a9c0b10a
-	dicks mcgee is back in town!
-=======
-BItch
-
->>>>>>> 067de74395b09bec6646ec09a950b29e619e02d7
 V1 - Initial Release
 	- Project Created
 	- MethodsLibrary Impelemented
@@ -44,7 +33,6 @@ Added basic fields with properties to several classes
 
 Have a happy day!
 
-<<<<<<< HEAD
 Ethan Nichols 3/19/2015
 Added following classes:
 - Sprite
@@ -59,6 +47,9 @@ Joh 3/19/15
 - Added constructors to MoveableGamePiece, Player and GamePiece
 - Added method stubs to Player class for Jump, HitObstacle and PlayAnimation
 
-
-
->>>>>>> 566eff990cc8500924153caec0f3ae33a88f96e7
+Luke 3-27-15
+------------------------------------------------------------------------
+- Frame.cs
+	- InitializeFrames() method for creating all the frames
+	- Constructor (will) grab a random frame and make random obstacles
+	- Position, Obstacles, enum properties

@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Button.cs" />
+    <Compile Include="Frame.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GamePiece.cs" />
     <Compile Include="GUIObject.cs" />
