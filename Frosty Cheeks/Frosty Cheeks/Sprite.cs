@@ -63,10 +63,10 @@ namespace Frosty_Cheeks
         {
             get { return spriteHeight; }
         }
-        public int SpriteHeight
+       /* public int SpriteHeight
         {
             get { return spriteHeight; }
-        }
+        }*/
         private int spriteWidth; // width of sprite/ sprite's rectangle
         public int SpriteWidth
         {
@@ -94,7 +94,7 @@ namespace Frosty_Cheeks
             spriteOffset = offst;
         }
 
-        public override void Draw(GameTime gametime, SpriteBatch spriteBatch) // placeholder for overwritten draw
+       /* public override void Draw(GameTime gametime, SpriteBatch spriteBatch) // placeholder for overwritten draw
         {
             // draw image from sprite sheet
             spriteBatch.Draw(
@@ -108,7 +108,7 @@ namespace Frosty_Cheeks
                 SpriteEffects.None, // no sprite effects
                 0 // no depth setting
                 );
-        }
+        }*/
 
     }
 }

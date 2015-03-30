@@ -15,5 +15,10 @@ namespace Frosty_Cheeks
             get { return strength; }
             set { strength = value; }
         }
+        public Powerup(float _speed)
+            : base(_speed)
+        {
+
+        }
     }
 }

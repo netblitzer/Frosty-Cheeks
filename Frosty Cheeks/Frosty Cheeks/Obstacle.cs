@@ -9,5 +9,10 @@ namespace Frosty_Cheeks
      3-15-15*/
     class Obstacle : MoveableGamePiece
     {
+        public Obstacle(float _speed)
+            : base(_speed)
+        {
+
+        }
     }
 }

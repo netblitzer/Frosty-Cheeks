@@ -53,3 +53,9 @@ Luke 3-27-15
 	- InitializeFrames() method for creating all the frames
 	- Constructor (will) grab a random frame and make random obstacles
 	- Position, Obstacles, enum properties
+----------------------------------------------------------------------------
+Joh 3/30/15
+- Fixed bugs with MoveableGamePiece child constructors
+- Added IsColliding() method to GamePiece that takes another GamePiece and checks to see if their sprites are colliding
+- Commented out duplicate SpriteHeight property in Sprite.cs
+- BUG: Sprite Draw method is trying to override Draw from something else but there's nothing there to override, so I commented it out for now.

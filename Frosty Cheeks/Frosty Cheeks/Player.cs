@@ -28,6 +28,14 @@ namespace Frosty_Cheeks
             get { return shortsLength; }
             set { shortsLength = value; }
         }
+        private float obstacleSlowDown;
+
+        public float ObstacleSlowDown
+        {
+            get { return obstacleSlowDown; }
+            set { obstacleSlowDown = value; }
+        }
+
         public Player(float jump, float shorts, float temp, float _speed) : base(_speed)
         {
 
@@ -38,7 +46,7 @@ namespace Frosty_Cheeks
         }
         public void HitObstacle()
         {
-
+            Speed -= obstacleSlowDown;
         }
         public void PlayAnimation()
         {

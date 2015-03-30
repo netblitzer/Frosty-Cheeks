@@ -16,6 +16,9 @@ namespace Frosty_Cheeks
             get { return saiyanTime; }
             set { saiyanTime = value; }
         }
+        public SuperSaiyan(float _speed) : base(_speed)
+        {
 
+        }
     }
 }

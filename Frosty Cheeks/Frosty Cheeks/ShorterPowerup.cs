@@ -10,5 +10,9 @@ namespace Frosty_Cheeks
     //Collectable power up that decreases the lenght of player's shorts. Increaes cold
     class ShorterPowerup : Powerup
     {
+        public ShorterPowerup(float _speed) : base(_speed)
+        {
+
+        }
     }
 }

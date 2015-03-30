@@ -15,7 +15,7 @@ namespace Frosty_Cheeks
      3-15-15*/
     class MoveableGamePiece : GamePiece
     {
-        private float speed;//How fast the is Moveable moving. Negative numbers are moving left, positive are moving right.
+        private float speed;//How fast the Moveable is moving. Negative numbers are moving left, positive are moving right.
         public float Speed
         {
             get { return speed; }
@@ -25,7 +25,12 @@ namespace Frosty_Cheeks
         public Vector2 Velocity
         {
             get { return velocity; }
-            set { velocity = value; }
+            set { velocity = value;}
+            //When we set this, we also need to update the attatched Sprite obj
+        }
+        private void Move()
+        {
+            
         }
         public MoveableGamePiece(float _speed) : base()
         {
