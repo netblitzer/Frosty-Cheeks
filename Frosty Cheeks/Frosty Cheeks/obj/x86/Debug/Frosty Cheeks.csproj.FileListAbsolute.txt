@@ -8,3 +8,13 @@ C:\Users\John\Desktop\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\De
 C:\Users\John\Desktop\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\John\Desktop\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
 C:\Users\John\Desktop\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\SDL.dll
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.exe
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.pdb
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Lidgren.Network.dll
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\MonoGame.Framework.dll
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+D:\Users\ljm1896\Documents\Visual Studio 2013\Projects\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb

@@ -21,7 +21,7 @@ namespace Frosty_Cheeks
         private static List<Frame> availFrames; // List of all the available frames to draw
         private List<Obstacle> availObstacles; // Each available frames list of available obstacles
         private int diff; // The frame's own difficulty setting
-        enum FrameType { Standard, Windy, Interior }; // Setting of the frame
+        private int FrameType; // 0 for normal, 1 for windy, 2 for indoors
         private List<Obstacle> obstacles; // Each unique (being drawn) frames actual obstacles
         private Sprite spr; // Unique (being drawn) frame's image sprite
         private Vector2 position; // Where the frame is located
@@ -51,14 +51,27 @@ namespace Frosty_Cheeks
         {
             
         }
-
+        // Private Frame Constructor
+            // Creates the initial frames to be used later
+        private Frame(int d, string imgPath, int type)
+        {
+            diff = d;
+            FrameType = type;
+        }
         public void ReadFramesIn()
         {
             try
             {
-                if (Directory.Exists(".../Frames/"))
+                if (Directory.Exists("Frames"))
                 {
-                    Console.WriteLine("Exists");
+                    string[] files = Directory.GetFiles("Frames");
+                    foreach (string s in files)
+                    {
+                        if (s.EndsWith(".dat"))
+                        {
+
+                        }
+                    }
                 }
             }
             catch (IOException ioe)
