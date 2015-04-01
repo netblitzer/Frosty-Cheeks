@@ -15,11 +15,11 @@ namespace Frosty_Cheeks
      3-15-15*/
     class GamePiece
     {
-        private Vector2 globalPosition;//Position in realtion to the game world
-        public Vector2 Globalosition
+        private Vector2 position;//Position in realtion to the game world
+        public Vector2 Position
         {
-            get { return globalPosition; }
-            set { globalPosition = value; }
+            get { return position; }
+            set { position = value; }
         }
         private Vector2 localPosition;//Position in realtion to frame that owns this GamePiece (Not sure if we'll need this)
         
@@ -39,11 +39,11 @@ namespace Frosty_Cheeks
 
         public GamePiece(Vector2 pos)
         {
-            globalPosition = pos;
+            position = pos;
         }
         public GamePiece()
         {
-            globalPosition = Vector2.Zero;
+            position = Vector2.Zero;
         }
         public Rectangle GetBoundingBox(){
             return spriteObj.SpriteRect;

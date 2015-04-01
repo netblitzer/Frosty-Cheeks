@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace Frosty_Cheeks
 {
@@ -35,17 +41,21 @@ namespace Frosty_Cheeks
             get { return obstacleSlowDown; }
             set { obstacleSlowDown = value; }
         }
+        private Vector2 originalPosition;
+        private bool inJump = false;
+        private bool inFreefall = false;
+        private float fallRate;
+        private int verticalDirection;//0 = falling, 1 = jumping
 
-        public Player(float jump, float shorts, float temp, float _speed) : base(_speed)
+        public Player(float jump, float shorts, float temp, float _speed)
+            : base(_speed)
         {
 
         }
-        public void Jump()
-        {
 
-        }
         public void HitObstacle()
         {
+
             Speed -= obstacleSlowDown;
         }
         public void PlayAnimation()
