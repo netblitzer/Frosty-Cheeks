@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace Frosty_Cheeks
 {
@@ -18,6 +19,7 @@ namespace Frosty_Cheeks
         public Texture2D SpriteTexture
         {
             get { return spriteTexture; }
+            set { spriteTexture = value; }
         }
         private Vector2 spriteLocation; // location of sprite
         public Vector2 SpriteLocation
@@ -77,11 +79,16 @@ namespace Frosty_Cheeks
         {
             get { return spriteOffset; }
         }
+        private string imagePath;
+        public string ImagePath
+        {
+            get { return imagePath; }
+        }
 
         // constructor
-        public Sprite(Texture2D img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst)
+        public Sprite(string img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst) // sprite with animation
         {
-            spriteTexture = img;
+            imagePath = img;
             spriteLocation = loc;
             spriteRect = rec;
             frame = frm;
@@ -94,7 +101,19 @@ namespace Frosty_Cheeks
             spriteOffset = offst;
         }
 
-       /* public override void Draw(GameTime gametime, SpriteBatch spriteBatch) // placeholder for overwritten draw
+        public Sprite(string img, Vector2 loc, int sprty, int hght, int wdth) // sprite without animation
+        {
+            imagePath = img;
+            spriteLocation = loc;
+            sprite_Y = sprty;
+            spriteHeight = hght;
+            spriteWidth = wdth;
+            spriteRect = new Rectangle((int)spriteLocation.X, (int)spriteLocation.Y, spriteWidth, spriteHeight);
+        }
+
+        
+
+       public void Draw(GameTime gametime, SpriteBatch spriteBatch) // placeholder for overwritten draw
         {
             // draw image from sprite sheet
             spriteBatch.Draw(
@@ -108,7 +127,7 @@ namespace Frosty_Cheeks
                 SpriteEffects.None, // no sprite effects
                 0 // no depth setting
                 );
-        }*/
+        }
 
     }
 }
