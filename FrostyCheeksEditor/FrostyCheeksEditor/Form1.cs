@@ -18,8 +18,10 @@ namespace FrostyCheeksEditor
             InitializeComponent();
             BinaryWriter output = new BinaryWriter(File.OpenWrite("frame1.dat"));
             output.Write("bg.png");
-            output.Write(20);
-            output.Write(20);
+            output.Write(1000);
+            output.Write(500);
+			output.Write(1000);
+            output.Write(500);
         }
     }
 }

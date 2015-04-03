@@ -23,12 +23,21 @@ namespace Frosty_Cheeks
         KeyboardState kState; // key state for input
         Player player; // player obj
         List<Frame> frames; // Frames list
+        List<Obstacle> obstacles;
+        Meter hypoMeter; // hypothermia meter
+        Texture2D thermo;
+        SpriteFont distanceFont;
+        float distanceScore;
+
+        //temp pic
+        Texture2D framePic;
+        Texture2D obstaclePic;
 
         #region Newton Things
         Texture2D spriteSheet; // sprite sheet to load
         Vector2 newtonLoc; // location of character
         int frame; // frame of animation that is currently on
-        double timePerFrame = 100; // set 100 ms per frame
+        double timePerFrame = 70; // set 100 ms per frame
         int numFrames = 6; // # frames in whole animation
         int framesElapsed; // frames elapsed since last checked for frames
         const int NEWTON_Y = 0; // how far down the sprite starts
@@ -41,8 +50,10 @@ namespace Frosty_Cheeks
         #endregion
 
         #region Test Shit
-        Obstacle toiler;
+        Obstacle pebble;
         Texture2D toilerFace;
+        Texture2D pebblePic;
+        float hypoChange;
         #endregion
 
 
@@ -51,14 +62,6 @@ namespace Frosty_Cheeks
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            player = new Player(1, 1, 1, 1);
-            frames = new List<Frame>();
-            frames.Add(new Frame(1));
-
-            #region Test Shit
-            toiler = new Obstacle(0);
-            toiler.Position = new Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height / 2);
-            #endregion
         }
 
         /// <summary>
@@ -77,6 +80,31 @@ namespace Frosty_Cheeks
             startY = Window.ClientBounds.Height / 2;
             #endregion
 
+            Frame.InitializeFrames();
+            player = new Player(1, 1, 1, 1);
+            frames = new List<Frame>();
+            hypoMeter = new Meter();
+            hypoMeter.ColdMeter = 0;
+            hypoChange = 0.25f;
+
+            //add frames
+            frames.Add(new Frame(1));
+            frames.Add(new Frame(1));
+            frames.Add(new Frame(1));
+            frames.Add(new Frame(1));
+
+            for (int i = 0; i < frames.Count; i++)
+            {
+                frames[i].FrameSprite.SpriteLocation = new Vector2((1024 * i), frames[i].FrameSprite.SpriteLocation.Y);
+                Obstacle obs = new Obstacle(0);
+                obs.Position = new Vector2(1000, 700);
+                obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
+                frames[i].Obstacles.Add(obs);
+            }
+
+            #region Test Shit
+            #endregion
+
             base.Initialize();
         }
 
@@ -91,6 +119,24 @@ namespace Frosty_Cheeks
 
             // TODO: Load in textures here - who has the textures?
             spriteSheet = Content.Load<Texture2D>("newton.png"); // LOAD IN CHARACTER SPRITESHEET HERE
+            thermo = Content.Load<Texture2D>("thermometer.png"); // thermometer
+            distanceFont = Content.Load<SpriteFont>("font");
+            foreach (Frame frameLoad in frames)
+            {
+                frameLoad.FrameSprite.SpriteTexture = Content.Load<Texture2D>(frameLoad.FrameSprite.ImagePath);
+                /*foreach (Obstacle obstacle in frameLoad.Obstacles)
+                {
+                    obstacle.SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+                }*/
+
+                frameLoad.Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+                frameLoad.Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
+            }
+
+            //temp fix
+            framePic = Content.Load<Texture2D>(frames[0].FrameSprite.ImagePath);
+            pebblePic = Content.Load<Texture2D>("pebble.png");
+            obstaclePic = Content.Load<Texture2D>("toiler.png");
 
             #region Test Shit
             toilerFace = Content.Load<Texture2D>("toiler.png");
@@ -117,6 +163,45 @@ namespace Frosty_Cheeks
                 Exit();
 
             // TODO: Add your update logic here
+            //distanceScore += .005f;
+            
+            foreach (Frame frameUpdate in frames)
+            {
+                frameUpdate.FrameSprite.SpriteLocation = new Vector2(frameUpdate.FrameSprite.SpriteLocation.X - 3f, 0);
+                
+                /*foreach (Obstacle obstacle in frameUpdate.Obstacles)
+                {
+                    obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 150);
+                    if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
+                    {
+                        distanceScore++;
+                    }
+                }*/
+
+                frameUpdate.Obstacles[0].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 150);
+                frameUpdate.Obstacles[1].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[1].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 300);
+                if ((frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
+                {
+                    distanceScore++;
+                }
+            }
+
+            if (frames[0].FrameSprite.SpriteLocation.X <= -1024)
+            {
+                frames.RemoveAt(0);
+                frames.Add(new Frame(1));
+                frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024, frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
+                frames[frames.Count - 1].FrameSprite.SpriteTexture = Content.Load<Texture2D>(frames[frames.Count - 1].FrameSprite.ImagePath);
+                frames[frames.Count - 1].Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+
+                //test crap
+                Obstacle obs = new Obstacle(0);
+                obs.Position = new Vector2(1000, 500);
+                obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
+                frames[frames.Count - 1].Obstacles.Add(obs);
+                frames[frames.Count - 1].Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
+            }
+
             #region Newton Jumps
             framesElapsed = (int)(gameTime.TotalGameTime.TotalMilliseconds / timePerFrame); // check to see the total amount of frames so far
             frame = framesElapsed % numFrames + 1; // frame your on is the total number of frames since launch modulated by how many frames there are +1
@@ -124,7 +209,7 @@ namespace Frosty_Cheeks
             if (jumping)
             {
                 newtonLoc.Y += jumpspeed;
-                jumpspeed += 1;
+                jumpspeed += 0.5f;
                 if (newtonLoc.Y >= startY)
                 {
                     newtonLoc.Y = startY;
@@ -141,7 +226,9 @@ namespace Frosty_Cheeks
             }
             #endregion
             #region Test Shit
-            toiler.Position = new Vector2(toiler.Position.X - 1f, Window.ClientBounds.Height / 2);
+            hypoMeter.ColdMeter = hypoMeter.ColdMeter + hypoChange;
+            if (hypoMeter.ColdMeter >= 100) hypoChange = -0.25f;
+            if (hypoMeter.ColdMeter <= 0) hypoChange = 0.25f;
             #endregion
 
             base.Update(gameTime);
@@ -161,8 +248,20 @@ namespace Frosty_Cheeks
 
             spriteBatch.Begin();
 
+            foreach (Frame frameDraw in frames)
+            {
+                frameDraw.FrameSprite.Draw(gameTime, spriteBatch);
+                foreach (Obstacle obstacle in frameDraw.Obstacles)
+                {
+                    obstacle.SpriteObj.Draw(gameTime, spriteBatch);
+                }
+
+            }
             spriteBatch.Draw(spriteSheet, newtonLoc, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(toilerFace, toiler.Position, Color.White);
+            spriteBatch.Draw(thermo, new Vector2(625, 20), new Rectangle(0, 0, thermo.Width, thermo.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+            spriteBatch.Draw(thermo, new Vector2(625, 20), new Rectangle(0, 0, (int)(thermo.Width * (hypoMeter.ColdMeter / 100)), thermo.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore + " Toilers", new Vector2(20, 20), Color.White);
+
 
             spriteBatch.End();
         }

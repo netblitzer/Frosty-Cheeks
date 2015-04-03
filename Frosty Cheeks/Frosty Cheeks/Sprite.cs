@@ -108,7 +108,7 @@ namespace Frosty_Cheeks
             sprite_Y = sprty;
             spriteHeight = hght;
             spriteWidth = wdth;
-            spriteRect = new Rectangle((int)spriteLocation.X, (int)spriteLocation.Y, spriteWidth, spriteHeight);
+            spriteRect = new Rectangle(0, 0, spriteWidth, spriteHeight);
         }
 
         

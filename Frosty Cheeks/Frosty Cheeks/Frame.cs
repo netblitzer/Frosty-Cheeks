@@ -40,13 +40,18 @@ namespace Frosty_Cheeks
         {
             get { return availObstacles; }
         }
+        public Sprite FrameSprite
+        {
+            get { return spr; }
+        }
 
         // Method to run at start
             // Creates all the frames, and sets up their attributes
-        public void InitializeFrames()
+        public static void InitializeFrames()
         {
             rgen = new Random();
-            availFrames = new List<Frame>(5);
+            availFrames = new List<Frame>();
+            ReadFramesIn();
         }
 
         // Frame Constructor
@@ -54,8 +59,17 @@ namespace Frosty_Cheeks
         public Frame(int Difficulty)
         {
             Frame rand = availFrames[rgen.Next(availFrames.Count)];
-            availObstacles = rand.AvailableObstacles;
+            availObstacles = new List<Obstacle>();
+            foreach (Obstacle obs in rand.availObstacles)
+            {
+                Obstacle o = new Obstacle(obs.Speed);
+                o.Position = obs.Position;
+                o.SpriteObj = new Sprite(obs.SpriteObj.ImagePath, new Vector2(obs.SpriteObj.SpriteLocation.X, obs.SpriteObj.SpriteLocation.Y), 0, obs.SpriteObj.SpriteHeight, obs.SpriteObj.SpriteWidth);
+                availObstacles.Add(o);
+            }
+            obstacles = new List<Obstacle>();
             RandomizeObstacles();
+            spr = new Sprite(rand.FrameSprite.ImagePath, rand.FrameSprite.SpriteLocation, 0, rand.FrameSprite.SpriteHeight, rand.FrameSprite.SpriteWidth);
         }
         // Private Frame Constructor
             // Creates the initial frames to be used later
@@ -63,9 +77,9 @@ namespace Frosty_Cheeks
         {
             diff = d;
             FrameType = type;
-            spr = new Sprite(imgPath, loc, 0, 1024, 2048);
+            spr = new Sprite(imgPath, loc, 0, 1024, 1024);
         }
-        public void ReadFramesIn()
+        public static void ReadFramesIn()
         {
             try
             {
@@ -77,19 +91,26 @@ namespace Frosty_Cheeks
                         if (s.EndsWith(".dat"))
                         {
                             List<Obstacle> obsList = new List<Obstacle>();
-                            string str = s.Substring(6);
-                            BinaryReader reader = new BinaryReader(File.Open(str, FileMode.Open));
+                            //string str = s.Substring(8);
+                            BinaryReader reader = new BinaryReader(File.Open(s, FileMode.Open));
                             string path = reader.ReadString();
                             Vector2 obsPos;
-                            while ((obsPos = new Vector2(reader.ReadInt32(), reader.ReadInt32())) != null)
+                            try
                             {
-                                Obstacle obs = new Obstacle(0);
-                                obs.Position = obsPos;
-                                obsList.Add(obs);
+                                while ((obsPos = new Vector2(reader.ReadInt32(), reader.ReadInt32())) != null)
+                                {
+                                    Obstacle obs = new Obstacle(0);
+                                    obs.Position = obsPos;
+                                    obs.SpriteObj = new Sprite("toiler.png", obsPos, (int)obsPos.Y, 184, 141);
+                                    obsList.Add(obs);
+                                }
                             }
-                            Frame frm = new Frame(100, path, 0, Vector2.Zero);
-                            frm.availObstacles = obsList;
-                            availFrames.Add(frm);
+                            catch (IOException ioe)
+                            {
+                                Frame frm = new Frame(100, path, 0, Vector2.Zero);
+                                frm.availObstacles = obsList;
+                                availFrames.Add(frm);
+                            }
                         }
                     }
                 }
@@ -103,12 +124,15 @@ namespace Frosty_Cheeks
         {
             int availObs = availObstacles.Count;
             double reqObs = availObs * (diff / 100.0);
-            for (int i = 0; i < reqObs; i++)
+            for (int i = 0; i <= reqObs; i++)
             {
                 Thread.Sleep(10);
                 int rand = rgen.Next(2);
-                if (rand == 1)
-                    obstacles.Add(availObstacles[i]);
+                Obstacle ob = availObstacles[i];
+                Obstacle o = new Obstacle(ob.Speed);
+                o.Position = ob.Position;
+                o.SpriteObj = new Sprite(ob.SpriteObj.ImagePath, new Vector2(ob.SpriteObj.SpriteLocation.X, ob.SpriteObj.SpriteLocation.Y), 0, ob.SpriteObj.SpriteHeight, ob.SpriteObj.SpriteWidth);
+                obstacles.Add(o);
             }
         }
     }
