@@ -28,9 +28,10 @@ namespace Frosty_Cheeks
         private static Random rgen; // Random generator for grabbing and customizing frames
         #endregion
 
-        public Vector2 Position{
-            get{return position;}
-            set{position = value;}
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
         }
         public List<Obstacle> Obstacles
         {
@@ -46,7 +47,7 @@ namespace Frosty_Cheeks
         }
 
         // Method to run at start
-            // Creates all the frames, and sets up their attributes
+        // Creates all the frames, and sets up their attributes
         public static void InitializeFrames()
         {
             rgen = new Random();
@@ -55,7 +56,7 @@ namespace Frosty_Cheeks
         }
 
         // Frame Constructor
-            // Grabs a random frame from the list
+        // Grabs a random frame from the list
         public Frame(int Difficulty)
         {
             Frame rand = availFrames[rgen.Next(availFrames.Count)];
@@ -72,7 +73,7 @@ namespace Frosty_Cheeks
             spr = new Sprite(rand.FrameSprite.ImagePath, rand.FrameSprite.SpriteLocation, 0, rand.FrameSprite.SpriteHeight, rand.FrameSprite.SpriteWidth);
         }
         // Private Frame Constructor
-            // Creates the initial frames to be used later
+        // Creates the initial frames to be used later
         private Frame(int d, string imgPath, int type, Vector2 loc)
         {
             diff = d;

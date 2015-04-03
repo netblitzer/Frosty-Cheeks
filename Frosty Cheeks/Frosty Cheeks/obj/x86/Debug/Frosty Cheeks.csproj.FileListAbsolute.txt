@@ -30,3 +30,19 @@ C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\b
 C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\bg.png
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\newton.png
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\pebble.png
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\thermometer.png
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\toiler.png
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\font.xnb
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\SDL.dll
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.exe
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.pdb
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Lidgren.Network.dll
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\MonoGame.Framework.dll
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
+D:\Users\ljm1896\Documents\Frosty Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll

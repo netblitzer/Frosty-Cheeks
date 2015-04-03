@@ -129,5 +129,24 @@ namespace Frosty_Cheeks
                 );
         }
 
+       public void DrawScale(GameTime gametime, SpriteBatch spriteBatch) // placeholder for overwritten draw with a scale method thingy
+       {
+           // draw image from sprite sheet
+           spriteBatch.Draw(
+               spriteTexture, // spritesheet
+               spriteLocation, // where it appears
+               spriteRect, // part of spritesheet drawn
+               Color.White, // dont change color
+               0, // no rotation
+               Vector2.Zero, // no center of rotation
+
+               // Change this part later
+               new Vector2(1f, (float)480 / spriteHeight), // not scaled
+               // Change this part later
+
+               SpriteEffects.None, // no sprite effects
+               0 // no depth setting
+               );
+       }
     }
 }

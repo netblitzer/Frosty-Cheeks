@@ -83,7 +83,7 @@ namespace Frosty_Cheeks
             Frame.InitializeFrames();
             player = new Player(1, 1, 1, 1);
             frames = new List<Frame>();
-            hypoMeter = new Meter();
+            hypoMeter = new Meter(new Vector2(625, 20), new Sprite("thermometer.png", Vector2.Zero, 0, 64, 128));
             hypoMeter.ColdMeter = 0;
             hypoChange = 0.25f;
 
@@ -169,21 +169,24 @@ namespace Frosty_Cheeks
             {
                 frameUpdate.FrameSprite.SpriteLocation = new Vector2(frameUpdate.FrameSprite.SpriteLocation.X - 3f, 0);
                 
-                /*foreach (Obstacle obstacle in frameUpdate.Obstacles)
+                foreach (Obstacle obstacle in frameUpdate.Obstacles)
                 {
-                    obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 150);
+                    obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, frameUpdate.Position.Y / GraphicsDevice.Viewport.Height);
                     if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
                     {
                         distanceScore++;
                     }
-                }*/
+                }
 
+                // Frame code is working now
+                /*
                 frameUpdate.Obstacles[0].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 150);
                 frameUpdate.Obstacles[1].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[1].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 300);
                 if ((frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
                 {
                     distanceScore++;
                 }
+                */
             }
 
             if (frames[0].FrameSprite.SpriteLocation.X <= -1024)
@@ -226,7 +229,7 @@ namespace Frosty_Cheeks
             }
             #endregion
             #region Test Shit
-            hypoMeter.ColdMeter = hypoMeter.ColdMeter + hypoChange;
+            hypoMeter.ColdMeter = (int)(hypoMeter.ColdMeter + hypoChange);
             if (hypoMeter.ColdMeter >= 100) hypoChange = -0.25f;
             if (hypoMeter.ColdMeter <= 0) hypoChange = 0.25f;
             #endregion
@@ -250,7 +253,7 @@ namespace Frosty_Cheeks
 
             foreach (Frame frameDraw in frames)
             {
-                frameDraw.FrameSprite.Draw(gameTime, spriteBatch);
+                frameDraw.FrameSprite.DrawScale(gameTime, spriteBatch);
                 foreach (Obstacle obstacle in frameDraw.Obstacles)
                 {
                     obstacle.SpriteObj.Draw(gameTime, spriteBatch);
