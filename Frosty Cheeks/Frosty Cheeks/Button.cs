@@ -19,6 +19,12 @@ namespace Frosty_Cheeks
         {
             get { return buttonRect; }
         }
+
+        public Button(Rectangle rect, Vector2 pos, Sprite sprite)
+            : base(pos, sprite)
+        {
+            buttonRect = rect;
+        }
         
     }
 }

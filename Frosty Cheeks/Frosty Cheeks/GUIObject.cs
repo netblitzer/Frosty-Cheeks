@@ -21,11 +21,18 @@ namespace Frosty_Cheeks
             set { position = value; }
         }
 
-        private Texture2D guiTexture; // image for GUI object
-        public Texture2D ButtonTexture
+        private Sprite guiSprite; // image for GUI object
+        public Sprite GuiSprite
         {
-            get { return guiTexture; }
-            set { guiTexture = value; }
+            get { return guiSprite; }
+            set { guiSprite = value; }
+        }
+
+        // constructor
+        public GUIObject(Vector2 pos, Sprite sprite)
+        {
+            position = pos; // position of object on screen
+            guiSprite = sprite; // sprite/image of the object that's drawn to the screen
         }
 
     }

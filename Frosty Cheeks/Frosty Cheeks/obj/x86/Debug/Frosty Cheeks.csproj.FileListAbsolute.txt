@@ -14,3 +14,19 @@ D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\Windows
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\font.xnb
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\bg.png
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\pebble.png
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\bg.png
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\newton.png
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\pebble.png
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\thermometer.png
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\toiler.png
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\font.xnb
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\SDL.dll
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.exe
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.pdb
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache

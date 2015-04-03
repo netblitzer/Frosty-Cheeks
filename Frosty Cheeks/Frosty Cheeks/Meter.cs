@@ -13,19 +13,22 @@ namespace Frosty_Cheeks
 {
     class Meter:GUIObject
     {
-        private float coldMeter; // how cold they are, blue meter
-        public float ColdMeter
+        private int coldMeter; // how cold they are, blue meter
+        public int ColdMeter
         {
             get { return coldMeter; }
-            set 
-            {
-                coldMeter = value;
-            }
+            set { coldMeter = value; }
         }
-        private const float METER_MAX = 100;
-        public float Meter_Max
+        private const int METER_MAX = 100; // maximum of meter
+        public int Meter_Max
         {
             get { return METER_MAX; }
         }
+
+        public Meter(Vector2 pos, Sprite sprite)
+            : base(pos, sprite)
+        {
+            coldMeter = 0; // start the cold meter at zero
+        } 
     }
 }
