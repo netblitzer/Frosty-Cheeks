@@ -96,10 +96,10 @@ namespace Frosty_Cheeks
             for (int i = 0; i < frames.Count; i++)
             {
                 frames[i].FrameSprite.SpriteLocation = new Vector2((1024 * i), frames[i].FrameSprite.SpriteLocation.Y);
-                Obstacle obs = new Obstacle(0);
-                obs.Position = new Vector2(1000, 700);
-                obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
-                frames[i].Obstacles.Add(obs);
+                //Obstacle obs = new Obstacle(0);
+                //obs.Position = new Vector2(1000, 700);
+                //obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
+                //frames[i].Obstacles.Add(obs);
             }
 
             #region Test Shit
@@ -124,13 +124,13 @@ namespace Frosty_Cheeks
             foreach (Frame frameLoad in frames)
             {
                 frameLoad.FrameSprite.SpriteTexture = Content.Load<Texture2D>(frameLoad.FrameSprite.ImagePath);
-                /*foreach (Obstacle obstacle in frameLoad.Obstacles)
+                foreach (Obstacle obstacle in frameLoad.Obstacles)
                 {
                     obstacle.SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
-                }*/
+                }
 
-                frameLoad.Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
-                frameLoad.Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
+                //frameLoad.Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+                //frameLoad.Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
             }
 
             //temp fix
@@ -171,7 +171,8 @@ namespace Frosty_Cheeks
                 
                 foreach (Obstacle obstacle in frameUpdate.Obstacles)
                 {
-                    obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, frameUpdate.Position.Y / GraphicsDevice.Viewport.Height);
+                    // Scales the location of stuff to the viewport for now
+                    obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, obstacle.Position.Y / (1024 / GraphicsDevice.Viewport.Height));
                     if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
                     {
                         distanceScore++;
@@ -195,14 +196,19 @@ namespace Frosty_Cheeks
                 frames.Add(new Frame(1));
                 frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024, frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
                 frames[frames.Count - 1].FrameSprite.SpriteTexture = Content.Load<Texture2D>(frames[frames.Count - 1].FrameSprite.ImagePath);
-                frames[frames.Count - 1].Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+                // Setting all the new obstacles images to toiler
+                foreach (Obstacle obs in frames[frames.Count - 1].Obstacles)
+                {
+                    obs.SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+                }
+                //frames[frames.Count - 1].Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
 
                 //test crap
-                Obstacle obs = new Obstacle(0);
-                obs.Position = new Vector2(1000, 500);
-                obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
-                frames[frames.Count - 1].Obstacles.Add(obs);
-                frames[frames.Count - 1].Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
+                //Obstacle obs = new Obstacle(0);
+                //obs.Position = new Vector2(1000, 500);
+                //obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
+                //frames[frames.Count - 1].Obstacles.Add(obs);
+                //frames[frames.Count - 1].Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
             }
 
             #region Newton Jumps

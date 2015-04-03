@@ -68,6 +68,9 @@ namespace Frosty_Cheeks
                 o.SpriteObj = new Sprite(obs.SpriteObj.ImagePath, new Vector2(obs.SpriteObj.SpriteLocation.X, obs.SpriteObj.SpriteLocation.Y), 0, obs.SpriteObj.SpriteHeight, obs.SpriteObj.SpriteWidth);
                 availObstacles.Add(o);
             }
+            // Test value
+            diff = 100;
+
             obstacles = new List<Obstacle>();
             RandomizeObstacles();
             spr = new Sprite(rand.FrameSprite.ImagePath, rand.FrameSprite.SpriteLocation, 0, rand.FrameSprite.SpriteHeight, rand.FrameSprite.SpriteWidth);
@@ -76,7 +79,8 @@ namespace Frosty_Cheeks
         // Creates the initial frames to be used later
         private Frame(int d, string imgPath, int type, Vector2 loc)
         {
-            diff = d;
+            // Test value
+            diff = 100;
             FrameType = type;
             spr = new Sprite(imgPath, loc, 0, 1024, 1024);
         }
@@ -124,8 +128,8 @@ namespace Frosty_Cheeks
         private void RandomizeObstacles()
         {
             int availObs = availObstacles.Count;
-            double reqObs = availObs * (diff / 100.0);
-            for (int i = 0; i <= reqObs; i++)
+            double reqObs = Math.Ceiling(availObs * (diff / 100.0));
+            for (int i = 0; i < reqObs; i++)
             {
                 Thread.Sleep(10);
                 int rand = rgen.Next(2);

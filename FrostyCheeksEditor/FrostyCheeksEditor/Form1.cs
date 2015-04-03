@@ -25,13 +25,15 @@ namespace FrostyCheeksEditor
         public Form1()
         {
             InitializeComponent();
+            #region Test Stuff
+            /*
             BinaryWriter output = new BinaryWriter(File.OpenWrite("frame1.dat"));
             output.Write("bg.png");
-            #region Test Stuff
             output.Write(1000);
             output.Write(500);
 			output.Write(1000);
             output.Write(500);
+            */
             #endregion
             // Button Stuffs
             hover = Color.FromArgb(50, 50, 50);
@@ -62,7 +64,7 @@ namespace FrostyCheeksEditor
         {
             Stream myStream;
 
-            saveFileDialog.Filter = "Data files (*.dat)|*.txt|All files (*.*)|*.*";
+            saveFileDialog.Filter = "Data files (*.dat)|*.dat|All files (*.*)|*.*";
             saveFileDialog.FilterIndex = 1;
             saveFileDialog.DefaultExt = "dat";
             saveFileDialog.InitialDirectory = "..//Frames";;
@@ -73,6 +75,14 @@ namespace FrostyCheeksEditor
                 if ((myStream = saveFileDialog.OpenFile()) != null)
                 {
                     // Code to write the stream goes here.
+                    BinaryWriter output = new BinaryWriter(myStream);
+                    output.Write("bg.png");
+                    foreach (PictureBox obs in obstacles)
+                    {
+                        output.Write(obs.Location.X * (1024 / 400));
+                        output.Write(obs.Location.Y * (1024 / 400));
+                    }
+                    output.Close();
                     myStream.Close();
                 }
             }
@@ -97,7 +107,7 @@ namespace FrostyCheeksEditor
             ((System.ComponentModel.ISupportInitialize)(obs)).BeginInit();
             obs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             obs.Image = System.Drawing.Image.FromFile("DevObstacleIcon1.png");
-            obs.Location = new System.Drawing.Point(rgen.Next(31, 368), 250);
+            obs.Location = new System.Drawing.Point(rgen.Next(0, 368), 220);
             obs.MaximumSize = new System.Drawing.Size(32, 32);
             obs.MinimumSize = new System.Drawing.Size(32, 32);
             obs.Name = "obstacle" + obstacles.Count;
@@ -106,6 +116,7 @@ namespace FrostyCheeksEditor
             obs.TabIndex = 5;
             obs.TabStop = false;
             this.previewBox.Controls.Add(obs);
+            debugTextBox.Text += obs.Location.ToString();
             obstacles.Add(obs);
 
             #endregion
