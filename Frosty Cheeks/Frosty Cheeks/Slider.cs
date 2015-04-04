@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
+// Ethan Nicholas
+
 namespace Frosty_Cheeks
 {
     class Slider:GUIObject

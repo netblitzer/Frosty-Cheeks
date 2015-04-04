@@ -66,3 +66,15 @@ JordON 4/1/15
 -Player moves and jumps
 -Temporary Obstacle moves towards the player
 ----------------------------------------------------------------------------
+Luke 4- 1,2,3 -15
+- Frame.cs
+	- Filled out the constructors
+	- Reading frames in is nearly completely done
+	- Able to randomize and choose from several frames
+- Game.cs
+	- Working frames reading in
+	- Obstacles reading off frames
+- Frame Builder
+	- Fresh build
+	- Randomly spawns objects when you click to place them
+	- Saves frames to be used
