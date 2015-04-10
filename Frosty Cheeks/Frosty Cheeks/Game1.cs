@@ -20,7 +20,6 @@ namespace Frosty_Cheeks
         SpriteBatch spriteBatch;
 
         // needed things
-        KeyboardState kState; // key state for input
         Player player; // player obj
         List<Frame> frames; // Frames list
         List<Obstacle> obstacles;
@@ -35,18 +34,7 @@ namespace Frosty_Cheeks
 
         #region Newton Things
         Texture2D spriteSheet; // sprite sheet to load
-        Vector2 newtonLoc; // location of character
-        int frame; // frame of animation that is currently on
-        double timePerFrame = 70; // set 100 ms per frame
-        int numFrames = 6; // # frames in whole animation
-        int framesElapsed; // frames elapsed since last checked for frames
-        const int NEWTON_Y = 0; // how far down the sprite starts
-        const int NEWTON_HEIGHT = 128; // how high the sprite box will be
-        const int NEWTON_WIDTH = 150; // how wide the sprite box will be
-        const int NEWTON_OFFSET = -10; // allows sprite to mirror properly
-        bool jumping;
-        float jumpspeed;
-        float startY;
+        int startY;
         #endregion
 
         #region Test Shit
@@ -54,6 +42,7 @@ namespace Frosty_Cheeks
         Texture2D toilerFace;
         Texture2D pebblePic;
         float hypoChange;
+        Vector2 startLoc;
         #endregion
 
 
@@ -74,14 +63,12 @@ namespace Frosty_Cheeks
         {
             // TODO: Add your initialization logic here
             #region Newton Initialize
-            newtonLoc = new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height / 2);
-            jumping = false;
-            jumpspeed = 0;
-            startY = Window.ClientBounds.Height / 2;
+            startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
+            //startY = (Window.ClientBounds.Height / 2);
             #endregion
 
             Frame.InitializeFrames();
-            player = new Player(1, 1, 1, 1);
+            
             frames = new List<Frame>();
             hypoMeter = new Meter(new Vector2(625, 20), new Sprite("thermometer.png", Vector2.Zero, 0, 64, 128));
             hypoMeter.ColdMeter = 0;
@@ -121,6 +108,9 @@ namespace Frosty_Cheeks
             spriteSheet = Content.Load<Texture2D>("newton.png"); // LOAD IN CHARACTER SPRITESHEET HERE
             hypoMeter.GuiSprite.SpriteTexture = Content.Load<Texture2D>("thermometer.png"); // thermometer
             distanceFont = Content.Load<SpriteFont>("font");
+
+            player = new Player(1, 1, 1, 1, spriteSheet, startLoc);//This needs to be after we load in the spritesheet. Here  just to be sure
+
             foreach (Frame frameLoad in frames)
             {
                 frameLoad.FrameSprite.SpriteTexture = Content.Load<Texture2D>(frameLoad.FrameSprite.ImagePath);
@@ -173,7 +163,7 @@ namespace Frosty_Cheeks
                 {
                     // Scales the location of stuff to the viewport for now
                     obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, obstacle.Position.Y / (1024 / GraphicsDevice.Viewport.Height));
-                    if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
+                    if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X >= 0)
                     {
                         distanceScore++;
                     }
@@ -211,29 +201,8 @@ namespace Frosty_Cheeks
                 //frames[frames.Count - 1].Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
             }
 
-            #region Newton Jumps
-            framesElapsed = (int)(gameTime.TotalGameTime.TotalMilliseconds / timePerFrame); // check to see the total amount of frames so far
-            frame = framesElapsed % numFrames + 1; // frame your on is the total number of frames since launch modulated by how many frames there are +1
-            kState = Keyboard.GetState();
-            if (jumping)
-            {
-                newtonLoc.Y += jumpspeed;
-                jumpspeed += 0.5f;
-                if (newtonLoc.Y >= startY)
-                {
-                    newtonLoc.Y = startY;
-                    jumping = false;
-                }
-            }
-            else
-            {
-                if (kState.IsKeyDown(Keys.Space))
-                {
-                    jumping = true;
-                    jumpspeed = -14; // upward thrust
-                }
-            }
-            #endregion
+            player.PlayerUpdate(gameTime);
+           
             #region Test Shit
             hypoMeter.ColdMeter = hypoMeter.ColdMeter + hypoChange;
             if (hypoMeter.ColdMeter >= 100) hypoChange = -0.25f;
@@ -266,13 +235,26 @@ namespace Frosty_Cheeks
                 }
 
             }
-            spriteBatch.Draw(spriteSheet, newtonLoc, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
             spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
             spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+
+            player.Draw(spriteBatch);
+
             spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore + " Toilers", new Vector2(20, 20), Color.White);
 
-
+            #region collision testing temp
+            foreach (Frame frameDraw in frames)
+            {
+                foreach (Obstacle obstacle in frameDraw.Obstacles)
+                {
+                    if(player.IsColliding(obstacle)){
+                        player.HitObstacle(gameTime);
+                    }
+                }
+            }
+            #endregion
             spriteBatch.End();
-        }
+        }        
     }
 }
