@@ -62,3 +62,19 @@ C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Deb
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\bg.png
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\newton.png
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\pebble.png
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\thermometer.png
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\toiler.png
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\font.xnb
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\SDL.dll
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.exe
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.pdb
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Lidgren.Network.dll
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\MonoGame.Framework.dll
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
+J:\Power Shorts Studios\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
