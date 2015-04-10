@@ -99,6 +99,7 @@ namespace Frosty_Cheeks
             spriteHeight = hght;
             spriteWidth = wdth;
             spriteOffset = offst;
+            
         }
 
         public Sprite(string img, Vector2 loc, int sprty, int hght, int wdth) // sprite without animation
