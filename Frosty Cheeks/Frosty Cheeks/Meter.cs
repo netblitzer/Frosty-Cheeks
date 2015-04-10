@@ -15,8 +15,8 @@ namespace Frosty_Cheeks
 {
     class Meter:GUIObject
     {
-        private int coldMeter; // how cold they are, blue meter
-        public int ColdMeter
+        private float coldMeter; // how cold they are, blue meter
+        public float ColdMeter
         {
             get { return coldMeter; }
             set { coldMeter = value; }

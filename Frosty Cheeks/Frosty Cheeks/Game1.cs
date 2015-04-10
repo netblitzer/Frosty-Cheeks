@@ -119,7 +119,7 @@ namespace Frosty_Cheeks
 
             // TODO: Load in textures here - who has the textures?
             spriteSheet = Content.Load<Texture2D>("newton.png"); // LOAD IN CHARACTER SPRITESHEET HERE
-            thermo = Content.Load<Texture2D>("thermometer.png"); // thermometer
+            hypoMeter.GuiSprite.SpriteTexture = Content.Load<Texture2D>("thermometer.png"); // thermometer
             distanceFont = Content.Load<SpriteFont>("font");
             foreach (Frame frameLoad in frames)
             {
@@ -199,7 +199,7 @@ namespace Frosty_Cheeks
                 // Setting all the new obstacles images to toiler
                 foreach (Obstacle obs in frames[frames.Count - 1].Obstacles)
                 {
-                    obs.SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+                    obs.SpriteObj.SpriteTexture = toilerFace;
                 }
                 //frames[frames.Count - 1].Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
 
@@ -235,7 +235,7 @@ namespace Frosty_Cheeks
             }
             #endregion
             #region Test Shit
-            hypoMeter.ColdMeter = (int)(hypoMeter.ColdMeter + hypoChange);
+            hypoMeter.ColdMeter = hypoMeter.ColdMeter + hypoChange;
             if (hypoMeter.ColdMeter >= 100) hypoChange = -0.25f;
             if (hypoMeter.ColdMeter <= 0) hypoChange = 0.25f;
             #endregion
@@ -267,8 +267,8 @@ namespace Frosty_Cheeks
 
             }
             spriteBatch.Draw(spriteSheet, newtonLoc, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            spriteBatch.Draw(thermo, new Vector2(625, 20), new Rectangle(0, 0, thermo.Width, thermo.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
-            spriteBatch.Draw(thermo, new Vector2(625, 20), new Rectangle(0, 0, (int)(thermo.Width * (hypoMeter.ColdMeter / 100)), thermo.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+            spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+            spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
             spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore + " Toilers", new Vector2(20, 20), Color.White);
 
 
