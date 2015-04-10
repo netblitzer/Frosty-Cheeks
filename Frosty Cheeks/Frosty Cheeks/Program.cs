@@ -21,6 +21,10 @@ namespace Frosty_Cheeks
             using (var game = new Game1())
                 game.Run();
         }
+        public static void WriteLine(string str)
+        {
+            System.Diagnostics.Debug.WriteLine(str);
+        }
     }
 #endif
 }
