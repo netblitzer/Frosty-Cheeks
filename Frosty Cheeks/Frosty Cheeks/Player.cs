@@ -26,13 +26,15 @@ namespace Frosty_Cheeks
         bool jumping;
         float jumpspeed;
         float startY;
+        
         public Color collideColor = Color.Blue;
         private Color drawColor = Color.White;
         KeyboardState kState; // key state for input
-        #region temp collision testing vars
-        float lastCollisionTime = 0;
-        float rewarmWait = 0.5f;
-        #endregion
+        
+        float shorterPowerupStrength;
+        float longerPowerupStrength;
+
+        float tempChange = 0.01f;
 
         private float jumpHeight;
         public float JumpHeight
@@ -40,19 +42,13 @@ namespace Frosty_Cheeks
             get { return jumpHeight; }
             set { jumpHeight = value; }
         }
-        private float tempurature;//The player's tempurate. 0 - coldest, 100 - hottest. Coorelate to hypothermia meter.
+        private float tempurature = 0;//The player's tempurate. 0 - coldest, 100 - hottest. Coorelate to hypothermia meter.
         public float Tempurature
         {
             get { return tempurature; }
             set { tempurature = value; }
         }
 
-        private float shortsLength;//The length of the player's shorts. Influcenced by power ups
-        public float ShortsLength
-        {
-            get { return shortsLength; }
-            set { shortsLength = value; }
-        }
         private float obstacleSlowDown;
 
         public float ObstacleSlowDown
@@ -72,13 +68,30 @@ namespace Frosty_Cheeks
         {
 
             Position = originalPosition = origPos;
-           
+            Tempurature = 90;
+           //The player will slow down by 20% on hitting an obstacle
             /*string img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst*/
             SpriteObj = new Sprite("", Position, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, NEWTON_HEIGHT, NEWTON_WIDTH, NEWTON_OFFSET);
             SpriteObj.SpriteTexture = spriteSheet;
         }
-        public void PlayerUpdate(GameTime gameTime){
-            
+        private void AmbientTempuratureChange() {
+            if (Tempurature > 0)
+            {
+                Tempurature -= tempChange;
+            }
+        }
+        private void CalculateSpeed()//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
+        {
+
+        }
+        public void PlayerUpdate(GameTime gameTime)
+        {
+            #region speed and temperature
+            AmbientTempuratureChange();
+            ObstacleSlowDown = Speed;
+            #endregion
+
+            #region jumping
             framesElapsed = (int)(gameTime.TotalGameTime.TotalMilliseconds / timePerFrame); // check to see the total amount of frames so far
             frame = framesElapsed % numFrames + 1; // frame your on is the total number of frames since launch modulated by how many frames there are +1
             kState = Keyboard.GetState();
@@ -100,26 +113,63 @@ namespace Frosty_Cheeks
                     jumpspeed = -14; // upward thrust
                 }
             }
-            //Check to see if the player should turn un-blue. Temporary until shorts level and cold is implemented
-            if(invunderable){
-                if(gameTime.TotalGameTime.Seconds < (lastCollisionTime + rewarmWait) ){//If the current time is greater than the last time we hit + the time we wait to un turn blue...
-                    drawColor = Color.White;
-                    invunderable = false;
-                }
-            }
+            #endregion 
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {
             sb.Draw(SpriteObj.SpriteTexture, Position, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
-        public void HitObstacle(GameTime gT)
+        public void HitObstacle( Obstacle obs)
         {
-            if(!invunderable){
-                lastCollisionTime = gT.TotalGameTime.Seconds;
-                Speed -= obstacleSlowDown;
-                drawColor = collideColor;
-                invunderable = true;
-                //Program.WriteLine("hit");
+            if(!obs.Destroyed){
+                Tempurature -= Tempurature / 4;
+                Program.WriteLine("Hit that shit");
+                obs.Destroyed = true;
+            }
+        }  
+        public void HitPowerup(Powerup powerup)  
+        {
+            if(powerup is ShorterPowerup){
+                Tempurature -= (Tempurature * shorterPowerupStrength);//Takes a percentage of the current temp and takes it away from temperature
+            }else if(powerup is LongerPowerup){
+                Tempurature += (Tempurature * longerPowerupStrength);
+            }else if(powerup is SuperSaiyan){
+                //Expand for a surprise...
+                #region Kammmeeeeee..
+                /*
+                 *          _
+          -._ \'.
+           \ '.\_\_
+        _.--'  _   '.---.
+       /._   _<_)/)/ .-'
+       _.-'- ([d,p]? _.-       .;
+        '--.'-\ _ /-'--      .:'
+          __  )'-'(  __    .:'
+       .-/  ]' -Y- '[ /\ _:'
+       /\|  | -----/ | ,r |
+      |  ,\  \'= /'  .:\ "(
+      | / /\; \,/  .:'  |_|
+      \ _ )<   /  :' \ /__|
+       '__\ {---:'-/  \(  )
+       \_ _|/_:'-__]   '-'
+         ) .:'    \ \
+        (L:/  ;      \
+       .:~'   |  .   7
+     .:'  /   \   ' /\
+   .;'    |\ . |;     )
+  ;'      | '  |\'. _/|
+          /'.' (\\..  |
+         ( \. ,|\ '   /
+         |\_  / \ ': /\
+         \  //| |\  __/
+         |\   )  \,___>
+         <-'-/    \'  |
+         |_ /      |=j|
+      _.-' /       \  (
+     '-----'        \  \
+                     '-'
+                 */
+                #endregion
             }
         }
         public bool IsColliding(GamePiece other)
@@ -128,6 +178,7 @@ namespace Frosty_Cheeks
             bool collide = false;
             Rectangle otherBoundingBox = other.GetBoundingBox();
             GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
+
             return collide;
         }
         /*Write text to the debug console for testing stuffs*/

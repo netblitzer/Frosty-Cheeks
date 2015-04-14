@@ -38,7 +38,6 @@ namespace Frosty_Cheeks
         
         #endregion
 
-
         public Game1()
             : base()
         {
@@ -64,8 +63,8 @@ namespace Frosty_Cheeks
 
             //initialize the hypometer
             hypoMeter = new Meter(new Vector2(625, 20), new Sprite("thermometer.png", Vector2.Zero, 0, 64, 128));
-            hypoMeter.ColdMeter = 0;
-            hypoChange = 0.25f;
+            //hypoMeter.ColdMeter = 0;
+            
 
             //add frames
             frames.Add(new Frame(1));
@@ -198,12 +197,9 @@ namespace Frosty_Cheeks
                 #endregion
             }
 
-            // hypometer code - changes by fixed amount at the moment
-            hypoMeter.ColdMeter = hypoMeter.ColdMeter + hypoChange;
-            if (hypoMeter.ColdMeter >= 100) hypoChange = -0.25f;
-            if (hypoMeter.ColdMeter <= 0) hypoChange = 0.25f;
-
+            // hypometer code reflects player temperature
             player.PlayerUpdate(gameTime);
+            hypoMeter.ColdMeter = player.Tempurature;
             distanceScore = distanceScore + player.Speed;
            
             #region Test Shit
@@ -237,6 +233,8 @@ namespace Frosty_Cheeks
 
             }
 
+            hypoMeter.ColdMeter = player.Tempurature;
+
             spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
             spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
 
@@ -245,12 +243,15 @@ namespace Frosty_Cheeks
             spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
 
             #region collision testing temp
-            foreach (Frame frameDraw in frames)
-            {
-                foreach (Obstacle obstacle in frameDraw.Obstacles)
+            //3 second grace period at beginning of game
+            if(gameTime.TotalGameTime.TotalSeconds > 3){
+                foreach (Frame frameDraw in frames)
                 {
-                    if(player.IsColliding(obstacle)){
-                        player.HitObstacle(gameTime);
+                    foreach (Obstacle obstacle in frameDraw.Obstacles)
+                    {
+                        if(player.IsColliding(obstacle)){
+                            player.HitObstacle(obstacle);
+                        }
                     }
                 }
             }

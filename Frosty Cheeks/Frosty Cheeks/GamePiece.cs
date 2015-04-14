@@ -21,9 +21,7 @@ namespace Frosty_Cheeks
             get { return position; }
             set { position = value; }
         }
-        
-        private Vector2 localPosition;//Position in realtion to frame that owns this GamePiece (Not sure if we'll need this)
-        
+                
         private Sprite spriteObj;
         public Sprite SpriteObj
         {
@@ -47,7 +45,9 @@ namespace Frosty_Cheeks
             position = Vector2.Zero;
         }
         public Rectangle GetBoundingBox(){
-            return spriteObj.SpriteRect;
+            Rectangle box = new Rectangle((int)spriteObj.SpriteLocation.X, (int)spriteObj.SpriteLocation.Y, spriteObj.SpriteWidth, spriteObj.SpriteHeight);
+            boundingBox = box;
+            return box;
             //Added this method because MonoGame's Rectangle.Intersects doesn't let you use a property as the other Rectangle's param. See IsColliding()
         }
     }

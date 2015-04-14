@@ -78,3 +78,16 @@ Luke 4- 1,2,3 -15
 	- Fresh build
 	- Randomly spawns objects when you click to place them
 	- Saves frames to be used
+----------------------------------------------------------------------------
+Joh 4-13
+- Fixed incorect bounding box locations
+- Removed crowded frames and replaced them with one frame, with one obstacle for easier testing
+- Linked cold meter in Game.cs to player.Tempurature
+- Moved constant downward change in tempurature to player.cs 
+- Set new starting tempurature to start at one end of the tempurature meter
+- Added methods to change shorts length on contact with powerups
+- Added DBX ascii art to comments ;)
+- Cleaned up code in Player.cs
+- Added method stub for CalculateTempurate (will complete later tonight)
+
+

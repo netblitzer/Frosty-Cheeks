@@ -33,3 +33,12 @@ D:\Users\ljm1896\Documents\Frosty Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\o
 D:\Users\ljm1896\Documents\Frosty Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\bin\Debug\FrostyCheeksEditor.exe
 D:\Users\ljm1896\Documents\Frosty Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\bin\Debug\FrostyCheeksEditor.pdb
 D:\Users\ljm1896\Documents\Frosty-Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.Form1.resources
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\bin\Debug\FrostyCheeksEditor.exe.config
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.exe
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.pdb
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\bin\Debug\FrostyCheeksEditor.exe
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\bin\Debug\FrostyCheeksEditor.pdb
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.csprojResolveAssemblyReference.cache
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.Form1.resources
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.Properties.Resources.resources
+C:\Users\John\Desktop\FrostyCheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.csproj.GenerateResource.Cache
