@@ -1,7 +1,13 @@
-﻿using System;
+﻿#region Using Statements
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
+#endregion
 
 namespace Frosty_Cheeks
 {
@@ -9,16 +15,28 @@ namespace Frosty_Cheeks
      3-15-15*/
     class Powerup : MoveableGamePiece
     {
+        private bool destroyed = false;
+        //private int speed;
         private float strength;
         public float Strength
         {
             get { return strength; }
             set { strength = value; }
         }
-        public Powerup(float _speed)
+        public Powerup(float _speed, Texture2D texture)
             : base(_speed)
         {
-
+            Position = new Vector2(500,280);
+            SpriteObj = new Sprite("", Position, (int)Position.Y, texture.Height, texture.Width);
+            SpriteObj.SpriteTexture = texture;
+        }
+        public void Update(GameTime gameTime)
+        {
+           Position = new Vector2(Position.X - 1, Position.Y);
+        }
+        public void Draw(SpriteBatch sb) // sprite with animation
+        {
+            sb.Draw(SpriteObj.SpriteTexture, Position, new Rectangle(0,0,SpriteObj.SpriteWidth, SpriteObj.SpriteHeight), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
     }
 }

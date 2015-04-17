@@ -104,3 +104,10 @@ D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\Windows
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\exit.png
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\howtoplay.png
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\start.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\back.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\credits.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\exit.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\howtoplay.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\start.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\longerPowerupTemp.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\shorterPowerupTemp.png

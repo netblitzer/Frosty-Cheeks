@@ -35,6 +35,7 @@ namespace Frosty_Cheeks
         float longerPowerupStrength;
 
         float tempChange = 0.01f;
+        float originalTemp;
 
         private float jumpHeight;
         public float JumpHeight
@@ -68,7 +69,8 @@ namespace Frosty_Cheeks
         {
 
             Position = originalPosition = origPos;
-            Tempurature = 90;
+            originalTemp = Tempurature = 90;
+
            //The player will slow down by 20% on hitting an obstacle
             /*string img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst*/
             SpriteObj = new Sprite("", Position, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, NEWTON_HEIGHT, NEWTON_WIDTH, NEWTON_OFFSET);
@@ -128,7 +130,8 @@ namespace Frosty_Cheeks
         public void HitObstacle( Obstacle obs)
         {
             if(!obs.Destroyed){
-                Tempurature -= Tempurature / 4;
+                //Originally decremented temperature by 1/4 of the current temp but that led to obstacles doing very little damage near the end of the player's life
+                Tempurature -= originalTemp / 4;
                 Program.WriteLine("Hit that shit");
                 obs.Destroyed = true;
             }

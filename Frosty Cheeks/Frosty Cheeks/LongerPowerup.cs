@@ -1,7 +1,13 @@
-﻿using System;
+﻿#region Using Statements
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
+#endregion
 
 namespace Frosty_Cheeks
 {
@@ -10,7 +16,7 @@ namespace Frosty_Cheeks
     //Collectable powerup that increases the length of player's shorts. Decreaes cold
     class LongerPowerup : Powerup
     {
-        public LongerPowerup(float _speed) : base(_speed)
+        public LongerPowerup(float _speed, Texture2D texture) : base(_speed, texture)
         {
 
         }

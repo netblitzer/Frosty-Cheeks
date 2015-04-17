@@ -97,4 +97,11 @@ JordON 4/16
 - Need to implement binary file for displaying and storing highscores (names will not be included)
 - There is a Dev Kill key for testing purposes. This key is Q
 - Did a small tidbit of cleanup
-----------------------------------------------------------------------------
+-------------------------------------------------------------------------
+Joh 4-16
+- Added PowerupSpawner class which is instantiated in Game.cs. It spawns in powerups after semi-random lengths of time.
+- Added standin art for longer shorts powerups and shorter shorts powerup
+- Powerups move to the right (at an arbitrary speed for now; player speed doesn't seem to sync up correctly)
+- Set up basework for Powerup collisions similarly to obstacle collisions
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------

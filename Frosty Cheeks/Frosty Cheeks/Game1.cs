@@ -28,6 +28,13 @@ namespace Frosty_Cheeks
         Vector2 startLoc;
         Texture2D toilerFace;
         bool gameOver;
+        PowerupSpawner pSpawner;
+
+        //Powerup Textures
+        private Texture2D shorterPowerupTex;
+        private Texture2D longerPowerupTex;
+        //Array to hold powerups. No more than 5 powerups in game at a time. Powerup is created in update but PowerupSpawner
+        private Powerup[] powerups;
 
         // menu attributes
         private Texture2D start;
@@ -104,7 +111,7 @@ namespace Frosty_Cheeks
                 //frames[i].Obstacles.Add(obs);
                 #endregion
             }
-
+           
             #region Test Shit
 
             #endregion
@@ -144,6 +151,15 @@ namespace Frosty_Cheeks
             //change this to obstacle list load
             toilerFace = Content.Load<Texture2D>("toiler.png");
 
+            //Load powerup textures 
+            //TODO: Get final art for powerups
+            shorterPowerupTex = Content.Load<Texture2D>("shorterPowerupTemp.png");
+            longerPowerupTex = Content.Load<Texture2D>("longerPowerupTemp.png");
+            
+            //Instantiating these here so we KNOW that the content has been loade before we try to use it
+            powerups = new Powerup[5];
+            pSpawner = new PowerupSpawner(3, shorterPowerupTex, longerPowerupTex);
+            
             player = new Player(1, 1, 1, 3, spriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
 
             foreach (Frame frameLoad in frames)
@@ -261,10 +277,25 @@ namespace Frosty_Cheeks
                     #endregion
                 }
 
-                // hypometer code reflects player temperature
+               
+                pSpawner.Update(gameTime, (int)player.Speed);//Basically just updates the time so that IsTimeToSpawn has the correct elapsed time
+
+                if(pSpawner.IsTimeToSpawn()){//Checks to see if enough time has passed for the spawner to create another powerup
+                    for (int i = 0; i < powerups.Length; i++ )//Steps through the powerups array, looking for the first empty spot...
+                    {
+                        if(powerups[i] == null){
+                            powerups[i] = pSpawner.Spawn();//..then creates a new power up and sticks it in the empty slot
+                        }
+                    }
+                }
+                //Call update on all the powerups to move them
+                foreach(Powerup p in powerups){
+                    p.Update(gameTime);
+                }
+
                 player.PlayerUpdate(gameTime);
                 distanceScore = distanceScore + player.Speed;
-            //}
+          
 
             #region Test Shit
 
@@ -323,14 +354,27 @@ namespace Frosty_Cheeks
                     }
 
                 }
-
+                #region coldMeter
                 hypoMeter.ColdMeter = 100 - player.Tempurature;
 
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+                #endregion
+                #region powerup drawing
+                for (int i = 0; i < 5; i++)
+                {
+                    if (powerups[i] != null)
+                    {
+                        powerups[i].Draw(spriteBatch);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                #endregion
 
                 player.Draw(spriteBatch);
-
                 spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
 
                 #region collision testing temp
