@@ -89,5 +89,12 @@ Joh 4-13
 - Added DBX ascii art to comments ;)
 - Cleaned up code in Player.cs
 - Added method stub for CalculateTempurate (will complete later tonight)
-
-
+----------------------------------------------------------------------------
+JordON 4/16
+- Changed the HypoMeter, the meter now increases, filling in the blue part
+- Game will end upon reaching 100% of meter ~JOH asked me to comment it out due to bugs
+- ScoreScreen will be displayed upon end game ~Also commented out due to bugs
+- Need to implement binary file for displaying and storing highscores (names will not be included)
+- There is a Dev Kill key for testing purposes. This key is Q
+- Did a small tidbit of cleanup
+----------------------------------------------------------------------------

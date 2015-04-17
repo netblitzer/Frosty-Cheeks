@@ -99,3 +99,8 @@ C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\bin
 C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\back.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\credits.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\exit.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\howtoplay.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\start.png

@@ -25,9 +25,9 @@ namespace Frosty_Cheeks
         Meter hypoMeter; // hypothermia meter
         SpriteFont distanceFont;
         float distanceScore;
-        float hypoChange;
         Vector2 startLoc;
         Texture2D toilerFace;
+        bool gameOver;
 
         // menu attributes
         private Texture2D start;
@@ -35,16 +35,18 @@ namespace Frosty_Cheeks
         private Texture2D credits;
         private Texture2D exit;
         private Texture2D back;
+        private Texture2D playAgain;
         private Vector2 startPos;
         private Vector2 htpPos;
         private Vector2 creditPos;
         private Vector2 backPos;
         private Vector2 exitPos;
+        private Vector2 playAgainPos;
         private MouseState mouseState;
         private MouseState prevState;
 
         // enumeration
-        enum GameState { StartMenu, HowToPlay, Credits, Exit, Game };
+        enum GameState { StartMenu, HowToPlay, Credits, Exit, Game, ScoreScreen };
         private GameState gameState;
 
         #region Newton Things
@@ -72,6 +74,8 @@ namespace Frosty_Cheeks
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            gameOver = false;
+
             // start location for player
             startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
 
@@ -81,7 +85,6 @@ namespace Frosty_Cheeks
 
             //initialize the hypometer
             hypoMeter = new Meter(new Vector2(625, 20), new Sprite("thermometer.png", Vector2.Zero, 0, 64, 128));
-            //hypoMeter.ColdMeter = 0;
             
 
             //add frames
@@ -114,6 +117,7 @@ namespace Frosty_Cheeks
             htpPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 150);
             creditPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 250);
             exitPos = new Vector2(20, GraphicsDevice.Viewport.Height - 75);
+            playAgainPos = new Vector2(GraphicsDevice.Viewport.Width - 220, GraphicsDevice.Viewport.Height - 75);
             backPos = exitPos;
             gameState = GameState.StartMenu;
             mouseState = Mouse.GetState();
@@ -162,6 +166,7 @@ namespace Frosty_Cheeks
             credits = Content.Load<Texture2D>("credits.png");
             exit = Content.Load<Texture2D>("exit.png");
             back = Content.Load<Texture2D>("back.png");
+            playAgain = Content.Load<Texture2D>("start.png");
             #endregion
         }
 
@@ -185,68 +190,6 @@ namespace Frosty_Cheeks
                 Exit();
 
             // TODO: Add your update logic here
-            //distanceScore += .005f;
-            
-            foreach (Frame frameUpdate in frames)
-            {
-                frameUpdate.FrameSprite.SpriteLocation = new Vector2(frameUpdate.FrameSprite.SpriteLocation.X - player.Speed, 0);
-                
-                foreach (Obstacle obstacle in frameUpdate.Obstacles)
-                {
-                    // Scales the location of stuff to the viewport for now
-                    obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, obstacle.Position.Y / (1024 / GraphicsDevice.Viewport.Height));
-                    /*if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X >= 0)
-                    {
-                        distanceScore++;
-                    }*/
-                }
-
-                #region Commented out
-                // Frame code is working now
-                /*
-                frameUpdate.Obstacles[0].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 150);
-                frameUpdate.Obstacles[1].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[1].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 300);
-                if ((frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
-                {
-                    distanceScore++;
-                }
-                */
-                #endregion
-            }
-
-            if (frames[0].FrameSprite.SpriteLocation.X <= -1024)
-            {
-                frames.RemoveAt(0);
-                frames.Add(new Frame(1));
-                frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024, frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
-                frames[frames.Count - 1].FrameSprite.SpriteTexture = Content.Load<Texture2D>(frames[frames.Count - 1].FrameSprite.ImagePath);
-
-                // Setting all the new obstacles images to toiler
-                foreach (Obstacle obs in frames[frames.Count - 1].Obstacles)
-                {
-                    obs.SpriteObj.SpriteTexture = toilerFace;
-                }
-                #region Commented out
-                //frames[frames.Count - 1].Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
-
-                //test crap
-                //Obstacle obs = new Obstacle(0);
-                //obs.Position = new Vector2(1000, 500);
-                //obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
-                //frames[frames.Count - 1].Obstacles.Add(obs);
-                //frames[frames.Count - 1].Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
-                #endregion
-            }
-
-            // hypometer code reflects player temperature
-            player.PlayerUpdate(gameTime);
-            hypoMeter.ColdMeter = player.Tempurature;
-            distanceScore = distanceScore + player.Speed;
-           
-            #region Test Shit
-
-            #endregion
-
             #region Mouse/Menu Shit
             mouseState = Mouse.GetState();
             if (prevState.LeftButton == ButtonState.Pressed && mouseState.LeftButton == ButtonState.Released)
@@ -254,6 +197,77 @@ namespace Frosty_Cheeks
                 MouseClicked(mouseState.X, mouseState.Y);
             }
             prevState = mouseState;
+            #endregion
+            
+            // check for end game
+            /*if (hypoMeter.ColdMeter >= 100 && gameOver == false)
+            {
+                gameOver = true;
+               // gameState = GameState.ScoreScreen;
+               // gameOver = false;
+            }*/
+            
+            // only run this update stuff if game is not in GameState.ScoreScreen
+            //if (gameState != GameState.ScoreScreen)
+            //{
+                foreach (Frame frameUpdate in frames)
+                {
+                    frameUpdate.FrameSprite.SpriteLocation = new Vector2(frameUpdate.FrameSprite.SpriteLocation.X - player.Speed, 0);
+
+                    foreach (Obstacle obstacle in frameUpdate.Obstacles)
+                    {
+                        // Scales the location of stuff to the viewport for now
+                        obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, obstacle.Position.Y / (1024 / GraphicsDevice.Viewport.Height));
+                        /*if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X >= 0)
+                        {
+                            distanceScore++;
+                        }*/
+                    }
+
+                    #region Commented out
+                    // Frame code is working now
+                    /*
+                    frameUpdate.Obstacles[0].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 150);
+                    frameUpdate.Obstacles[1].SpriteObj.SpriteLocation = new Vector2(frameUpdate.Obstacles[1].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, 300);
+                    if ((frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X <= 2 && (frameUpdate.Obstacles[0].Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - newtonLoc.X >= 0)
+                    {
+                        distanceScore++;
+                    }
+                    */
+                    #endregion
+                }
+
+                if (frames[0].FrameSprite.SpriteLocation.X <= -1024)
+                {
+                    frames.RemoveAt(0);
+                    frames.Add(new Frame(1));
+                    frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024, frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
+                    frames[frames.Count - 1].FrameSprite.SpriteTexture = Content.Load<Texture2D>(frames[frames.Count - 1].FrameSprite.ImagePath);
+
+                    // Setting all the new obstacles images to toiler
+                    foreach (Obstacle obs in frames[frames.Count - 1].Obstacles)
+                    {
+                        obs.SpriteObj.SpriteTexture = toilerFace;
+                    }
+                    #region Commented out
+                    //frames[frames.Count - 1].Obstacles[0].SpriteObj.SpriteTexture = Content.Load<Texture2D>("toiler.png");
+
+                    //test crap
+                    //Obstacle obs = new Obstacle(0);
+                    //obs.Position = new Vector2(1000, 500);
+                    //obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
+                    //frames[frames.Count - 1].Obstacles.Add(obs);
+                    //frames[frames.Count - 1].Obstacles[1].SpriteObj.SpriteTexture = Content.Load<Texture2D>("pebble.png");
+                    #endregion
+                }
+
+                // hypometer code reflects player temperature
+                player.PlayerUpdate(gameTime);
+                distanceScore = distanceScore + player.Speed;
+            //}
+
+            #region Test Shit
+
             #endregion
 
             base.Update(gameTime);
@@ -279,7 +293,6 @@ namespace Frosty_Cheeks
                 spriteBatch.Draw(howtoplay, htpPos, Color.White);
                 spriteBatch.Draw(credits, creditPos, Color.White);
                 spriteBatch.Draw(exit, exitPos, Color.White);
-                //spriteBatch.Draw(back, backPos, Color.White);
             }
             if (gameState == GameState.HowToPlay)
             {
@@ -293,6 +306,11 @@ namespace Frosty_Cheeks
             {
 
             }
+            /*if (gameState == GameState.ScoreScreen)
+            {
+                spriteBatch.Draw(exit, exitPos, Color.White);
+                spriteBatch.Draw(playAgain, playAgainPos, Color.White);
+            }*/
             #endregion
             if (gameState == GameState.Game)
             {
@@ -306,7 +324,7 @@ namespace Frosty_Cheeks
 
                 }
 
-                hypoMeter.ColdMeter = player.Tempurature;
+                hypoMeter.ColdMeter = 100 - player.Tempurature;
 
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
@@ -341,6 +359,7 @@ namespace Frosty_Cheeks
             Rectangle clickRect = new Rectangle(x, y, 10, 10);
             // check startmenu
             Rectangle startRect = new Rectangle((int)startPos.X, (int)startPos.Y, 200, 50);
+            Rectangle playAgainRect = new Rectangle((int)playAgainPos.X, (int)playAgainPos.Y, 200, 50); // ***currently using the "Start" texture
             Rectangle exitRect = new Rectangle((int)exitPos.X, (int)exitPos.Y, 200, 50);
             Rectangle htpRect = new Rectangle((int)htpPos.X, (int)htpPos.Y, 200, 50);
             Rectangle creditRect = new Rectangle((int)creditPos.X, (int)creditPos.Y, 200, 50);
@@ -370,6 +389,10 @@ namespace Frosty_Cheeks
                 {
                     gameState = GameState.StartMenu;
                 }
+                if (clickRect.Intersects(playAgainRect))
+                {
+                    gameState = GameState.ScoreScreen;
+                }
 
             }
             if (gameState == GameState.Credits)
@@ -378,9 +401,22 @@ namespace Frosty_Cheeks
                 {
                     gameState = GameState.StartMenu;
                 }
+                if (clickRect.Intersects(playAgainRect))
+                {
+                    gameState = GameState.StartMenu;
+                }
             }
+            /*if (gameState == GameState.ScoreScreen)
+            {
+                if (clickRect.Intersects(playAgainRect))
+                {
 
-
+                }
+                if (clickRect.Intersects(exitRect))
+                {
+                    Exit();
+                }
+            }*/
         }
         #endregion
     }

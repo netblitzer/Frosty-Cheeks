@@ -114,6 +114,12 @@ namespace Frosty_Cheeks
                 }
             }
             #endregion 
+
+            // dev kill
+            if (kState.IsKeyDown(Keys.Q))
+            {
+                tempurature = 0;
+            }
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {
