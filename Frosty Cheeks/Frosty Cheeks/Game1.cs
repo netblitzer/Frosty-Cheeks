@@ -29,6 +29,24 @@ namespace Frosty_Cheeks
         Vector2 startLoc;
         Texture2D toilerFace;
 
+        // menu attributes
+        private Texture2D start;
+        private Texture2D howtoplay;
+        private Texture2D credits;
+        private Texture2D exit;
+        private Texture2D back;
+        private Vector2 startPos;
+        private Vector2 htpPos;
+        private Vector2 creditPos;
+        private Vector2 backPos;
+        private Vector2 exitPos;
+        private MouseState mouseState;
+        private MouseState prevState;
+
+        // enumeration
+        enum GameState { StartMenu, HowToPlay, Credits, Exit, Game };
+        private GameState gameState;
+
         #region Newton Things
         Texture2D spriteSheet; // sprite sheet to load
         int startY;
@@ -88,6 +106,20 @@ namespace Frosty_Cheeks
 
             #endregion
 
+            #region Menu Shit
+            // enable mouse pointer
+            IsMouseVisible = true;
+            startPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 50);
+            // for a fourth button backPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 350);
+            htpPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 150);
+            creditPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 250);
+            exitPos = new Vector2(20, GraphicsDevice.Viewport.Height - 75);
+            backPos = exitPos;
+            gameState = GameState.StartMenu;
+            mouseState = Mouse.GetState();
+            prevState = mouseState;
+            #endregion
+
             base.Initialize();
         }
 
@@ -121,6 +153,15 @@ namespace Frosty_Cheeks
 
             #region Test Shit
             
+            #endregion
+
+            #region Menu Shit
+            // load button textures
+            start = Content.Load<Texture2D>("start.png");
+            howtoplay = Content.Load<Texture2D>("howtoplay.png");
+            credits = Content.Load<Texture2D>("credits.png");
+            exit = Content.Load<Texture2D>("exit.png");
+            back = Content.Load<Texture2D>("back.png");
             #endregion
         }
 
@@ -206,6 +247,15 @@ namespace Frosty_Cheeks
 
             #endregion
 
+            #region Mouse/Menu Shit
+            mouseState = Mouse.GetState();
+            if (prevState.LeftButton == ButtonState.Pressed && mouseState.LeftButton == ButtonState.Released)
+            {
+                MouseClicked(mouseState.X, mouseState.Y);
+            }
+            prevState = mouseState;
+            #endregion
+
             base.Update(gameTime);
         }
 
@@ -222,41 +272,116 @@ namespace Frosty_Cheeks
             base.Draw(gameTime);
 
             spriteBatch.Begin();
-
-            foreach (Frame frameDraw in frames)
+            #region Menu Shit
+            if (gameState == GameState.StartMenu)
             {
-                frameDraw.FrameSprite.DrawScale(gameTime, spriteBatch);
-                foreach (Obstacle obstacle in frameDraw.Obstacles)
-                {
-                    obstacle.SpriteObj.Draw(gameTime, spriteBatch);
-                }
+                spriteBatch.Draw(start, startPos, Color.White);
+                spriteBatch.Draw(howtoplay, htpPos, Color.White);
+                spriteBatch.Draw(credits, creditPos, Color.White);
+                spriteBatch.Draw(exit, exitPos, Color.White);
+                //spriteBatch.Draw(back, backPos, Color.White);
+            }
+            if (gameState == GameState.HowToPlay)
+            {
+                spriteBatch.Draw(back, exitPos, Color.White);
+            }
+            if (gameState == GameState.Credits)
+            {
+                spriteBatch.Draw(back, exitPos, Color.White);
+            }
+            if (gameState == GameState.Exit)
+            {
 
             }
-
-            hypoMeter.ColdMeter = player.Tempurature;
-
-            spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
-            spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
-
-            player.Draw(spriteBatch);
-
-            spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
-
-            #region collision testing temp
-            //3 second grace period at beginning of game
-            if(gameTime.TotalGameTime.TotalSeconds > 3){
+            #endregion
+            if (gameState == GameState.Game)
+            {
                 foreach (Frame frameDraw in frames)
                 {
+                    frameDraw.FrameSprite.DrawScale(gameTime, spriteBatch);
                     foreach (Obstacle obstacle in frameDraw.Obstacles)
                     {
-                        if(player.IsColliding(obstacle)){
-                            player.HitObstacle(obstacle);
+                        obstacle.SpriteObj.Draw(gameTime, spriteBatch);
+                    }
+
+                }
+
+                hypoMeter.ColdMeter = player.Tempurature;
+
+                spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+                spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
+
+                player.Draw(spriteBatch);
+
+                spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
+
+                #region collision testing temp
+                //3 second grace period at beginning of game
+                if (gameTime.TotalGameTime.TotalSeconds > 3)
+                {
+                    foreach (Frame frameDraw in frames)
+                    {
+                        foreach (Obstacle obstacle in frameDraw.Obstacles)
+                        {
+                            if (player.IsColliding(obstacle))
+                            {
+                                player.HitObstacle(obstacle);
+                            }
                         }
                     }
                 }
+                #endregion
             }
-            #endregion
             spriteBatch.End();
-        }        
+        }
+        #region Mouse Click Method
+        public void MouseClicked(int x, int y)
+        {
+            // create rectangle where mouse is clicked
+            Rectangle clickRect = new Rectangle(x, y, 10, 10);
+            // check startmenu
+            Rectangle startRect = new Rectangle((int)startPos.X, (int)startPos.Y, 200, 50);
+            Rectangle exitRect = new Rectangle((int)exitPos.X, (int)exitPos.Y, 200, 50);
+            Rectangle htpRect = new Rectangle((int)htpPos.X, (int)htpPos.Y, 200, 50);
+            Rectangle creditRect = new Rectangle((int)creditPos.X, (int)creditPos.Y, 200, 50);
+            Rectangle backRect = new Rectangle((int)backPos.X, (int)backPos.Y, 200, 50);
+            if (gameState == GameState.StartMenu)
+            {
+                if (clickRect.Intersects(startRect))
+                {
+                    gameState = GameState.Game;
+                }
+                if (clickRect.Intersects(htpRect))
+                {
+                    gameState = GameState.HowToPlay;
+                }
+                if (clickRect.Intersects(creditRect))
+                {
+                    gameState = GameState.Credits;
+                }
+                if (clickRect.Intersects(exitRect))
+                {
+                    Exit();
+                }
+            }
+            if (gameState == GameState.HowToPlay)
+            {
+                if (clickRect.Intersects(backRect))
+                {
+                    gameState = GameState.StartMenu;
+                }
+
+            }
+            if (gameState == GameState.Credits)
+            {
+                if (clickRect.Intersects(backRect))
+                {
+                    gameState = GameState.StartMenu;
+                }
+            }
+
+
+        }
+        #endregion
     }
 }
