@@ -216,16 +216,16 @@ namespace Frosty_Cheeks
             #endregion
             
             // check for end game
-            /*if (hypoMeter.ColdMeter >= 100 && gameOver == false)
+            if (hypoMeter.ColdMeter >= 100 && gameOver == false)
             {
-                gameOver = true;
-               // gameState = GameState.ScoreScreen;
+               gameOver = true;
+               gameState = GameState.ScoreScreen;
                // gameOver = false;
-            }*/
+            }
             
             // only run this update stuff if game is not in GameState.ScoreScreen
-            //if (gameState != GameState.ScoreScreen)
-            //{
+            if (gameState == GameState.Game)
+            {
                 foreach (Frame frameUpdate in frames)
                 {
                     frameUpdate.FrameSprite.SpriteLocation = new Vector2(frameUpdate.FrameSprite.SpriteLocation.X - player.Speed, 0);
@@ -277,25 +277,28 @@ namespace Frosty_Cheeks
                     #endregion
                 }
 
-               
+
                 pSpawner.Update(gameTime, (int)player.Speed);//Basically just updates the time so that IsTimeToSpawn has the correct elapsed time
 
-                if(pSpawner.IsTimeToSpawn()){//Checks to see if enough time has passed for the spawner to create another powerup
-                    for (int i = 0; i < powerups.Length; i++ )//Steps through the powerups array, looking for the first empty spot...
+                if (pSpawner.IsTimeToSpawn())
+                {//Checks to see if enough time has passed for the spawner to create another powerup
+                    for (int i = 0; i < powerups.Length; i++)//Steps through the powerups array, looking for the first empty spot...
                     {
-                        if(powerups[i] == null){
+                        if (powerups[i] == null)
+                        {
                             powerups[i] = pSpawner.Spawn();//..then creates a new power up and sticks it in the empty slot
                         }
                     }
                 }
                 //Call update on all the powerups to move them
-                foreach(Powerup p in powerups){
+                foreach (Powerup p in powerups)
+                {
                     p.Update(gameTime);
                 }
 
                 player.PlayerUpdate(gameTime);
                 distanceScore = distanceScore + player.Speed;
-          
+            }
 
             #region Test Shit
 
@@ -337,11 +340,11 @@ namespace Frosty_Cheeks
             {
 
             }
-            /*if (gameState == GameState.ScoreScreen)
+            if (gameState == GameState.ScoreScreen)
             {
                 spriteBatch.Draw(exit, exitPos, Color.White);
                 spriteBatch.Draw(playAgain, playAgainPos, Color.White);
-            }*/
+            }
             #endregion
             if (gameState == GameState.Game)
             {
@@ -413,6 +416,7 @@ namespace Frosty_Cheeks
                 if (clickRect.Intersects(startRect))
                 {
                     gameState = GameState.Game;
+
                 }
                 if (clickRect.Intersects(htpRect))
                 {
@@ -450,17 +454,73 @@ namespace Frosty_Cheeks
                     gameState = GameState.StartMenu;
                 }
             }
-            /*if (gameState == GameState.ScoreScreen)
+            if (gameState == GameState.ScoreScreen)
             {
-                if (clickRect.Intersects(playAgainRect))
+                 if (clickRect.Intersects(playAgainRect))
                 {
-
+                    gameState = GameState.StartMenu;
+                    this.GameReset();
                 }
                 if (clickRect.Intersects(exitRect))
                 {
                     Exit();
                 }
-            }*/
+            }
+        }
+        #endregion
+
+        #region Game Reset Method
+        // resets the game variables
+        public void GameReset()
+        {
+            // TODO: Add your initialization logic here
+            gameOver = false;
+
+            // start location for player
+            startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
+
+            frames = new List<Frame>();
+
+            //initialize the hypometer
+            hypoMeter = new Meter(new Vector2(625, 20), new Sprite("thermometer.png", Vector2.Zero, 0, 64, 128));
+
+
+            //add frames
+            frames.Add(new Frame(1));
+            frames.Add(new Frame(1));
+            frames.Add(new Frame(1));
+            frames.Add(new Frame(1));
+
+            for (int i = 0; i < frames.Count; i++)
+            {
+                frames[i].FrameSprite.SpriteLocation = new Vector2((1024 * i), frames[i].FrameSprite.SpriteLocation.Y);
+
+                #region Commented out
+                //Obstacle obs = new Obstacle(0);
+                //obs.Position = new Vector2(1000, 700);
+                //obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
+                //frames[i].Obstacles.Add(obs);
+                #endregion
+            }
+
+            #region Test Shit
+
+            #endregion
+
+            #region Menu Shit
+            startPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 50);
+            // for a fourth button backPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 350);
+            htpPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 150);
+            creditPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 250);
+            exitPos = new Vector2(20, GraphicsDevice.Viewport.Height - 75);
+            playAgainPos = new Vector2(GraphicsDevice.Viewport.Width - 220, GraphicsDevice.Viewport.Height - 75);
+            backPos = exitPos;
+            gameState = GameState.StartMenu;
+            mouseState = Mouse.GetState();
+            prevState = mouseState;
+            #endregion
+
+            this.LoadContent();
         }
         #endregion
     }

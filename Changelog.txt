@@ -104,4 +104,7 @@ Joh 4-16
 - Powerups move to the right (at an arbitrary speed for now; player speed doesn't seem to sync up correctly)
 - Set up basework for Powerup collisions similarly to obstacle collisions
 -------------------------------------------------------------------------
+JordON 4/17
+- The end game logic now works
+- Game resets on hitting Start button, allowing the game to be played countless times
 -------------------------------------------------------------------------
