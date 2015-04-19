@@ -40,9 +40,12 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GamePiece.cs" />
     <Compile Include="GUIObject.cs" />
+    <Compile Include="LargeObstacle.cs" />
     <Compile Include="LongerPowerup.cs" />
+    <Compile Include="MediumObstacle.cs" />
     <Compile Include="Meter.cs" />
     <Compile Include="MoveableGamePiece.cs" />
+    <Compile Include="MovingObstacle.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Powerup.cs" />
@@ -51,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShorterPowerup.cs" />
     <Compile Include="Slider.cs" />
+    <Compile Include="SmallObstacle.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SuperSaiyan.cs" />
   </ItemGroup>

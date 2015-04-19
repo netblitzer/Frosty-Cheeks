@@ -1,5 +1,6 @@
 ﻿#region Using Statements
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -34,7 +35,7 @@ namespace Frosty_Cheeks
         private Texture2D shorterPowerupTex;
         private Texture2D longerPowerupTex;
         //Array to hold powerups. No more than 5 powerups in game at a time. Powerup is created in update but PowerupSpawner
-        private Powerup[] powerups;
+        private ArrayList powerups;
 
         // menu attributes
         private Texture2D start;
@@ -157,8 +158,8 @@ namespace Frosty_Cheeks
             longerPowerupTex = Content.Load<Texture2D>("longerPowerupTemp.png");
             
             //Instantiating these here so we KNOW that the content has been loade before we try to use it
-            powerups = new Powerup[5];
-            pSpawner = new PowerupSpawner(3, shorterPowerupTex, longerPowerupTex);
+            powerups = new ArrayList();
+            pSpawner = new PowerupSpawner(5, shorterPowerupTex, longerPowerupTex, Window.ClientBounds.Width + (Window.ClientBounds.Width / 3));
             
             player = new Player(1, 1, 1, 3, spriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
 
@@ -216,7 +217,7 @@ namespace Frosty_Cheeks
             #endregion
             
             // check for end game
-            if (hypoMeter.ColdMeter >= 100 && gameOver == false)
+            if (hypoMeter.ColdMeter >= 100 && gameOver == false)  
             {
                gameOver = true;
                gameState = GameState.ScoreScreen;
@@ -282,18 +283,19 @@ namespace Frosty_Cheeks
 
                 if (pSpawner.IsTimeToSpawn())
                 {//Checks to see if enough time has passed for the spawner to create another powerup
-                    for (int i = 0; i < powerups.Length; i++)//Steps through the powerups array, looking for the first empty spot...
-                    {
-                        if (powerups[i] == null)
-                        {
-                            powerups[i] = pSpawner.Spawn();//..then creates a new power up and sticks it in the empty slot
-                        }
+                    if(powerups.Count < 6){
+                        powerups.Add(pSpawner.Spawn());
                     }
+
                 }
                 //Call update on all the powerups to move them
-                foreach (Powerup p in powerups)
-                {
-                    p.Update(gameTime);
+                if(powerups.Count > 0){
+                    foreach (Powerup p in powerups)
+                    {
+                        if(p != null){
+                            p.Update(gameTime);
+                        }
+                    }
                 }
 
                 player.PlayerUpdate(gameTime);
@@ -364,16 +366,8 @@ namespace Frosty_Cheeks
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
                 #endregion
                 #region powerup drawing
-                for (int i = 0; i < 5; i++)
-                {
-                    if (powerups[i] != null)
-                    {
-                        powerups[i].Draw(spriteBatch);
-                    }
-                    else
-                    {
-                        break;
-                    }
+                foreach(Powerup p in powerups){
+                    p.Draw(spriteBatch);
                 }
                 #endregion
 

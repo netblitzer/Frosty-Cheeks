@@ -1,5 +1,6 @@
 ﻿#region Using Statements
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -23,16 +24,17 @@ namespace Frosty_Cheeks
             get { return strength; }
             set { strength = value; }
         }
-        public Powerup(float _speed, Texture2D texture)
+        public Powerup(float _speed, Texture2D texture, float spawnX)
             : base(_speed)
         {
-            Position = new Vector2(500,280);
+
+            Position = new Vector2(spawnX, 280);
             SpriteObj = new Sprite("", Position, (int)Position.Y, texture.Height, texture.Width);
             SpriteObj.SpriteTexture = texture;
         }
         public void Update(GameTime gameTime)
         {
-           Position = new Vector2(Position.X - 1, Position.Y);
+           Position = new Vector2(Position.X - Speed, Position.Y);
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {

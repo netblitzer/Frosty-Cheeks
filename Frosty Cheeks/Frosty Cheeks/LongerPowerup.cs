@@ -16,7 +16,7 @@ namespace Frosty_Cheeks
     //Collectable powerup that increases the length of player's shorts. Decreaes cold
     class LongerPowerup : Powerup
     {
-        public LongerPowerup(float _speed, Texture2D texture) : base(_speed, texture)
+        public LongerPowerup(float _speed, Texture2D texture, float spawnX) : base(_speed, texture, spawnX)
         {
 
         }

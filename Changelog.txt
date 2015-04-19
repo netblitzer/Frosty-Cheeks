@@ -6,9 +6,8 @@ V1 - Initial Release
 	- MethodsLibrary Impelemented
 		- Clamps (int, double, float, Vector2)
 		- InRange (int, double, float, Vector2)
-
-Joh 3-15-15
 ------------------------------------------------
+Joh 3-15-15
 Added basic object and character classes:
 - Powerup
 	- LongerPowerup
@@ -40,15 +39,13 @@ Added following classes:
 	- Button
 	- Slider
 	- Meter
-=======
-Joh 3/19/15
 ------------------------------------------------------------------------
+Joh 3/19/15
 - Added float speed and Vector2 velocity to MoveableGamepiece.cs
 - Added constructors to MoveableGamePiece, Player and GamePiece
 - Added method stubs to Player class for Jump, HitObstacle and PlayAnimation
-
-Luke 3-27-15
 ------------------------------------------------------------------------
+Luke 3-27-15
 - Frame.cs
 	- InitializeFrames() method for creating all the frames
 	- Constructor (will) grab a random frame and make random obstacles
@@ -107,4 +104,13 @@ Joh 4-16
 JordON 4/17
 - The end game logic now works
 - Game resets on hitting Start button, allowing the game to be played countless times
+-------------------------------------------------------------------------
+Joh 4-19
+- Added SmallObstacle, MediumObstacle and LargeObstacle stub classes to help with FrameBuilder stuff
+- Powerups spawn off screen and scroll across with the same speed as background and obstacles
+- Powerups spawn 
+- Cleaned up some of the older change log posts
+- Powerups spawn at random 5 - 15 second intervals
+- TODO: Powerups do not collide with / effect the player -- will fix
+- TODO: Powerups do not despawn when they are off the screen -- will fix
 -------------------------------------------------------------------------

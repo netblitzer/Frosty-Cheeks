@@ -22,7 +22,8 @@ namespace Frosty_Cheeks
             get { return saiyanTime; }
             set { saiyanTime = value; }
         }
-        public SuperSaiyan(float _speed, Texture2D texture) : base(_speed, texture)
+        public SuperSaiyan(float _speed, Texture2D texture, float spawnX)
+            : base(_speed, texture, spawnX)
         {
 
         }
