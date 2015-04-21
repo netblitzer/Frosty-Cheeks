@@ -52,6 +52,7 @@ namespace Frosty_Cheeks
         private Vector2 playAgainPos;
         private MouseState mouseState;
         private MouseState prevState;
+        private Texture2D boundingBoxTex;//Test to draw borders on bounding boxes
 
         // enumeration
         enum GameState { StartMenu, HowToPlay, Credits, Exit, Game, ScoreScreen };
@@ -156,6 +157,9 @@ namespace Frosty_Cheeks
             //TODO: Get final art for powerups
             shorterPowerupTex = Content.Load<Texture2D>("shorterPowerupTemp.png");
             longerPowerupTex = Content.Load<Texture2D>("longerPowerupTemp.png");
+
+            boundingBoxTex = new Texture2D(GraphicsDevice, 1, 1);
+            boundingBoxTex.SetData(new[] { Color.White });
             
             //Instantiating these here so we KNOW that the content has been loade before we try to use it
             powerups = new ArrayList();
@@ -235,6 +239,7 @@ namespace Frosty_Cheeks
                     {
                         // Scales the location of stuff to the viewport for now
                         obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, obstacle.Position.Y / (1024 / GraphicsDevice.Viewport.Height));
+                        
                         /*if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X >= 0)
                         {
                             distanceScore++;
@@ -290,14 +295,15 @@ namespace Frosty_Cheeks
                 }
                 //Call update on all the powerups to move them
                 if(powerups.Count > 0){
-                    foreach (Powerup p in powerups)
+                    foreach (Powerup p in powerups)//Check all powerups and call update if they havnt already been hit by the player
                     {
                         if(p != null){
-                            p.Update(gameTime);
+                            if(!p.Destroyed){
+                                p.Update(gameTime);
+                            }
                         }
                     }
                 }
-
                 player.PlayerUpdate(gameTime);
                 distanceScore = distanceScore + player.Speed;
             }
@@ -305,7 +311,7 @@ namespace Frosty_Cheeks
             #region Test Shit
 
             #endregion
-
+            CollisionUpdate(gameTime);
             base.Update(gameTime);
         }
 
@@ -356,6 +362,7 @@ namespace Frosty_Cheeks
                     foreach (Obstacle obstacle in frameDraw.Obstacles)
                     {
                         obstacle.SpriteObj.Draw(gameTime, spriteBatch);
+                        //obstacle.DrawBoundingBox(spriteBatch, boundingBoxTex);//Draw the bounding box for testing
                     }
 
                 }
@@ -365,31 +372,22 @@ namespace Frosty_Cheeks
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, hypoMeter.GuiSprite.SpriteTexture.Width, hypoMeter.GuiSprite.SpriteTexture.Height), Color.Red, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
                 #endregion
+
                 #region powerup drawing
-                foreach(Powerup p in powerups){
-                    p.Draw(spriteBatch);
-                }
-                #endregion
-
-                player.Draw(spriteBatch);
-                spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
-
-                #region collision testing temp
-                //3 second grace period at beginning of game
-                if (gameTime.TotalGameTime.TotalSeconds > 3)
-                {
-                    foreach (Frame frameDraw in frames)
-                    {
-                        foreach (Obstacle obstacle in frameDraw.Obstacles)
-                        {
-                            if (player.IsColliding(obstacle))
-                            {
-                                player.HitObstacle(obstacle);
-                            }
-                        }
+                foreach(Powerup p in powerups){//Loop through all spawned powerups 
+                    if(!p.Destroyed){//Make sure the player hasnt alread hit it
+                       // p.DrawBoundingBox(spriteBatch, boundingBoxTex);//Draw the bounding box for testing
+                        p.Draw(spriteBatch);//..and draw it
                     }
                 }
                 #endregion
+
+                #region player drawing
+                //player.DrawBoundingBox(spriteBatch, boundingBoxTex);//Fills in bounding box for testing
+                player.Draw(spriteBatch);
+                #endregion
+
+                spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
             }
             spriteBatch.End();
         }
@@ -410,7 +408,6 @@ namespace Frosty_Cheeks
                 if (clickRect.Intersects(startRect))
                 {
                     gameState = GameState.Game;
-
                 }
                 if (clickRect.Intersects(htpRect))
                 {
@@ -517,5 +514,34 @@ namespace Frosty_Cheeks
             this.LoadContent();
         }
         #endregion
+        public void CollisionUpdate(GameTime gameTime)
+        {
+            #region collisions!
+            //3 second grace period at beginning of game
+            if (gameTime.TotalGameTime.TotalSeconds > 1)
+            {
+                foreach (Frame frameDraw in frames)//Look through every frame that's in the game..
+                {
+                    foreach (Obstacle obstacle in frameDraw.Obstacles)//And look through every osbtacle in every frame..
+                    {
+                        if (player.IsColliding(obstacle))//..and if the player is hitting it
+                        {
+                            player.HitObstacle(obstacle);//..then do stuff!!
+                        }
+                    }
+                }
+                foreach (Powerup p in powerups)
+                {
+                    if (!p.Destroyed)
+                    {
+                        if (player.IsColliding(p))//..and if the player is hitting it
+                        {
+                            player.HitPowerup(p);//..then do stuff!!
+                        }
+                    }
+                }
+            }
+            #endregion
+        }
     }
 }

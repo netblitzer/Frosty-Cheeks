@@ -17,8 +17,15 @@ namespace Frosty_Cheeks
     class Powerup : MoveableGamePiece
     {
         private bool destroyed = false;
+
+        public bool Destroyed
+        {
+            get { return destroyed; }
+            set { destroyed = value; }
+        }
         //private int speed;
         private float strength;
+       // private float used;
         public float Strength
         {
             get { return strength; }
@@ -27,14 +34,14 @@ namespace Frosty_Cheeks
         public Powerup(float _speed, Texture2D texture, float spawnX)
             : base(_speed)
         {
-
             Position = new Vector2(spawnX, 280);
-            SpriteObj = new Sprite("", Position, (int)Position.Y, texture.Height, texture.Width);
+            SpriteObj = new Sprite("", Position, (int)Position.Y, texture.Width, texture.Height);
             SpriteObj.SpriteTexture = texture;
         }
         public void Update(GameTime gameTime)
         {
            Position = new Vector2(Position.X - Speed, Position.Y);
+           SpriteObj.SpriteLocation = Position;
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {

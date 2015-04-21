@@ -31,8 +31,8 @@ namespace Frosty_Cheeks
         private Color drawColor = Color.White;
         KeyboardState kState; // key state for input
         
-        float shorterPowerupStrength;
-        float longerPowerupStrength;
+        float shorterPowerupStrength = 0.2f;
+        float longerPowerupStrength = 0.2f;
 
         float tempChange = 0.01f;
         float originalTemp;
@@ -131,55 +131,55 @@ namespace Frosty_Cheeks
         {
             if(!obs.Destroyed){
                 //Originally decremented temperature by 1/4 of the current temp but that led to obstacles doing very little damage near the end of the player's life
-                Tempurature -= originalTemp / 4;
-                Program.WriteLine("Hit that shit");
+                Tempurature -= originalTemp / 5;
                 obs.Destroyed = true;
             }
         }  
         public void HitPowerup(Powerup powerup)  
         {
-            if(powerup is ShorterPowerup){
-                Tempurature -= (Tempurature * shorterPowerupStrength);//Takes a percentage of the current temp and takes it away from temperature
-            }else if(powerup is LongerPowerup){
-                Tempurature += (Tempurature * longerPowerupStrength);
-            }else if(powerup is SuperSaiyan){
-                //Expand for a surprise...
-                #region Kammmeeeeee..
-                /*
-                 *          _
-          -._ \'.
-           \ '.\_\_
-        _.--'  _   '.---.
-       /._   _<_)/)/ .-'
-       _.-'- ([d,p]? _.-       .;
-        '--.'-\ _ /-'--      .:'
-          __  )'-'(  __    .:'
-       .-/  ]' -Y- '[ /\ _:'
-       /\|  | -----/ | ,r |
-      |  ,\  \'= /'  .:\ "(
-      | / /\; \,/  .:'  |_|
-      \ _ )<   /  :' \ /__|
-       '__\ {---:'-/  \(  )
-       \_ _|/_:'-__]   '-'
-         ) .:'    \ \
-        (L:/  ;      \
-       .:~'   |  .   7
-     .:'  /   \   ' /\
-   .;'    |\ . |;     )
-  ;'      | '  |\'. _/|
-          /'.' (\\..  |
-         ( \. ,|\ '   /
-         |\_  / \ ': /\
-         \  //| |\  __/
-         |\   )  \,___>
-         <-'-/    \'  |
-         |_ /      |=j|
-      _.-' /       \  (
-     '-----'        \  \
-                     '-'
-                 */
-                #endregion
-            }
+                if(powerup is ShorterPowerup){
+                    tempChange += (tempChange * shorterPowerupStrength);//Takes a percentage of the current temp and takes it away from temperature
+                }else if(powerup is LongerPowerup){
+                    tempChange -= (tempChange * longerPowerupStrength);
+                }else if(powerup is SuperSaiyan){
+                    //Expand for a surprise...
+                    #region Kammmeeeeee..
+                    /*
+                     *          _
+              -._ \'.
+               \ '.\_\_
+            _.--'  _   '.---.
+           /._   _<_)/)/ .-'
+           _.-'- ([d,p]? _.-       .;
+            '--.'-\ _ /-'--      .:'
+              __  )'-'(  __    .:'
+           .-/  ]' -Y- '[ /\ _:'
+           /\|  | -----/ | ,r |
+          |  ,\  \'= /'  .:\ "(
+          | / /\; \,/  .:'  |_|
+          \ _ )<   /  :' \ /__|
+           '__\ {---:'-/  \(  )
+           \_ _|/_:'-__]   '-'
+             ) .:'    \ \
+            (L:/  ;      \
+           .:~'   |  .   7
+         .:'  /   \   ' /\
+       .;'    |\ . |;     )
+      ;'      | '  |\'. _/|
+              /'.' (\\..  |
+             ( \. ,|\ '   /
+             |\_  / \ ': /\
+             \  //| |\  __/
+             |\   )  \,___>
+             <-'-/    \'  |
+             |_ /      |=j|
+          _.-' /       \  (
+         '-----'        \  \
+                         '-'
+                     */
+                    #endregion
+                }
+            powerup.Destroyed = true;
         }
         public bool IsColliding(GamePiece other)
         {
@@ -187,7 +187,13 @@ namespace Frosty_Cheeks
             bool collide = false;
             Rectangle otherBoundingBox = other.GetBoundingBox();
             GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
-
+           
+            if(collide){
+                if (other is Powerup)
+                {
+                    Program.WriteLine("Powerup");
+                }
+            }
             return collide;
         }
         /*Write text to the debug console for testing stuffs*/

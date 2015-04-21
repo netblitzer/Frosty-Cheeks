@@ -114,3 +114,13 @@ Joh 4-19
 - TODO: Powerups do not collide with / effect the player -- will fix
 - TODO: Powerups do not despawn when they are off the screen -- will fix
 -------------------------------------------------------------------------
+Joh 4-21
+-Fixed issue with collisions where Frame stuff in Game.cs was only updating its obstacles' sprite position but not its object position
+- This ^ fix got powerup collisions working
+- Moved collision logic to its own method in Game.cs
+- Player's change in temperature is now effected by colliding with powerups
+- Powerups dissapear when player collides with them
+- Added method in GamePiece to display all GamePieces' bounding boxes in red 
+- Found out that the reason collisions are getting triggered early is because of the empty space surrounding the Newton sprite.
+
+-------------------------------------------------------------------------
