@@ -16,14 +16,17 @@ namespace FrostyCheeksEditor
 {
     public partial class Form1 : Form
     {
-        // Variable Declaration
+        #region Variable Declaration
         private int hover;
         private int click;
         private int normal;
         private List<System.Windows.Forms.PictureBox> obstacles;
-        private System.ComponentModel.ComponentResourceManager resources;
-        private short obs1Box, obs2Box, obs3Box, obs4Box, delBox;
+        //private System.ComponentModel.ComponentResourceManager resources;
+        private short obs1Box, obs2Box, obs3Box, obs4Box, delBox, prevBox, nextBox;
         private int prevCount;
+        private bool saved;
+        private int selectedObstacle;
+        #endregion
 
         // REMOVE LATER
         private Random rgen;
@@ -47,16 +50,45 @@ namespace FrostyCheeksEditor
             // Other Stuffs
             obstacles = new List<PictureBox>();
             rgen = new Random();
-            obs1Box = obs2Box = obs3Box = obs4Box = delBox = 0;
+            obs1Box = obs2Box = obs3Box = obs4Box = delBox = prevBox = nextBox = 0;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             pulseTimer.Interval = 50;
             pulseTimer.Start();
             prevCount = obstacles.Count;
+            saved = false;
+            selectedObstacle = 0;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!saved)
+            {
+                //CloseDialog closer = new CloseDialog();
+                Stream myStream;
 
+                saveFileDialog.Filter = "Data files (*.dat)|*.dat|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.DefaultExt = "dat";
+                saveFileDialog.InitialDirectory = "..//Frames"; ;
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if ((myStream = saveFileDialog.OpenFile()) != null)
+                    {
+                        // Code to write the stream goes here.
+                        BinaryWriter output = new BinaryWriter(myStream);
+                        output.Write("bg.png");
+                        foreach (PictureBox obs in obstacles)
+                        {
+                            output.Write(obs.Location.X * (1024 / 400));
+                            output.Write(obs.Location.Y * (1024 / 400));
+                        }
+                        output.Close();
+                        myStream.Close();
+                    }
+                }
+            }
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,6 +125,7 @@ namespace FrostyCheeksEditor
                     }
                     output.Close();
                     myStream.Close();
+                    saved = true;
                 }
             }
         }
@@ -111,6 +144,7 @@ namespace FrostyCheeksEditor
         private void obstacle1Panel_MouseDown(object sender, MouseEventArgs e)
         {
             #region Adding New Obstacles
+            saved = false;
             PictureBox obs = new PictureBox();
             obs.Location = new System.Drawing.Point(rgen.Next(0, 368), 220);
             obs.Size = new System.Drawing.Size(32, 32);
@@ -149,6 +183,7 @@ namespace FrostyCheeksEditor
         private void obstacle2Panel_MouseDown(object sender, MouseEventArgs e)
         {
             #region Adding New Obstacles
+            saved = false;
             PictureBox obs = new PictureBox();
             obs.Location = new System.Drawing.Point(rgen.Next(0, 368), 220);
             obs.Size = new System.Drawing.Size(32, 32);
@@ -187,6 +222,7 @@ namespace FrostyCheeksEditor
         {
             obs3Box = 2;
             #region Adding New Obstacles
+            saved = false;
             PictureBox obs = new PictureBox();
             obs.Location = new System.Drawing.Point(rgen.Next(0, 368), 188);
             obs.Size = new System.Drawing.Size(32, 64);
@@ -224,6 +260,7 @@ namespace FrostyCheeksEditor
         {
             obs4Box = 2;
             #region Adding New Obstacles
+            saved = false;
             PictureBox obs = new PictureBox();
             obs.Location = new System.Drawing.Point(rgen.Next(0, 336), 188);
             obs.Size = new System.Drawing.Size(64, 64);
@@ -260,6 +297,7 @@ namespace FrostyCheeksEditor
         private void deleteButton_MouseDown(object sender, MouseEventArgs e)
         {
             delBox = 2;
+            saved = false;
         }
 
         private void deleteButton_MouseMove(object sender, MouseEventArgs e)
@@ -268,6 +306,55 @@ namespace FrostyCheeksEditor
         }
         #endregion
 
+        #region Next Obstacle Button
+        private void nextButton_MouseEnter(object sender, EventArgs e)
+        {
+            nextBox = 1;
+        }
+
+        private void nextButton_MouseLeave(object sender, EventArgs e)
+        {
+            nextBox = 0;
+        }
+
+        private void nextButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            nextBox = 2;
+            selectedObstacle++;
+            if (selectedObstacle >= obstacles.Count)
+                selectedObstacle %= obstacles.Count;
+        }
+
+        private void nextButton_MouseMove(object sender, MouseEventArgs e)
+        {
+            nextBox = 1;
+        }
+        #endregion
+
+        #region Previous Obstacle Button
+        private void previousButton_MouseEnter(object sender, EventArgs e)
+        {
+            prevBox = 1;
+        }
+
+        private void previousButton_MouseLeave(object sender, EventArgs e)
+        {
+            prevBox = 0;
+        }
+
+        private void previousButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            prevBox = 2;
+            selectedObstacle--;
+            if (selectedObstacle < 0)
+                selectedObstacle += obstacles.Count;
+        }
+
+        private void previousButton_MouseMove(object sender, MouseEventArgs e)
+        {
+            prevBox = 1;
+        }
+        #endregion
 
         private void ButtonColorer(Panel p, int t)
         {
@@ -298,11 +385,46 @@ namespace FrostyCheeksEditor
             if(obstacles.Count!=prevCount)
                 AddNewObs();
             ButtonColorer(obstacle1Panel, obs1Box);
-            debugTextBox.Text += "\n" + obs2Box;
             ButtonColorer(obstacle2Panel, obs2Box);
             ButtonColorer(obstacle3Panel, obs3Box);
             ButtonColorer(obstacle4Panel, obs4Box);
             ButtonColorer(deleteButton, delBox);
+            ButtonColorer(nextButton, nextBox);
+            ButtonColorer(previousButton, prevBox);
+
+            if (obstacles.Count > 0)
+            {
+                numberLabel.Text = "Number: " + (selectedObstacle + 1);
+                string name = obstacles[selectedObstacle].Name;
+                if (name.Contains("normal"))
+                {
+                    typeLabel.Text = "Normal";
+                    obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon1.png");
+                    obstaclePreviewPic.Size = new System.Drawing.Size(32, 32);
+                    obstaclePreviewPic.Location = new Point(19, 19);
+                }
+                if (name.Contains("tall"))
+                {
+                    typeLabel.Text = "Tall";
+                    obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon3.png");
+                    obstaclePreviewPic.Size = new System.Drawing.Size(32, 64);
+                    obstaclePreviewPic.Location = new Point(19, 3);
+                }
+                if (name.Contains("moving"))
+                {
+                    typeLabel.Text = "Moving";
+                    obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon2.png");
+                    obstaclePreviewPic.Size = new System.Drawing.Size(32, 32);
+                    obstaclePreviewPic.Location = new Point(19, 19);
+                }
+                if (name.Contains("huge"))
+                {
+                    typeLabel.Text = "Huge";
+                    obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon4.png");
+                    obstaclePreviewPic.Size = new System.Drawing.Size(64, 64);
+                    obstaclePreviewPic.Location = new Point(3, 3);
+                }
+            }
         }
 
         private int Clamp(int val, int min, int max)

@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.inputPanel = new System.Windows.Forms.Panel();
+            this.warmRadioButton = new System.Windows.Forms.RadioButton();
+            this.windyRadioButton = new System.Windows.Forms.RadioButton();
+            this.normalRadioButton = new System.Windows.Forms.RadioButton();
+            this.label10 = new System.Windows.Forms.Label();
             this.obstacle4Panel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -46,11 +50,17 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.outputPanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.nextButton = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.previousButton = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.deleteButton = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.xPosInputBox = new System.Windows.Forms.TextBox();
             this.speedInputBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.typeLabel = new System.Windows.Forms.Label();
             this.obstaclePreviewPic = new System.Windows.Forms.PictureBox();
             this.debugTextBox = new System.Windows.Forms.TextBox();
             this.menuBar = new System.Windows.Forms.MenuStrip();
@@ -65,8 +75,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pulseTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider = new System.Windows.Forms.HelpProvider();
-            this.deleteButton = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
+            this.numberLabel = new System.Windows.Forms.Label();
             this.inputPanel.SuspendLayout();
             this.obstacle4Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -78,15 +87,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.outputPanel.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.nextButton.SuspendLayout();
+            this.previousButton.SuspendLayout();
+            this.deleteButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.obstaclePreviewPic)).BeginInit();
             this.menuBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
-            this.deleteButton.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputPanel
             // 
             this.inputPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inputPanel.Controls.Add(this.warmRadioButton);
+            this.inputPanel.Controls.Add(this.windyRadioButton);
+            this.inputPanel.Controls.Add(this.normalRadioButton);
+            this.inputPanel.Controls.Add(this.label10);
             this.inputPanel.Controls.Add(this.obstacle4Panel);
             this.inputPanel.Controls.Add(this.obstacle2Panel);
             this.inputPanel.Controls.Add(this.obstacle3Panel);
@@ -96,6 +111,56 @@
             this.inputPanel.Name = "inputPanel";
             this.inputPanel.Size = new System.Drawing.Size(200, 510);
             this.inputPanel.TabIndex = 1;
+            // 
+            // warmRadioButton
+            // 
+            this.warmRadioButton.AutoSize = true;
+            this.warmRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warmRadioButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.warmRadioButton.Location = new System.Drawing.Point(23, 466);
+            this.warmRadioButton.Name = "warmRadioButton";
+            this.warmRadioButton.Size = new System.Drawing.Size(101, 29);
+            this.warmRadioButton.TabIndex = 8;
+            this.warmRadioButton.TabStop = true;
+            this.warmRadioButton.Text = "Indoors";
+            this.warmRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // windyRadioButton
+            // 
+            this.windyRadioButton.AutoSize = true;
+            this.windyRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.windyRadioButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.windyRadioButton.Location = new System.Drawing.Point(23, 434);
+            this.windyRadioButton.Name = "windyRadioButton";
+            this.windyRadioButton.Size = new System.Drawing.Size(90, 29);
+            this.windyRadioButton.TabIndex = 7;
+            this.windyRadioButton.TabStop = true;
+            this.windyRadioButton.Text = "Windy";
+            this.windyRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // normalRadioButton
+            // 
+            this.normalRadioButton.AutoSize = true;
+            this.normalRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.normalRadioButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.normalRadioButton.Location = new System.Drawing.Point(23, 402);
+            this.normalRadioButton.Name = "normalRadioButton";
+            this.normalRadioButton.Size = new System.Drawing.Size(98, 29);
+            this.normalRadioButton.TabIndex = 6;
+            this.normalRadioButton.TabStop = true;
+            this.normalRadioButton.Text = "Normal";
+            this.normalRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.Control;
+            this.label10.Location = new System.Drawing.Point(20, 368);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(160, 31);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Frame Type";
             // 
             // obstacle4Panel
             // 
@@ -172,9 +237,9 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox2.Location = new System.Drawing.Point(19, 19);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox2.Size = new System.Drawing.Size(32, 32);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
@@ -215,9 +280,9 @@
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox4.Location = new System.Drawing.Point(19, 3);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox4.Size = new System.Drawing.Size(32, 64);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 0;
             this.pictureBox4.TabStop = false;
@@ -269,9 +334,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(19, 19);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -292,17 +357,107 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.numberLabel);
+            this.panel3.Controls.Add(this.nextButton);
+            this.panel3.Controls.Add(this.previousButton);
             this.panel3.Controls.Add(this.deleteButton);
             this.panel3.Controls.Add(this.xPosInputBox);
             this.panel3.Controls.Add(this.speedInputBox);
             this.panel3.Controls.Add(this.label8);
             this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.typeLabel);
             this.panel3.Controls.Add(this.obstaclePreviewPic);
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(192, 164);
+            this.panel3.Size = new System.Drawing.Size(192, 198);
             this.panel3.TabIndex = 0;
+            // 
+            // nextButton
+            // 
+            this.nextButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.nextButton.Controls.Add(this.label11);
+            this.nextButton.Location = new System.Drawing.Point(100, 162);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(80, 26);
+            this.nextButton.TabIndex = 7;
+            this.nextButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseDown);
+            this.nextButton.MouseEnter += new System.EventHandler(this.nextButton_MouseEnter);
+            this.nextButton.MouseLeave += new System.EventHandler(this.nextButton_MouseLeave);
+            this.nextButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseMove);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.Control;
+            this.label11.Location = new System.Drawing.Point(17, 2);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(45, 20);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Next";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseDown);
+            this.label11.MouseEnter += new System.EventHandler(this.nextButton_MouseEnter);
+            this.label11.MouseLeave += new System.EventHandler(this.nextButton_MouseLeave);
+            this.label11.MouseMove += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseMove);
+            // 
+            // previousButton
+            // 
+            this.previousButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.previousButton.Controls.Add(this.label12);
+            this.previousButton.Location = new System.Drawing.Point(10, 162);
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(80, 26);
+            this.previousButton.TabIndex = 8;
+            this.previousButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseDown);
+            this.previousButton.MouseEnter += new System.EventHandler(this.previousButton_MouseEnter);
+            this.previousButton.MouseLeave += new System.EventHandler(this.previousButton_MouseLeave);
+            this.previousButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseMove);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.SystemColors.Control;
+            this.label12.Location = new System.Drawing.Point(2, 2);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(77, 20);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Previous";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseDown);
+            this.label12.MouseEnter += new System.EventHandler(this.previousButton_MouseEnter);
+            this.label12.MouseLeave += new System.EventHandler(this.previousButton_MouseLeave);
+            this.label12.MouseMove += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseMove);
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.deleteButton.Controls.Add(this.label9);
+            this.deleteButton.Location = new System.Drawing.Point(45, 133);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(100, 26);
+            this.deleteButton.TabIndex = 6;
+            this.deleteButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseDown);
+            this.deleteButton.MouseEnter += new System.EventHandler(this.deleteButton_MouseEnter);
+            this.deleteButton.MouseLeave += new System.EventHandler(this.deleteButton_MouseLeave);
+            this.deleteButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseMove);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.Control;
+            this.label9.Location = new System.Drawing.Point(19, 2);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 20);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Delete";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseDown);
+            this.label9.MouseEnter += new System.EventHandler(this.deleteButton_MouseEnter);
+            this.label9.MouseLeave += new System.EventHandler(this.deleteButton_MouseLeave);
+            this.label9.MouseMove += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseMove);
             // 
             // xPosInputBox
             // 
@@ -346,22 +501,23 @@
             this.label7.TabIndex = 2;
             this.label7.Text = "Speed:";
             // 
-            // label6
+            // typeLabel
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.Control;
-            this.label6.Location = new System.Drawing.Point(74, 24);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 20);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Type:";
+            this.typeLabel.AutoSize = true;
+            this.typeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.typeLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.typeLabel.Location = new System.Drawing.Point(73, 17);
+            this.typeLabel.Name = "typeLabel";
+            this.typeLabel.Size = new System.Drawing.Size(47, 20);
+            this.typeLabel.TabIndex = 1;
+            this.typeLabel.Text = "Type:";
             // 
             // obstaclePreviewPic
             // 
             this.obstaclePreviewPic.Location = new System.Drawing.Point(3, 3);
             this.obstaclePreviewPic.Name = "obstaclePreviewPic";
             this.obstaclePreviewPic.Size = new System.Drawing.Size(64, 64);
+            this.obstaclePreviewPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.obstaclePreviewPic.TabIndex = 0;
             this.obstaclePreviewPic.TabStop = false;
             // 
@@ -458,34 +614,16 @@
             // 
             this.pulseTimer.Tick += new System.EventHandler(this.pulseTimer_Tick);
             // 
-            // deleteButton
+            // numberLabel
             // 
-            this.deleteButton.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.deleteButton.Controls.Add(this.label9);
-            this.deleteButton.Location = new System.Drawing.Point(45, 133);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(100, 26);
-            this.deleteButton.TabIndex = 6;
-            this.deleteButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseDown);
-            this.deleteButton.MouseEnter += new System.EventHandler(this.deleteButton_MouseEnter);
-            this.deleteButton.MouseLeave += new System.EventHandler(this.deleteButton_MouseLeave);
-            this.deleteButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseMove);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.Control;
-            this.label9.Location = new System.Drawing.Point(19, 2);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 20);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Delete";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseDown);
-            this.label9.MouseEnter += new System.EventHandler(this.deleteButton_MouseEnter);
-            this.label9.MouseLeave += new System.EventHandler(this.deleteButton_MouseLeave);
-            this.label9.MouseMove += new System.Windows.Forms.MouseEventHandler(this.deleteButton_MouseMove);
+            this.numberLabel.AutoSize = true;
+            this.numberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numberLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.numberLabel.Location = new System.Drawing.Point(73, 37);
+            this.numberLabel.Name = "numberLabel";
+            this.numberLabel.Size = new System.Drawing.Size(73, 20);
+            this.numberLabel.TabIndex = 9;
+            this.numberLabel.Text = "Number: ";
             // 
             // Form1
             // 
@@ -498,7 +636,10 @@
             this.Controls.Add(this.outputPanel);
             this.Controls.Add(this.inputPanel);
             this.Controls.Add(this.menuBar);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuBar;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -521,12 +662,16 @@
             this.outputPanel.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.nextButton.ResumeLayout(false);
+            this.nextButton.PerformLayout();
+            this.previousButton.ResumeLayout(false);
+            this.previousButton.PerformLayout();
+            this.deleteButton.ResumeLayout(false);
+            this.deleteButton.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.obstaclePreviewPic)).EndInit();
             this.menuBar.ResumeLayout(false);
             this.menuBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
-            this.deleteButton.ResumeLayout(false);
-            this.deleteButton.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -567,10 +712,19 @@
         private System.Windows.Forms.TextBox speedInputBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label typeLabel;
         private System.Windows.Forms.HelpProvider helpProvider;
         private System.Windows.Forms.Panel deleteButton;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RadioButton warmRadioButton;
+        private System.Windows.Forms.RadioButton windyRadioButton;
+        private System.Windows.Forms.RadioButton normalRadioButton;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel nextButton;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel previousButton;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label numberLabel;
     }
 }
 
