@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,19 +22,20 @@ namespace Frosty_Cheeks
         SpriteBatch spriteBatch;
 
         // needed things
-        Player player; // player obj
-        List<Frame> frames; // Frames list
-        Meter hypoMeter; // hypothermia meter
-        SpriteFont distanceFont;
-        float distanceScore;
-        Vector2 startLoc;
-        Texture2D toilerFace;
-        bool gameOver;
-        PowerupSpawner pSpawner;
+        private Player player; // player obj
+        private List<Frame> frames; // Frames list
+        private Meter hypoMeter; // hypothermia meter
+        private SpriteFont distanceFont;
+        private float distanceScore;
+        private Vector2 startLoc;
+        private Texture2D toilerFace;
+        private bool gameOver;
+        private PowerupSpawner pSpawner;
 
         //Powerup Textures
         private Texture2D shorterPowerupTex;
         private Texture2D longerPowerupTex;
+
         //Array to hold powerups. No more than 5 powerups in game at a time. Powerup is created in update but PowerupSpawner
         private ArrayList powerups;
 
@@ -54,8 +56,17 @@ namespace Frosty_Cheeks
         private MouseState prevState;
         private Texture2D boundingBoxTex;//Test to draw borders on bounding boxes
 
+        // score screen attributes
+        private int[] score = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        private int readInScore = 0;
+        private int numOfScores = 0;
+        private int scoreLocationY = 100;
+        private int scoreLocationX = 0;
+        private BinaryReader reader;
+        private BinaryWriter writer;
+
         // enumeration
-        enum GameState { StartMenu, HowToPlay, Credits, Exit, Game, ScoreScreen };
+        private enum GameState { StartMenu, HowToPlay, Credits, Exit, Game, ScoreScreen };
         private GameState gameState;
 
         #region Newton Things
@@ -84,6 +95,44 @@ namespace Frosty_Cheeks
         {
             // TODO: Add your initialization logic here
             gameOver = false;
+
+            #region Score Stuff
+            // scores
+            try
+            {
+                // score setup, leave here, since I would have to recreate the 
+                reader = new BinaryReader(File.Open("highscores.dat", FileMode.Open));
+                readInScore = 0;
+                numOfScores = 0;
+                scoreLocationY = 20;
+                scoreLocationX = 100;
+
+                bool firstPlay = reader.ReadBoolean();
+
+                // read in the scores from the file - handle the special case of playing for the first time, where the first entry will be 0
+                if (firstPlay == true)
+                {
+
+                }
+                else
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        readInScore = reader.ReadInt32();
+                        score[numOfScores] = readInScore;
+                        numOfScores++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                reader.Close();
+            }
+            #endregion
 
             // start location for player
             startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
@@ -187,7 +236,7 @@ namespace Frosty_Cheeks
             credits = Content.Load<Texture2D>("credits.png");
             exit = Content.Load<Texture2D>("exit.png");
             back = Content.Load<Texture2D>("back.png");
-            playAgain = Content.Load<Texture2D>("start.png");
+            playAgain = Content.Load<Texture2D>("playagain.png");
             #endregion
         }
 
@@ -221,11 +270,14 @@ namespace Frosty_Cheeks
             #endregion
             
             // check for end game
-            if (hypoMeter.ColdMeter >= 100 && gameOver == false)  
+            if (hypoMeter.ColdMeter >= 100 && gameOver == false)
             {
-               gameOver = true;
-               gameState = GameState.ScoreScreen;
-               // gameOver = false;
+                // check if current score takes over a highscore
+                CheckScore((int)distanceScore / (1024 / 6), 0);
+
+                gameOver = true;
+                gameState = GameState.ScoreScreen;
+                // gameOver = false;
             }
             
             // only run this update stuff if game is not in GameState.ScoreScreen
@@ -328,6 +380,7 @@ namespace Frosty_Cheeks
             base.Draw(gameTime);
 
             spriteBatch.Begin();
+
             #region Menu Shit
             if (gameState == GameState.StartMenu)
             {
@@ -352,8 +405,20 @@ namespace Frosty_Cheeks
             {
                 spriteBatch.Draw(exit, exitPos, Color.White);
                 spriteBatch.Draw(playAgain, playAgainPos, Color.White);
+
+                // scores
+                scoreLocationY = 20;
+                scoreLocationX = 100;
+
+                // display the highscores
+                for (int i = 0; i < 10; i++)
+                {
+                    spriteBatch.DrawString(distanceFont, "" + score[i], new Vector2(scoreLocationX, scoreLocationY), Color.Black);
+                    scoreLocationY += 20;
+                }          
             }
             #endregion
+
             if (gameState == GameState.Game)
             {
                 foreach (Frame frameDraw in frames)
@@ -366,6 +431,7 @@ namespace Frosty_Cheeks
                     }
 
                 }
+
                 #region coldMeter
                 hypoMeter.ColdMeter = 100 - player.Tempurature;
 
@@ -391,6 +457,7 @@ namespace Frosty_Cheeks
             }
             spriteBatch.End();
         }
+
         #region Mouse Click Method
         public void MouseClicked(int x, int y)
         {
@@ -447,7 +514,20 @@ namespace Frosty_Cheeks
             }
             if (gameState == GameState.ScoreScreen)
             {
-                 if (clickRect.Intersects(playAgainRect))
+                // export the updated scores to the file
+                writer = new BinaryWriter(File.Open("highscores.dat", FileMode.Create));
+
+                // send a 0 for check purposes
+                writer.Write(false);
+
+                for (int i = 0; i < 10; i++)
+                {
+                    writer.Write(score[i]);
+                }
+
+                writer.Close();
+
+                if (clickRect.Intersects(playAgainRect))
                 {
                     gameState = GameState.StartMenu;
                     this.GameReset();
@@ -466,6 +546,7 @@ namespace Frosty_Cheeks
         {
             // TODO: Add your initialization logic here
             gameOver = false;
+            distanceScore = 0;
 
             // start location for player
             startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
@@ -543,5 +624,27 @@ namespace Frosty_Cheeks
             }
             #endregion
         }
+
+        #region Check Score Method
+        // checks the current score against highscore
+        public void CheckScore(int scoreToCheck, int index)
+        {
+            //check if at the end of the array
+            if (index == 10)
+            {
+                // not a new highscore or matches the lowest
+            }
+            else if (scoreToCheck >= score[index])
+            {
+                // go again, edit the remainder of the array
+                CheckScore(score[index], index + 1);
+                score[index] = scoreToCheck;
+            }
+            else if (scoreToCheck < score[index])
+            {
+                CheckScore(scoreToCheck, index + 1);
+            }
+        }
+        #endregion
     }
 }

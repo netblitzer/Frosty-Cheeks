@@ -103,6 +103,9 @@
     <Content Include="Content\pebble.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\playagain.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\shorterPowerupTemp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
