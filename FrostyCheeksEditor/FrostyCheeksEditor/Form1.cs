@@ -21,6 +21,7 @@ namespace FrostyCheeksEditor
         private int click;
         private int normal;
         private List<System.Windows.Forms.PictureBox> obstacles;
+        private List<int> obsSpeeds;
         //private System.ComponentModel.ComponentResourceManager resources;
         private short obs1Box, obs2Box, obs3Box, obs4Box, delBox, prevBox, nextBox;
         private int prevCount;
@@ -49,6 +50,7 @@ namespace FrostyCheeksEditor
             normal = 30;
             // Other Stuffs
             obstacles = new List<PictureBox>();
+            obsSpeeds = new List<int>();
             rgen = new Random();
             obs1Box = obs2Box = obs3Box = obs4Box = delBox = prevBox = nextBox = 0;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
@@ -157,7 +159,16 @@ namespace FrostyCheeksEditor
             obs.BorderStyle = System.Windows.Forms.BorderStyle.None;
 
             obs.Name = "obstacle" + obstacles.Count + "normal";
+            obsSpeeds.Add(0);
             obstacles.Add(obs);
+
+            if (obstacles.Count == 1)
+            {
+                speedLabel.Text = "" + obsSpeeds[0];
+                xPosLabel.Text = "" + obstacles[0].Location.X;
+                speedInputBox.Text = "" + obsSpeeds[0];
+                xPosInputBox.Text = "" + obstacles[0].Location.X;
+            }
             #endregion
             obs1Box = 2;
         }
@@ -167,7 +178,6 @@ namespace FrostyCheeksEditor
             obs1Box = 1;
         }
         #endregion
-
 
         #region Moving Obstacle Button
         private void obstacle2Panel_MouseEnter(object sender, EventArgs e)
@@ -196,7 +206,16 @@ namespace FrostyCheeksEditor
             obs.BorderStyle = System.Windows.Forms.BorderStyle.None;
 
             obs.Name = "obstacle" + obstacles.Count + "moving";
+            obsSpeeds.Add(10);
             obstacles.Add(obs);
+
+            if (obstacles.Count == 1)
+            {
+                speedLabel.Text = "" + obsSpeeds[0];
+                xPosLabel.Text = "" + obstacles[0].Location.X;
+                speedInputBox.Text = "" + obsSpeeds[0];
+                xPosInputBox.Text = "" + obstacles[0].Location.X;
+            }
             #endregion
             obs2Box = 2;
         }
@@ -235,7 +254,16 @@ namespace FrostyCheeksEditor
             obs.BorderStyle = System.Windows.Forms.BorderStyle.None;
 
             obs.Name = "obstacle" + obstacles.Count + "tall";
+            obsSpeeds.Add(0);
             obstacles.Add(obs);
+
+            if (obstacles.Count == 1)
+            {
+                speedLabel.Text = "" + obsSpeeds[0];
+                xPosLabel.Text = "" + obstacles[0].Location.X;
+                speedInputBox.Text = "" + obsSpeeds[0];
+                xPosInputBox.Text = "" + obstacles[0].Location.X;
+            }
             #endregion
         }
 
@@ -273,7 +301,16 @@ namespace FrostyCheeksEditor
             obs.BorderStyle = System.Windows.Forms.BorderStyle.None;
 
             obs.Name = "obstacle" + obstacles.Count + "huge";
+            obsSpeeds.Add(0);
             obstacles.Add(obs);
+
+            if (obstacles.Count == 1)
+            {
+                speedLabel.Text = "" + obsSpeeds[0];
+                xPosLabel.Text = "" + obstacles[0].Location.X;
+                speedInputBox.Text = "" + obsSpeeds[0];
+                xPosInputBox.Text = "" + obstacles[0].Location.X;
+            }
             #endregion
         }
 
@@ -297,7 +334,15 @@ namespace FrostyCheeksEditor
         private void deleteButton_MouseDown(object sender, MouseEventArgs e)
         {
             delBox = 2;
-            saved = false;
+            if(obstacles.Count>0)
+            {
+                saved = false;
+                obstacles[selectedObstacle] = null;
+                obstacles.RemoveAt(selectedObstacle);
+                obsSpeeds.RemoveAt(selectedObstacle);
+                selectedObstacle = Clamp(selectedObstacle - 1, 0, obstacles.Count);
+                prevCount--;
+            }
         }
 
         private void deleteButton_MouseMove(object sender, MouseEventArgs e)
@@ -320,9 +365,16 @@ namespace FrostyCheeksEditor
         private void nextButton_MouseDown(object sender, MouseEventArgs e)
         {
             nextBox = 2;
-            selectedObstacle++;
-            if (selectedObstacle >= obstacles.Count)
-                selectedObstacle %= obstacles.Count;
+            if (obstacles.Count > 0)
+            {
+                selectedObstacle++;
+                if (selectedObstacle >= obstacles.Count)
+                    selectedObstacle %= obstacles.Count;
+                speedLabel.Text = "" + obsSpeeds[selectedObstacle];
+                xPosLabel.Text = "" + obstacles[selectedObstacle].Location.X;
+                speedInputBox.Text = "" + obsSpeeds[selectedObstacle];
+                xPosInputBox.Text = "" + obstacles[selectedObstacle].Location.X;
+            }
         }
 
         private void nextButton_MouseMove(object sender, MouseEventArgs e)
@@ -345,9 +397,16 @@ namespace FrostyCheeksEditor
         private void previousButton_MouseDown(object sender, MouseEventArgs e)
         {
             prevBox = 2;
-            selectedObstacle--;
-            if (selectedObstacle < 0)
-                selectedObstacle += obstacles.Count;
+            if (obstacles.Count > 0)
+            {
+                selectedObstacle--;
+                if (selectedObstacle < 0)
+                    selectedObstacle += obstacles.Count;
+                speedLabel.Text = "" + obsSpeeds[selectedObstacle];
+                xPosLabel.Text = "" + obstacles[selectedObstacle].Location.X;
+                speedInputBox.Text = "" + obsSpeeds[selectedObstacle];
+                xPosInputBox.Text = "" + obstacles[selectedObstacle].Location.X;
+            }
         }
 
         private void previousButton_MouseMove(object sender, MouseEventArgs e)
@@ -382,7 +441,7 @@ namespace FrostyCheeksEditor
 
         private void pulseTimer_Tick(object sender, EventArgs e)
         {
-            if(obstacles.Count!=prevCount)
+            if(obstacles.Count>prevCount)
                 AddNewObs();
             ButtonColorer(obstacle1Panel, obs1Box);
             ButtonColorer(obstacle2Panel, obs2Box);
@@ -395,6 +454,8 @@ namespace FrostyCheeksEditor
             if (obstacles.Count > 0)
             {
                 numberLabel.Text = "Number: " + (selectedObstacle + 1);
+                speedLabel.Text = "" + obsSpeeds[selectedObstacle];
+                xPosLabel.Text = "" + obstacles[selectedObstacle].Location.X;
                 string name = obstacles[selectedObstacle].Name;
                 if (name.Contains("normal"))
                 {
@@ -402,6 +463,13 @@ namespace FrostyCheeksEditor
                     obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon1.png");
                     obstaclePreviewPic.Size = new System.Drawing.Size(32, 32);
                     obstaclePreviewPic.Location = new Point(19, 19);
+                    if (xPosInputBox != null)
+                    {
+                        int x = 0;
+                        int.TryParse(xPosInputBox.Text, out x);
+                        x = Clamp(x, 0, 368);
+                        obstacles[selectedObstacle].Location = new Point(x, obstacles[selectedObstacle].Location.Y);
+                    }
                 }
                 if (name.Contains("tall"))
                 {
@@ -409,13 +477,13 @@ namespace FrostyCheeksEditor
                     obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon3.png");
                     obstaclePreviewPic.Size = new System.Drawing.Size(32, 64);
                     obstaclePreviewPic.Location = new Point(19, 3);
-                }
-                if (name.Contains("moving"))
-                {
-                    typeLabel.Text = "Moving";
-                    obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon2.png");
-                    obstaclePreviewPic.Size = new System.Drawing.Size(32, 32);
-                    obstaclePreviewPic.Location = new Point(19, 19);
+                    if (xPosInputBox != null)
+                    {
+                        int x = 0;
+                        int.TryParse(xPosInputBox.Text, out x);
+                        x = Clamp(x, 0, 368);
+                        obstacles[selectedObstacle].Location = new Point(x, obstacles[selectedObstacle].Location.Y);
+                    }
                 }
                 if (name.Contains("huge"))
                 {
@@ -423,6 +491,34 @@ namespace FrostyCheeksEditor
                     obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon4.png");
                     obstaclePreviewPic.Size = new System.Drawing.Size(64, 64);
                     obstaclePreviewPic.Location = new Point(3, 3);
+                    if (xPosInputBox != null)
+                    {
+                        int x = 0;
+                        int.TryParse(xPosInputBox.Text, out x);
+                        x = Clamp(x, 0, 336);
+                        obstacles[selectedObstacle].Location = new Point(x,obstacles[selectedObstacle].Location.Y);
+                    }
+                }
+                if (name.Contains("moving"))
+                {
+                    typeLabel.Text = "Moving";
+                    obstaclePreviewPic.Image = System.Drawing.Image.FromFile("DevObstacleIcon2.png");
+                    obstaclePreviewPic.Size = new System.Drawing.Size(32, 32);
+                    obstaclePreviewPic.Location = new Point(19, 19);
+                    if (xPosInputBox != null)
+                    {
+                        int x = 0;
+                        int.TryParse(xPosInputBox.Text, out x);
+                        x = Clamp(x, 0, 368);
+                        obstacles[selectedObstacle].Location = new Point(x, obstacles[selectedObstacle].Location.Y);
+                    }
+                    if (speedInputBox != null)
+                    {
+                        int s = 0;
+                        int.TryParse(xPosInputBox.Text, out s);
+                        s = Clamp(s, 0, 50);
+                        obsSpeeds[selectedObstacle] = s;
+                    }
                 }
             }
         }

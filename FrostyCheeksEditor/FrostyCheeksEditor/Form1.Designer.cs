@@ -50,6 +50,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.outputPanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.numberLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.previousButton = new System.Windows.Forms.Panel();
@@ -75,7 +76,8 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pulseTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider = new System.Windows.Forms.HelpProvider();
-            this.numberLabel = new System.Windows.Forms.Label();
+            this.speedLabel = new System.Windows.Forms.Label();
+            this.xPosLabel = new System.Windows.Forms.Label();
             this.inputPanel.SuspendLayout();
             this.obstacle4Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -357,6 +359,8 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.xPosLabel);
+            this.panel3.Controls.Add(this.speedLabel);
             this.panel3.Controls.Add(this.numberLabel);
             this.panel3.Controls.Add(this.nextButton);
             this.panel3.Controls.Add(this.previousButton);
@@ -371,6 +375,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(192, 198);
             this.panel3.TabIndex = 0;
+            // 
+            // numberLabel
+            // 
+            this.numberLabel.AutoSize = true;
+            this.numberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numberLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.numberLabel.Location = new System.Drawing.Point(73, 37);
+            this.numberLabel.Name = "numberLabel";
+            this.numberLabel.Size = new System.Drawing.Size(73, 20);
+            this.numberLabel.TabIndex = 9;
+            this.numberLabel.Text = "Number: ";
             // 
             // nextButton
             // 
@@ -462,8 +477,8 @@
             // xPosInputBox
             // 
             this.xPosInputBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xPosInputBox.Location = new System.Drawing.Point(102, 105);
-            this.xPosInputBox.MaxLength = 2;
+            this.xPosInputBox.Location = new System.Drawing.Point(72, 105);
+            this.xPosInputBox.MaxLength = 3;
             this.xPosInputBox.Name = "xPosInputBox";
             this.xPosInputBox.Size = new System.Drawing.Size(48, 22);
             this.xPosInputBox.TabIndex = 5;
@@ -472,7 +487,7 @@
             // speedInputBox
             // 
             this.speedInputBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.speedInputBox.Location = new System.Drawing.Point(102, 80);
+            this.speedInputBox.Location = new System.Drawing.Point(72, 80);
             this.speedInputBox.MaxLength = 2;
             this.speedInputBox.Name = "speedInputBox";
             this.speedInputBox.Size = new System.Drawing.Size(48, 22);
@@ -484,7 +499,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.Control;
-            this.label8.Location = new System.Drawing.Point(32, 105);
+            this.label8.Location = new System.Drawing.Point(12, 105);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 20);
             this.label8.TabIndex = 3;
@@ -495,7 +510,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.Control;
-            this.label7.Location = new System.Drawing.Point(27, 80);
+            this.label7.Location = new System.Drawing.Point(7, 80);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 20);
             this.label7.TabIndex = 2;
@@ -614,16 +629,25 @@
             // 
             this.pulseTimer.Tick += new System.EventHandler(this.pulseTimer_Tick);
             // 
-            // numberLabel
+            // speedLabel
             // 
-            this.numberLabel.AutoSize = true;
-            this.numberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numberLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.numberLabel.Location = new System.Drawing.Point(73, 37);
-            this.numberLabel.Name = "numberLabel";
-            this.numberLabel.Size = new System.Drawing.Size(73, 20);
-            this.numberLabel.TabIndex = 9;
-            this.numberLabel.Text = "Number: ";
+            this.speedLabel.AutoSize = true;
+            this.speedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.speedLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.speedLabel.Location = new System.Drawing.Point(130, 80);
+            this.speedLabel.Name = "speedLabel";
+            this.speedLabel.Size = new System.Drawing.Size(0, 20);
+            this.speedLabel.TabIndex = 10;
+            // 
+            // xPosLabel
+            // 
+            this.xPosLabel.AutoSize = true;
+            this.xPosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xPosLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.xPosLabel.Location = new System.Drawing.Point(130, 105);
+            this.xPosLabel.Name = "xPosLabel";
+            this.xPosLabel.Size = new System.Drawing.Size(0, 20);
+            this.xPosLabel.TabIndex = 11;
             // 
             // Form1
             // 
@@ -725,6 +749,8 @@
         private System.Windows.Forms.Panel previousButton;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label numberLabel;
+        private System.Windows.Forms.Label xPosLabel;
+        private System.Windows.Forms.Label speedLabel;
     }
 }
 

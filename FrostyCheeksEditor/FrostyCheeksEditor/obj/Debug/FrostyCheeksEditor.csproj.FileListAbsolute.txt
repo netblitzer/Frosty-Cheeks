@@ -52,3 +52,4 @@ D:\Users\ljm1896\Documents\Visual Studio 2013\Frosty Cheeks\FrostyCheeksEditor\F
 D:\Users\ljm1896\Documents\Visual Studio 2013\Frosty Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.Properties.Resources.resources
 D:\Users\ljm1896\Documents\Visual Studio 2013\Frosty Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.csproj.GenerateResource.Cache
 D:\Users\ljm1896\Documents\Visual Studio 2013\Frosty Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.CloseDialog.resources
+D:\Users\ljm1896\Documents\Frosty-Cheeks\FrostyCheeksEditor\FrostyCheeksEditor\obj\Debug\FrostyCheeksEditor.CloseDialog.resources
