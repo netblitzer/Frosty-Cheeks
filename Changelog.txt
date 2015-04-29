@@ -128,3 +128,8 @@ JordON 4/23
 - We can change the location of what's on the screen at any time
 - Do I have added a .dat file and a blank text file for highscores
 -------------------------------------------------------------------------
+Luke 4-29-15
+- Frame.cs
+	- Fixed it to new standards
+- Frame Builder ¡COMPLETED!
+----------------------------------------------------------------------------

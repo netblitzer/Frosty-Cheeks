@@ -73,16 +73,15 @@ namespace Frosty_Cheeks
 
             obstacles = new List<Obstacle>();
             RandomizeObstacles();
-            spr = new Sprite(rand.FrameSprite.ImagePath, rand.FrameSprite.SpriteLocation, 0, rand.FrameSprite.SpriteHeight, rand.FrameSprite.SpriteWidth);
+            spr = new Sprite("", Vector2.Zero, 0, 1024, 1024);
         }
         // Private Frame Constructor
         // Creates the initial frames to be used later
-        private Frame(int d, string imgPath, int type, Vector2 loc)
+        private Frame(int d, int type, Vector2 loc)
         {
             // Test value
             diff = 100;
             FrameType = type;
-            spr = new Sprite(imgPath, loc, 0, 1024, 1024);
         }
         public static void ReadFramesIn()
         {
@@ -98,21 +97,45 @@ namespace Frosty_Cheeks
                             List<Obstacle> obsList = new List<Obstacle>();
                             //string str = s.Substring(8);
                             BinaryReader reader = new BinaryReader(File.Open(s, FileMode.Open));
-                            string path = reader.ReadString();
+                            int FrameType = reader.ReadInt32();
+                            int obsType = 0;
                             Vector2 obsPos;
                             try
                             {
-                                while ((obsPos = new Vector2(reader.ReadInt32(), reader.ReadInt32())) != null)
+                                while ((obsType = reader.ReadInt32()) != null)
                                 {
-                                    Obstacle obs = new Obstacle(0);
+                                    obsPos = new Vector2(reader.ReadInt32(), reader.ReadInt32());
+                                    Obstacle obs = null;
+                                    switch (obsType)
+                                    {
+                                        case 0:
+                                            obs = new SmallObstacle(reader.ReadInt32());
+                                            obs.SpriteObj = new Sprite("DevObstacle1.png", obsPos, (int)obsPos.Y, 130, 130);
+                                            break;
+                                        case 1:
+                                            obs = new MediumObstacle(reader.ReadInt32());
+                                            obs.SpriteObj = new Sprite("DevObstacle3.png", obsPos, (int)obsPos.Y, 195, 195);
+                                            break;
+                                        case 2:
+                                            obs = new SmallObstacle(reader.ReadInt32());
+                                            obs.SpriteObj = new Sprite("DevObstacle4.png", obsPos, (int)obsPos.Y, 260, 260);
+                                            break;
+                                        case 3:
+                                            obs = new SmallObstacle(reader.ReadInt32());
+                                            obs.SpriteObj = new Sprite("DevObstacle2.png", obsPos, (int)obsPos.Y, 260, 130);
+                                            break;
+                                        default:
+                                            obs = new SmallObstacle(reader.ReadInt32());
+                                            obs.SpriteObj = new Sprite("DevObstacle1.png", obsPos, (int)obsPos.Y, 130, 130);
+                                            break;
+                                    }
                                     obs.Position = obsPos;
-                                    obs.SpriteObj = new Sprite("toiler.png", obsPos, (int)obsPos.Y, 184, 141);
                                     obsList.Add(obs);
                                 }
                             }
                             catch (IOException ioe)
                             {
-                                Frame frm = new Frame(100, path, 0, Vector2.Zero);
+                                Frame frm = new Frame(100, 0, Vector2.Zero);
                                 frm.availObstacles = obsList;
                                 availFrames.Add(frm);
                             }

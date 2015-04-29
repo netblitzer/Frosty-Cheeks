@@ -50,6 +50,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.outputPanel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.xPosLabel = new System.Windows.Forms.Label();
+            this.speedLabel = new System.Windows.Forms.Label();
             this.numberLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
@@ -76,8 +78,6 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.pulseTimer = new System.Windows.Forms.Timer(this.components);
             this.helpProvider = new System.Windows.Forms.HelpProvider();
-            this.speedLabel = new System.Windows.Forms.Label();
-            this.xPosLabel = new System.Windows.Forms.Label();
             this.inputPanel.SuspendLayout();
             this.obstacle4Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -239,9 +239,9 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(19, 19);
+            this.pictureBox2.Location = new System.Drawing.Point(3, 19);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox2.Size = new System.Drawing.Size(64, 32);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
@@ -269,11 +269,11 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(95, 20);
+            this.label5.Location = new System.Drawing.Point(75, 20);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 31);
+            this.label5.Size = new System.Drawing.Size(109, 31);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Tall";
+            this.label5.Text = "Medium";
             this.label5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.obstacle3Panel_MouseDown);
             this.label5.MouseEnter += new System.EventHandler(this.obstacle3Panel_MouseEnter);
             this.label5.MouseLeave += new System.EventHandler(this.obstacle3Panel_MouseLeave);
@@ -282,9 +282,9 @@
             // pictureBox4
             // 
             this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(19, 3);
+            this.pictureBox4.Location = new System.Drawing.Point(13, 9);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(32, 64);
+            this.pictureBox4.Size = new System.Drawing.Size(48, 48);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 0;
             this.pictureBox4.TabStop = false;
@@ -375,6 +375,26 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(192, 198);
             this.panel3.TabIndex = 0;
+            // 
+            // xPosLabel
+            // 
+            this.xPosLabel.AutoSize = true;
+            this.xPosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xPosLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.xPosLabel.Location = new System.Drawing.Point(130, 105);
+            this.xPosLabel.Name = "xPosLabel";
+            this.xPosLabel.Size = new System.Drawing.Size(0, 20);
+            this.xPosLabel.TabIndex = 11;
+            // 
+            // speedLabel
+            // 
+            this.speedLabel.AutoSize = true;
+            this.speedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.speedLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.speedLabel.Location = new System.Drawing.Point(130, 80);
+            this.speedLabel.Name = "speedLabel";
+            this.speedLabel.Size = new System.Drawing.Size(0, 20);
+            this.speedLabel.TabIndex = 10;
             // 
             // numberLabel
             // 
@@ -488,7 +508,7 @@
             // 
             this.speedInputBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.speedInputBox.Location = new System.Drawing.Point(72, 80);
-            this.speedInputBox.MaxLength = 2;
+            this.speedInputBox.MaxLength = 3;
             this.speedInputBox.Name = "speedInputBox";
             this.speedInputBox.Size = new System.Drawing.Size(48, 22);
             this.speedInputBox.TabIndex = 4;
@@ -628,26 +648,6 @@
             // pulseTimer
             // 
             this.pulseTimer.Tick += new System.EventHandler(this.pulseTimer_Tick);
-            // 
-            // speedLabel
-            // 
-            this.speedLabel.AutoSize = true;
-            this.speedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.speedLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.speedLabel.Location = new System.Drawing.Point(130, 80);
-            this.speedLabel.Name = "speedLabel";
-            this.speedLabel.Size = new System.Drawing.Size(0, 20);
-            this.speedLabel.TabIndex = 10;
-            // 
-            // xPosLabel
-            // 
-            this.xPosLabel.AutoSize = true;
-            this.xPosLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xPosLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.xPosLabel.Location = new System.Drawing.Point(130, 105);
-            this.xPosLabel.Name = "xPosLabel";
-            this.xPosLabel.Size = new System.Drawing.Size(0, 20);
-            this.xPosLabel.TabIndex = 11;
             // 
             // Form1
             // 
