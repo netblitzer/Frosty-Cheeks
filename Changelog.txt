@@ -133,3 +133,11 @@ Luke 4-29-15
 	- Fixed it to new standards
 - Frame Builder ¡COMPLETED!
 ----------------------------------------------------------------------------
+JordON 4/30
+- I did shit and stuff #frustration
+- Added an int for obs type, get over it or tell me why you actually need separate classes
+- You cannot use folders to allow people to include their own textures
+- Fixed code to implement new dev art (moving obstacle creates a GIANT black bar vertically downward)
+- Obstacles are either at a incorrect resolution or have incorrect coordinates (probably both)
+- I hate life
+-------------------------------------------------------------------------
