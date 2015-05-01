@@ -407,8 +407,8 @@ namespace Frosty_Cheeks
                     {
                         // Scales the location of stuff to the viewport for now
                         obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, obstacle.Position.Y / (1024 / GraphicsDevice.Viewport.Height));
-                        
-                        /*if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X >= 0)
+                        //obstacle.Position = obstacle.SpriteObj.SpriteLocation;
+                       /* if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X >= 0)
                         {
                             distanceScore++;
                         }*/
@@ -466,10 +466,10 @@ namespace Frosty_Cheeks
                 if (pSpawner.IsTimeToSpawn())
                 {
                     //Checks to see if enough time has passed for the spawner to create another powerup
-                    if(powerups.Count < 6)
-                    {
+                    //if(powerups.Count < 6)
+                    //{
                         powerups.Add(pSpawner.Spawn());
-                    }
+                    //}
 
                 }
                 //Call update on all the powerups to move them
@@ -576,11 +576,13 @@ namespace Frosty_Cheeks
                 #endregion
 
                 #region player drawing
-                //player.DrawBoundingBox(spriteBatch, boundingBoxTex);//Fills in bounding box for testing
+                player.DrawBoundingBox(spriteBatch, boundingBoxTex);//Fills in bounding box for testing
                 player.Draw(spriteBatch);
                 #endregion
 
                 spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
+                spriteBatch.DrawString(distanceFont, "Speed: " + (int)player.Speed, new Vector2(20, 60), Color.White);
+
             }
             spriteBatch.End();
         }

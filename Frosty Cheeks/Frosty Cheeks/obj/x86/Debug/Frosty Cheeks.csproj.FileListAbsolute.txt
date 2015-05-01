@@ -122,3 +122,10 @@ D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\Windows
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon4.png
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wtbg.png
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wzbg.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon1.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon2.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon3.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon4.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\playagain.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wtbg.png
+C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wzbg.png

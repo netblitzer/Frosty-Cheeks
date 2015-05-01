@@ -140,4 +140,10 @@ JordON 4/30
 - Fixed code to implement new dev art (moving obstacle creates a GIANT black bar vertically downward)
 - Obstacles are either at a incorrect resolution or have incorrect coordinates (probably both)
 - I hate life
+- Removed some commented out stuff (clean up)
 -------------------------------------------------------------------------
+John 4/30
+- Fixed bounding box not moving with player during jumps
+	- Player movement now totally uses spritePosition instead of GamePiece's position
+- player.Position is pretty much obsolete now. But we're going to leave it ther anyway because fuck logic.
+- 

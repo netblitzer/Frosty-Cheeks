@@ -31,10 +31,10 @@ namespace Frosty_Cheeks
         private Color drawColor = Color.White;
         KeyboardState kState; // key state for input
         
-        float shorterPowerupStrength = 0.2f;
+        float shorterPowerupStrength = -0.2f;
         float longerPowerupStrength = 0.2f;
 
-        float tempChange = 0.01f;
+        float tempChange = -0.02f;
         float originalTemp;
 
         private float jumpHeight;
@@ -43,7 +43,7 @@ namespace Frosty_Cheeks
             get { return jumpHeight; }
             set { jumpHeight = value; }
         }
-        private float tempurature = 0;//The player's tempurate. 0 - coldest, 100 - hottest. Coorelate to hypothermia meter.
+        private float tempurature = 100;//The player's tempurate. 0 - coldest, 100 - hottest. Coorelate to hypothermia meter.
         public float Tempurature
         {
             get { return tempurature; }
@@ -68,29 +68,30 @@ namespace Frosty_Cheeks
             : base(_speed)
         {
 
-            Position = originalPosition = origPos;
-            originalTemp = Tempurature = 90;
+            
+            originalTemp = Tempurature = 100;
 
            //The player will slow down by 20% on hitting an obstacle
             /*string img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst*/
             SpriteObj = new Sprite("", Position, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, NEWTON_HEIGHT, NEWTON_WIDTH, NEWTON_OFFSET);
+            SpriteObj.SpriteLocation = originalPosition = origPos;
             SpriteObj.SpriteTexture = spriteSheet;
         }
         private void AmbientTempuratureChange() {
             if (Tempurature > 0)
             {
-                Tempurature -= tempChange;
+                Tempurature += tempChange;
             }
         }
         private void CalculateSpeed()//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
         {
-
+            Speed = Tempurature / 10;
         }
         public void PlayerUpdate(GameTime gameTime)
         {
             #region speed and temperature
             AmbientTempuratureChange();
-            ObstacleSlowDown = Speed;
+            CalculateSpeed();
             #endregion
 
             #region jumping
@@ -99,11 +100,11 @@ namespace Frosty_Cheeks
             kState = Keyboard.GetState();
             if (jumping)
             {
-                Position = new Vector2(Position.X, Position.Y + jumpspeed);
+                SpriteObj.SpriteLocation = new Vector2(SpriteObj.SpriteLocation.X, SpriteObj.SpriteLocation.Y + jumpspeed);
                 jumpspeed += 0.5f;
-                if (Position.Y >= originalPosition.Y)
+                if (SpriteObj.SpriteLocation.Y >= originalPosition.Y)
                 {
-                    Position = new Vector2(Position.X, originalPosition.Y);
+                    SpriteObj.SpriteLocation = new Vector2(SpriteObj.SpriteLocation.X, originalPosition.Y);
                     jumping = false;
                 }
             }
@@ -125,9 +126,9 @@ namespace Frosty_Cheeks
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {
-            sb.Draw(SpriteObj.SpriteTexture, Position, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            sb.Draw(SpriteObj.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
-        public void HitObstacle( Obstacle obs)
+        public void HitObstacle(Obstacle obs)
         {
             if(!obs.Destroyed){
                 //Originally decremented temperature by 1/4 of the current temp but that led to obstacles doing very little damage near the end of the player's life
@@ -138,9 +139,9 @@ namespace Frosty_Cheeks
         public void HitPowerup(Powerup powerup)  
         {
                 if(powerup is ShorterPowerup){
-                    tempChange += (tempChange * shorterPowerupStrength);//Takes a percentage of the current temp and takes it away from temperature
+                    tempChange += (shorterPowerupStrength * tempChange);//Takes a percentage of the current temp and takes it away from temperature
                 }else if(powerup is LongerPowerup){
-                    tempChange -= (tempChange * longerPowerupStrength);
+                    tempChange -= (longerPowerupStrength * tempChange);
                 }else if(powerup is SuperSaiyan){
                     //Expand for a surprise...
                     #region Kammmeeeeee..
@@ -188,12 +189,6 @@ namespace Frosty_Cheeks
             Rectangle otherBoundingBox = other.GetBoundingBox();
             GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
            
-            if(collide){
-                if (other is Powerup)
-                {
-                    Program.WriteLine("Powerup");
-                }
-            }
             return collide;
         }
         /*Write text to the debug console for testing stuffs*/
