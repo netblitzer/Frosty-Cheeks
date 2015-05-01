@@ -129,3 +129,5 @@ C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Deb
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\playagain.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wtbg.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wzbg.png
+C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb

@@ -155,3 +155,10 @@ JordON 4/30
 	- Also can be changed once we have our actual player
 - Implemented use of wind tunnels / warm zones (no temperature effect yet, will do tomorrow in GDAPS)
 -------------------------------------------------------------------------
+JordON 4/30
+- Wind tunnels and warm zones have temperature effects (balancing needed)
+- Implemented 2 means of temperature on top of John's original
+	- These are found in the "Different Modes Folder", each labeled what it's being calculated on
+	- My third mode will need a bit of effort to formulate and write up so for now it is on hold
+- No changes to the main file, only to my copies, and please don't edit or delete them
+-------------------------------------------------------------------------
