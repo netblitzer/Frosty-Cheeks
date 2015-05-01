@@ -303,6 +303,7 @@ namespace Frosty_Cheeks
             largeObstacleTexture = Content.Load<Texture2D>("DevObstacleIcon4.png");
             movingObstacleTexture = Content.Load<Texture2D>("DevObstacleIcon2.png");
 
+            #region Frame and Obstacle Texture Assignment Shit
             foreach (Frame frameLoad in frames)
             {
                 //handle frame texture
@@ -344,6 +345,7 @@ namespace Frosty_Cheeks
                     }
                 }
             }
+            #endregion
 
             #region Menu Shit
             // load button textures
@@ -407,11 +409,6 @@ namespace Frosty_Cheeks
                     {
                         // Scales the location of stuff to the viewport for now
                         obstacle.SpriteObj.SpriteLocation = new Vector2(obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200, obstacle.Position.Y / (1024 / GraphicsDevice.Viewport.Height));
-                        //obstacle.Position = obstacle.SpriteObj.SpriteLocation;
-                       /* if ((obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X <= 2 && (obstacle.Position.X + frameUpdate.FrameSprite.SpriteLocation.X - 200) - player.Position.X >= 0)
-                        {
-                            distanceScore++;
-                        }*/
                     }
                 }
 
@@ -420,6 +417,8 @@ namespace Frosty_Cheeks
                     frames.RemoveAt(0);
                     frames.Add(new Frame(1));
                     frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024, frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
+
+                    #region Assign New Frame and Obstacle Textures
                     //handle frame texture
                     if (frames[frames.Count - 1].FrameType == 0)
                     {
@@ -458,6 +457,7 @@ namespace Frosty_Cheeks
                             obstacle.SpriteObj.SpriteTexture = normalObstacleTexture;
                         }
                     }
+                    #endregion
                 }
 
 

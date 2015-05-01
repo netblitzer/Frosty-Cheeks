@@ -332,7 +332,7 @@ namespace FrostyCheeksEditor
             #region Adding New Obstacles
             saved = false;
             PictureBox obs = new PictureBox();
-            obs.Location = new System.Drawing.Point(rgen.Next(0, 368), 220);
+            obs.Location = new System.Drawing.Point(rgen.Next(0, 368), 300);
             obs.Size = new System.Drawing.Size(32, 32);
             obs.MaximumSize = new System.Drawing.Size(32, 32);
             obs.MinimumSize = new System.Drawing.Size(32, 32);
@@ -379,7 +379,7 @@ namespace FrostyCheeksEditor
             #region Adding New Obstacles
             saved = false;
             PictureBox obs = new PictureBox();
-            obs.Location = new System.Drawing.Point(rgen.Next(0, 336), 220);
+            obs.Location = new System.Drawing.Point(rgen.Next(0, 336), 300);
             obs.Size = new System.Drawing.Size(64, 32);
             obs.MaximumSize = new System.Drawing.Size(64, 32);
             obs.MinimumSize = new System.Drawing.Size(64, 32);
@@ -427,7 +427,7 @@ namespace FrostyCheeksEditor
             #region Adding New Obstacles
             saved = false;
             PictureBox obs = new PictureBox();
-            obs.Location = new System.Drawing.Point(rgen.Next(0, 356), 204);
+            obs.Location = new System.Drawing.Point(rgen.Next(0, 356), 284);
             obs.Size = new System.Drawing.Size(48, 48);
             obs.MaximumSize = new System.Drawing.Size(48, 48);
             obs.MinimumSize = new System.Drawing.Size(48, 48);
@@ -474,7 +474,7 @@ namespace FrostyCheeksEditor
             #region Adding New Obstacles
             saved = false;
             PictureBox obs = new PictureBox();
-            obs.Location = new System.Drawing.Point(rgen.Next(0, 336), 188);
+            obs.Location = new System.Drawing.Point(rgen.Next(0, 336), 268);
             obs.Size = new System.Drawing.Size(64, 64);
             obs.MaximumSize = new System.Drawing.Size(64, 64);
             obs.MinimumSize = new System.Drawing.Size(64, 64);

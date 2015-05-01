@@ -75,7 +75,7 @@ namespace Frosty_Cheeks
             }
             // Test value
             diff = 100;
-
+            frameType = rand.FrameType;
             obstacles = new List<Obstacle>();
             RandomizeObstacles();
             spr = new Sprite("bg.png", Vector2.Zero, 0, 1024, 1024);
@@ -115,7 +115,7 @@ namespace Frosty_Cheeks
                                     {
                                         case 0:
                                             obs = new Obstacle(reader.ReadInt32());
-                                            obs.SpriteObj = new Sprite("DevObstacle1.png", obsPos, (int)obsPos.Y, 130, 130);
+                                            obs.SpriteObj = new Sprite("DevObstacle1.png", obsPos, (int)obsPos.Y, 64, 64);
                                             obs.ObsType = 1;
                                             break;
                                         case 1:
@@ -146,6 +146,7 @@ namespace Frosty_Cheeks
                             catch (IOException ioe)
                             {
                                 Frame frm = new Frame(100, 0, Vector2.Zero);
+                                frm.frameType = frameTypeLoad;
                                 frm.availObstacles = obsList;
                                 availFrames.Add(frm);
                             }

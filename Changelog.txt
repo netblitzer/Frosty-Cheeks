@@ -146,4 +146,12 @@ John 4/30
 - Fixed bounding box not moving with player during jumps
 	- Player movement now totally uses spritePosition instead of GamePiece's position
 - player.Position is pretty much obsolete now. But we're going to leave it ther anyway because fuck logic.
-- 
+-------------------------------------------------------------------------
+JordON 4/30
+- I have fit the bounding box closer to the player
+- I have resized the Normal Obstacle to half of player's size 
+	- We can change the scale once our actual player is done
+- On the editor I have fixed the obstacles positions to the player's relative position
+	- Also can be changed once we have our actual player
+- Implemented use of wind tunnels / warm zones (no temperature effect yet, will do tomorrow in GDAPS)
+-------------------------------------------------------------------------

@@ -67,7 +67,7 @@ namespace Frosty_Cheeks
         public Player(float jump, float shorts, float temp, float _speed, Texture2D spriteSheet, Vector2 origPos)
             : base(_speed)
         {
-
+            
             
             originalTemp = Tempurature = 100;
 
@@ -187,9 +187,12 @@ namespace Frosty_Cheeks
             //Gets bounding box info from another GamePiece's sprite and uses MonoGame's built in method to check for a collision
             bool collide = false;
             Rectangle otherBoundingBox = other.GetBoundingBox();
-            GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
-           
-            return collide;
+            //GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
+
+            BoundingBox = new Rectangle((int)SpriteObj.SpriteLocation.X + 45, (int)SpriteObj.SpriteLocation.Y + 15, NEWTON_WIDTH - 95, NEWTON_HEIGHT - 20);
+            return BoundingBox.Intersects(otherBoundingBox);
+
+            //return collide;
         }
         /*Write text to the debug console for testing stuffs*/
     }
