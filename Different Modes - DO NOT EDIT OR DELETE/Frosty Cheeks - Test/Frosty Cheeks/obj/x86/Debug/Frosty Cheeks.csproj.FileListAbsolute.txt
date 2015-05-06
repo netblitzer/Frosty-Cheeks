@@ -8,6 +8,12 @@ D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\Windows
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\newton.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\toiler.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\thermometer.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\font.xnb
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\bg.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\pebble.png
 C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
 C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
 C:\Users\ethan_000\Documents\GDAPS Project CURRENT\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\bg.png
@@ -93,6 +99,11 @@ C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\bin
 C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\ethan_000\Documents\Frosty Cheeks GDAPS\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\back.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\credits.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\exit.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\howtoplay.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\start.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\back.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\credits.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\exit.png
@@ -100,8 +111,17 @@ C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Deb
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\start.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\longerPowerupTemp.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\shorterPowerupTemp.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\longerPowerupTemp.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\shorterPowerupTemp.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\playagain.png
 D:\Users\ljm1896\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
 D:\Users\ljm1896\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon1.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon2.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon3.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon4.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wtbg.png
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\wzbg.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon1.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon2.png
 C:\Users\John\Desktop\FrostyCheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon3.png
@@ -138,3 +158,23 @@ C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsG
 C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\SDL.dll
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.exe
+C:\Users\Jordan\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.pdb
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\SDL.dll
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.exe
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.pdb
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Lidgren.Network.dll
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\MonoGame.Framework.dll
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
+D:\Users\jdm3732\Documents\Frosty-Cheeks\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Test\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache

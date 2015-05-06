@@ -162,3 +162,9 @@ JordON 4/30
 	- My third mode will need a bit of effort to formulate and write up so for now it is on hold
 - No changes to the main file, only to my copies, and please don't edit or delete them
 -------------------------------------------------------------------------
+JordON 5/6
+- The main Frost Cheeks file is now fully updated with the ability to add your own textures as a user
+- **NOTE** The main Content folder is deleted. The main content folder is now deleted, please add your 
+  files to the Content folder in bin\WindowsGL\Debug\Content. Please also add them to the corresponding 
+  folders. Any assets that aren't an object or frame, place inside "Needed Textures".
+-------------------------------------------------------------------------

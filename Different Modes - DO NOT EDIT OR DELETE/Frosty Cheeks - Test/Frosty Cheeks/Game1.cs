@@ -81,6 +81,16 @@ namespace Frosty_Cheeks
         private Random rgenObstacleLarge;
         private Random rgenObstacleMoving;
 
+        // Temp Frame and Obstacle Fix
+        private Texture2D normalFrameTexture;
+        private Texture2D windTunnelFrameTexture;
+        private Texture2D warmZoneFrameTexture;
+
+        private Texture2D normalObstacleTexture;
+        private Texture2D mediumObstacleTexture;
+        private Texture2D largeObstacleTexture;
+        private Texture2D movingObstacleTexture;
+
         // enumeration
         private enum GameState { StartMenu, HowToPlay, Credits, Exit, Game, ScoreScreen };
         private GameState gameState;
@@ -166,12 +176,12 @@ namespace Frosty_Cheeks
             startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
 
             Frame.InitializeFrames();
-
+            
             frames = new List<Frame>();
 
             //initialize the hypometer
             hypoMeter = new Meter(new Vector2(625, 20), new Sprite("thermometer.png", Vector2.Zero, 0, 64, 128));
-
+            
             //add frames
             frames.Add(new Frame(1));
             frames.Add(new Frame(1));
@@ -223,7 +233,7 @@ namespace Frosty_Cheeks
             string[] neededTextures = Directory.GetFiles("Content\\Needed Textures");
             foreach (string fileName in neededTextures)
             {
-                File.Copy(fileName, "Content\\" + fileName.Substring(23));
+                    File.Copy(fileName, "Content\\" + fileName.Substring(23));
             }
 
             // normal frames
@@ -302,28 +312,38 @@ namespace Frosty_Cheeks
 
             boundingBoxTex = new Texture2D(GraphicsDevice, 1, 1);
             boundingBoxTex.SetData(new[] { Color.White });
-
+            
             //Instantiating these here so we KNOW that the content has been loade before we try to use it
             powerups = new ArrayList();
             pSpawner = new PowerupSpawner(5, shorterPowerupTex, longerPowerupTex, Window.ClientBounds.Width + (Window.ClientBounds.Width / 3));
-
+            
             player = new Player(1, 1, 1, 3, spriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
+
+            // temp frame and obstacle textures
+            normalFrameTexture = normalFrameTextures[rgenFrame.Next(0, normalFrameTextures.Count)];
+            windTunnelFrameTexture = windTunnelFrameTextures[rgenFrame.Next(0, windTunnelFrameTextures.Count)];
+            warmZoneFrameTexture = warmZoneFrameTextures[rgenFrame.Next(0, warmZoneFrameTextures.Count + 1)];
+
+            normalObstacleTexture = normalObstacleTextures[rgenObstacleNormal.Next(0, normalObstacleTextures.Count)];
+            mediumObstacleTexture = mediumObstacleTextures[rgenObstacleMedium.Next(0, mediumObstacleTextures.Count)];
+            largeObstacleTexture = largeObstacleTextures[rgenObstacleLarge.Next(0, largeObstacleTextures.Count)];
+            movingObstacleTexture = movingObstacleTextures[rgenObstacleMoving.Next(0, movingObstacleTextures.Count)];
 
             #region Frame and Obstacle Texture Assignment Shit
             foreach (Frame frameLoad in frames)
             {
                 //handle frame texture
-                if (frames[frames.Count - 1].FrameType == 0)
+                if (frameLoad.FrameType == 0)
                 {
-                    frameLoad.FrameSprite.SpriteTexture = normalFrameTextures[rgenFrame.Next(0, normalFrameTextures.Count)];
+                    frameLoad.FrameSprite.SpriteTexture = normalFrameTexture;
                 }
-                else if (frames[frames.Count - 1].FrameType == 1)
+                else if (frameLoad.FrameType == 1)
                 {
-                    frameLoad.FrameSprite.SpriteTexture = windTunnelFrameTextures[rgenFrame.Next(0, windTunnelFrameTextures.Count)];
+                    frameLoad.FrameSprite.SpriteTexture = windTunnelFrameTexture;
                 }
-                else if (frames[frames.Count - 1].FrameType == 2)
+                else if (frameLoad.FrameType == 2)
                 {
-                    frameLoad.FrameSprite.SpriteTexture = warmZoneFrameTextures[rgenFrame.Next(0, warmZoneFrameTextures.Count)];
+                    frameLoad.FrameSprite.SpriteTexture = warmZoneFrameTexture;
                 }
 
                 // handle obstacle textures
@@ -331,23 +351,23 @@ namespace Frosty_Cheeks
                 {
                     if (obstacle.ObsType == 1)
                     {
-                        obstacle.SpriteObj.SpriteTexture = normalObstacleTextures[rgenObstacleNormal.Next(0, normalObstacleTextures.Count)];
+                        obstacle.SpriteObj.SpriteTexture = normalObstacleTexture;
                     }
                     else if (obstacle.ObsType == 3)
                     {
-                        obstacle.SpriteObj.SpriteTexture = mediumObstacleTextures[rgenObstacleMedium.Next(0, mediumObstacleTextures.Count)];
+                        obstacle.SpriteObj.SpriteTexture = mediumObstacleTexture;
                     }
                     else if (obstacle.ObsType == 4)
                     {
-                        obstacle.SpriteObj.SpriteTexture = largeObstacleTextures[rgenObstacleLarge.Next(0, largeObstacleTextures.Count)];
+                        obstacle.SpriteObj.SpriteTexture = largeObstacleTexture;
                     }
                     else if (obstacle.ObsType == 2)
                     {
-                        obstacle.SpriteObj.SpriteTexture = movingObstacleTextures[rgenObstacleMoving.Next(0, movingObstacleTextures.Count)];
+                        obstacle.SpriteObj.SpriteTexture = movingObstacleTexture;
                     }
                     else
                     {
-                        obstacle.SpriteObj.SpriteTexture = normalObstacleTextures[rgenObstacleNormal.Next(0, normalObstacleTextures.Count)];
+                        obstacle.SpriteObj.SpriteTexture = normalObstacleTexture;
                     }
                 }
             }
@@ -392,7 +412,7 @@ namespace Frosty_Cheeks
             }
             prevState = mouseState;
             #endregion
-
+            
             // check for end game
             if (hypoMeter.ColdMeter >= 100 && gameOver == false)
             {
@@ -403,7 +423,7 @@ namespace Frosty_Cheeks
                 gameState = GameState.ScoreScreen;
                 // gameOver = false;
             }
-
+            
             // only run this update stuff if game is not in GameState.ScoreScreen
             if (gameState == GameState.Game)
             {
@@ -474,18 +494,17 @@ namespace Frosty_Cheeks
                     //Checks to see if enough time has passed for the spawner to create another powerup
                     //if(powerups.Count < 6)
                     //{
-                    powerups.Add(pSpawner.Spawn());
+                        powerups.Add(pSpawner.Spawn());
                     //}
 
                 }
                 //Call update on all the powerups to move them
-                if (powerups.Count > 0)
-                {
+                if(powerups.Count > 0){
                     foreach (Powerup p in powerups)//Check all powerups and call update if they havnt already been hit by the player
                     {
-                        if (p != null)
+                        if(p != null)
                         {
-                            if (!p.Destroyed)
+                            if(!p.Destroyed)
                             {
                                 p.Update(gameTime);
                             }
@@ -549,7 +568,7 @@ namespace Frosty_Cheeks
                 {
                     spriteBatch.DrawString(distanceFont, "" + score[i], new Vector2(scoreLocationX, scoreLocationY), Color.Black);
                     scoreLocationY += 20;
-                }
+                }          
             }
             #endregion
 
@@ -574,11 +593,9 @@ namespace Frosty_Cheeks
                 #endregion
 
                 #region powerup drawing
-                foreach (Powerup p in powerups)
-                {//Loop through all spawned powerups 
-                    if (!p.Destroyed)
-                    {//Make sure the player hasnt alread hit it
-                        // p.DrawBoundingBox(spriteBatch, boundingBoxTex);//Draw the bounding box for testing
+                foreach(Powerup p in powerups){//Loop through all spawned powerups 
+                    if(!p.Destroyed){//Make sure the player hasnt alread hit it
+                       // p.DrawBoundingBox(spriteBatch, boundingBoxTex);//Draw the bounding box for testing
                         p.Draw(spriteBatch);//..and draw it
                     }
                 }
@@ -704,7 +721,18 @@ namespace Frosty_Cheeks
             for (int i = 0; i < frames.Count; i++)
             {
                 frames[i].FrameSprite.SpriteLocation = new Vector2((1024 * i), frames[i].FrameSprite.SpriteLocation.Y);
+
+                #region Commented out
+                //Obstacle obs = new Obstacle(0);
+                //obs.Position = new Vector2(1000, 700);
+                //obs.SpriteObj = new Sprite("pebble.png", obs.Position, (int)obs.Position.Y, 66, 100);
+                //frames[i].Obstacles.Add(obs);
+                #endregion
             }
+
+            #region Test Shit
+
+            #endregion
 
             #region Menu Shit
             startPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 50);
