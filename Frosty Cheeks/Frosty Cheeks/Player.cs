@@ -26,6 +26,12 @@ namespace Frosty_Cheeks
         bool jumping;
         float jumpspeed;
         float startY;
+        float totalAliveTime;
+        float frameTimer;
+
+        private double shortsLength;
+        private double maxSpeed;
+        private const double MIN_SPEED = 2;
         
         public Color collideColor = Color.Blue;
         private Color drawColor = Color.White;
@@ -65,11 +71,14 @@ namespace Frosty_Cheeks
         public bool invunderable = false;
 
         public Player(float jump, float shorts, float temp, float _speed, Texture2D spriteSheet, Vector2 origPos)
-            : base(_speed)
+            : base(2)
         {
-            
-            
+
+            shortsLength = 6;
+            maxSpeed = shortsLength * 2;
+
             originalTemp = Tempurature = 100;
+            totalAliveTime = totalAliveTime = 0;
 
            //The player will slow down by 20% on hitting an obstacle
             /*string img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst*/
@@ -83,20 +92,41 @@ namespace Frosty_Cheeks
                 Tempurature += tempChange;
             }
         }
-        private void CalculateSpeed()//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
+        private void CalculateSpeed(GameTime gameTime)//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
         {
-            Speed = Tempurature / 10;
+            Speed += (float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500;
+            maxSpeed = shortsLength * 2;
+            if (Speed > maxSpeed)
+            {
+                Speed = (float)maxSpeed;
+            }
+            if (Speed < MIN_SPEED)
+            {
+                Speed = (float)MIN_SPEED;
+            }
+
         }
         public void PlayerUpdate(GameTime gameTime)
         {
             #region speed and temperature
             AmbientTempuratureChange();
-            CalculateSpeed();
+            CalculateSpeed(gameTime);
             #endregion
 
             #region jumping
-            framesElapsed = (int)(gameTime.TotalGameTime.TotalMilliseconds / timePerFrame); // check to see the total amount of frames so far
-            frame = framesElapsed % numFrames + 1; // frame your on is the total number of frames since launch modulated by how many frames there are +1
+            //framesElapsed = (int)(gameTime.TotalGameTime.TotalMilliseconds / timePerFrame); // check to see the total amount of frames so far
+            //frame = framesElapsed % numFrames + 1; // frame your on is the total number of frames since launch modulated by how many frames there are +1
+
+            // Test stuff
+            frameTimer += gameTime.ElapsedGameTime.Milliseconds;
+            while (frameTimer > timePerFrame)
+            {
+                frameTimer -= (float)timePerFrame;
+                framesElapsed++;
+            }
+            frame = framesElapsed % numFrames + 1;
+
+
             kState = Keyboard.GetState();
             if (jumping)
             {
@@ -123,6 +153,7 @@ namespace Frosty_Cheeks
             {
                 tempurature = 0;
             }
+            timePerFrame = 500 / Speed;
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {
@@ -132,6 +163,7 @@ namespace Frosty_Cheeks
         {
             if(!obs.Destroyed){
                 //Originally decremented temperature by 1/4 of the current temp but that led to obstacles doing very little damage near the end of the player's life
+                Speed -= Speed / 2;
                 Tempurature -= originalTemp / 5;
                 obs.Destroyed = true;
             }
@@ -140,8 +172,10 @@ namespace Frosty_Cheeks
         {
                 if(powerup is ShorterPowerup){
                     tempChange += (shorterPowerupStrength * tempChange);//Takes a percentage of the current temp and takes it away from temperature
+                    shortsLength += 1;
                 }else if(powerup is LongerPowerup){
                     tempChange -= (longerPowerupStrength * tempChange);
+                    shortsLength -= 1;
                 }else if(powerup is SuperSaiyan){
                     //Expand for a surprise...
                     #region Kammmeeeeee..

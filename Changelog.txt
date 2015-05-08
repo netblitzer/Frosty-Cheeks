@@ -168,3 +168,5 @@ JordON 5/6
   files to the Content folder in bin\WindowsGL\Debug\Content. Please also add them to the corresponding 
   folders. Any assets that aren't an object or frame, place inside "Needed Textures".
 -------------------------------------------------------------------------
+Ethan the Fuckbeast 5/7
+- Made the fucking game goddamn work in player.

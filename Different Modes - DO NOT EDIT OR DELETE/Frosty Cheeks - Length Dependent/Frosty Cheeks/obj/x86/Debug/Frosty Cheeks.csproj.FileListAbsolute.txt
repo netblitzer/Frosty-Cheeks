@@ -161,3 +161,33 @@ C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks - Length Dependent\Frosty 
 C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\Jordan\Documents\Frosty-Cheeks\Frosty Cheeks - Length Dependent\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.exe
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.pdb
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\bg.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\newton.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\pebble.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\thermometer.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\toiler.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\font.xnb
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\SDL.dll
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\back.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\credits.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon1.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon2.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon3.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\DevObstacleIcon4.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\exit.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\howtoplay.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\longerPowerupTemp.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\playagain.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\shorterPowerupTemp.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\start.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\wtbg.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Content\wzbg.png
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.exe
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Frosty Cheeks.pdb
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Lidgren.Network.dll
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\MonoGame.Framework.dll
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\OpenTK.dll
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\bin\WindowsGL\Debug\Tao.Sdl.dll
+D:\Users\epn8794\Documents\frosty\Different Modes - DO NOT EDIT OR DELETE\Frosty Cheeks - Length Dependent\Frosty Cheeks\obj\x86\Debug\Frosty Cheeks.csprojResolveAssemblyReference.cache

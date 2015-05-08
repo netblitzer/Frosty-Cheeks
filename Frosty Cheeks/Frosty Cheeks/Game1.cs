@@ -688,6 +688,7 @@ namespace Frosty_Cheeks
 
             // start location for player
             startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
+            player = new Player(1, 1, 1, 3, spriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
 
             frames = new List<Frame>();
 
