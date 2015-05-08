@@ -42,7 +42,8 @@ namespace Frosty_Cheeks
             get { return shortsLength; }
             set { shortsLength = value; }
         }
-        private double maxSpeed;
+        private float maxSpeed;
+        private float maxSpeedDelta;
         private const double MIN_SPEED = 2;
         
         public Color collideColor = Color.Blue;
@@ -82,13 +83,14 @@ namespace Frosty_Cheeks
         private int verticalDirection;//0 = falling, 1 = jumping
         public bool invunderable = false;
 
-        public bool godmode = true;
+        public bool godmode = false;
         public Player(float jump, float shorts, float temp, float _speed, Texture2D spriteSheet, Texture2D shortsSpriteSheet, Vector2 origPos)
             : base(2)
         {
 
             shortsLength = 6;
             maxSpeed = shortsLength * 2;
+            maxSpeedDelta = 0;
 
             originalTemp = Tempurature = 100;
             totalAliveTime = totalAliveTime = 0;
@@ -107,24 +109,15 @@ namespace Frosty_Cheeks
             #endregion
         }
         private void AmbientTempuratureChange() {
-            if (Tempurature > 0)
-            {
-                Tempurature += tempChange;
-            }
+            if(!godmode)
+                Tempurature = Clamp(Tempurature + ((3 - shortsLength) / 300f), 0f, 100f);
         }
         private void CalculateSpeed(GameTime gameTime)//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
         {
+            maxSpeedDelta += gameTime.ElapsedGameTime.Milliseconds / 12000f;
+            maxSpeed = Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f);
             Speed += (float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500;
-            maxSpeed = shortsLength * 2;
-            if (Speed > maxSpeed)
-            {
-                Speed = (float)maxSpeed;
-            }
-            if (Speed < MIN_SPEED)
-            {
-                Speed = (float)MIN_SPEED;
-            }
-
+            Speed = Clamp(Speed, 2f, maxSpeed);
         }
         public void PlayerUpdate(GameTime gameTime)
         {
@@ -170,10 +163,12 @@ namespace Frosty_Cheeks
 
             // dev kill
             //Commented out so we dont forget to remove it later
-            /*if (kState.IsKeyDown(Keys.Q))
+            if (kState.IsKeyDown(Keys.Q))
             {
                 tempurature = 0;
-            }*/
+            }
+            if (kState.IsKeyDown(Keys.G))
+                godmode = !godmode;
             timePerFrame = 500 / Speed;
         }
         public void Draw(SpriteBatch sb) // sprite with animation
@@ -194,10 +189,10 @@ namespace Frosty_Cheeks
         {
                 if(powerup is ShorterPowerup){
                     tempChange += (shorterPowerupStrength * tempChange);//Takes a percentage of the current temp and takes it away from temperature
-                    shortsLength += 1;
+                    shortsLength = Clamp(shortsLength + 1, 1, 12);
                 }else if(powerup is LongerPowerup){
                     tempChange -= (longerPowerupStrength * tempChange);
-                    shortsLength -= 1;
+                    shortsLength = Clamp(shortsLength - 1, 1, 12);
                 }else if(powerup is SuperSaiyan){
                     //Expand for a surprise...
                     #region Kammmeeeeee..
@@ -240,7 +235,7 @@ namespace Frosty_Cheeks
         }
         public bool IsColliding(GamePiece other)
         {
-            if(godmode && other is Powerup){
+           
                 //Gets bounding box info from another GamePiece's sprite and uses MonoGame's built in method to check for a collision
                 bool collide = false;
                 Rectangle otherBoundingBox = other.GetBoundingBox();
@@ -250,9 +245,27 @@ namespace Frosty_Cheeks
                 return BoundingBox.Intersects(otherBoundingBox);
 
                 //return collide;
-            }else{
-                return false;
-            }
+            
+        }
+
+        private int Clamp(int val, int min, int max)
+        {
+            if (val < min)
+                return min;
+            else if (val > max)
+                return max;
+
+            return val;
+        }
+
+        private float Clamp(float val, float min, float max)
+        {
+            if (val < min)
+                return min;
+            else if (val > max)
+                return max;
+
+            return val;
         }
         /*Write text to the debug console for testing stuffs*/
     }

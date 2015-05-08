@@ -209,3 +209,8 @@ Fun fact: Once your speed gets to 102, collisions are no longer a thing apperant
 Funny shit happens when you just let the game run in its current state. You will be amused.
 
 ------------------------------------------------------------------------
+Luke - 5/8/15
+- Tweaked power up spawning to be more difficult but not insane
+- Tweaked temperature to increase and decrease based on shorts length
+- Tweaked speed so difficulty increases as time goes on
+-------------------------------------------------------------------------

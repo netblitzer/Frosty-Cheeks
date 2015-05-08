@@ -37,6 +37,7 @@ namespace Frosty_Cheeks
         private List<Sprite> backList;
         private List<Sprite> foreList;
         private List<Sprite> roadList;
+        private bool contentLoaded;
 
         //Powerup Textures
         private Texture2D shorterPowerupTex;
@@ -241,82 +242,87 @@ namespace Frosty_Cheeks
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             #region Frame Texture Shit
-            // load in textures to the lists
-            // first clear files inside Content
-            string[] filesInContent = Directory.GetFiles("Content");
-            foreach (string fileName in filesInContent)
+            if (contentLoaded == false)
             {
-                File.Delete(fileName);
-            }
+                // load in textures to the lists
+                // first clear files inside Content
+                string[] filesInContent = Directory.GetFiles("Content");
+                foreach (string fileName in filesInContent)
+                {
+                    File.Delete(fileName);
+                }
 
-            // bring back the nedded textures
-            string[] neededTextures = Directory.GetFiles("Content\\Needed Textures");
-            foreach (string fileName in neededTextures)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(23));
-            }
+                // bring back the nedded textures
+                string[] neededTextures = Directory.GetFiles("Content\\Needed Textures");
+                foreach (string fileName in neededTextures)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(23));
+                }
 
-            // normal frames
-            string[] normalFrameTexturesToLoad = Directory.GetFiles("Content\\Normal Frames");
-            foreach (string fileName in normalFrameTexturesToLoad)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(23));
-                Texture2D temp = Content.Load<Texture2D>(fileName.Substring(23));
-                normalFrameTextures.Add(temp);
-            }
+                // normal frames
+                string[] normalFrameTexturesToLoad = Directory.GetFiles("Content\\Normal Frames");
+                foreach (string fileName in normalFrameTexturesToLoad)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(23));
+                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(23));
+                    normalFrameTextures.Add(temp);
+                }
 
-            // wind tunnel frames
-            string[] windTunnelFrameTexturesToLoad = Directory.GetFiles("Content\\Wind Tunnel Frames");
-            foreach (string fileName in windTunnelFrameTexturesToLoad)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(26));
-                Texture2D temp = Content.Load<Texture2D>(fileName.Substring(27));
-                windTunnelFrameTextures.Add(temp);
-            }
+                // wind tunnel frames
+                string[] windTunnelFrameTexturesToLoad = Directory.GetFiles("Content\\Wind Tunnel Frames");
+                foreach (string fileName in windTunnelFrameTexturesToLoad)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(26));
+                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(27));
+                    windTunnelFrameTextures.Add(temp);
+                }
 
-            // warm zone frames
-            string[] warmZoneFrameTexturesToLoad = Directory.GetFiles("Content\\Warm Zone Frames");
-            foreach (string fileName in warmZoneFrameTexturesToLoad)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(25));
-                Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                warmZoneFrameTextures.Add(temp);
-            }
+                // warm zone frames
+                string[] warmZoneFrameTexturesToLoad = Directory.GetFiles("Content\\Warm Zone Frames");
+                foreach (string fileName in warmZoneFrameTexturesToLoad)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(25));
+                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                    warmZoneFrameTextures.Add(temp);
+                }
 
-            // normal obstacle frames
-            string[] normalObstacleTexturesToLoad = Directory.GetFiles("Content\\Normal Obstacles");
-            foreach (string fileName in normalObstacleTexturesToLoad)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                normalObstacleTextures.Add(temp);
-            }
+                // normal obstacle frames
+                string[] normalObstacleTexturesToLoad = Directory.GetFiles("Content\\Normal Obstacles");
+                foreach (string fileName in normalObstacleTexturesToLoad)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                    normalObstacleTextures.Add(temp);
+                }
 
-            // medium obstacle frames
-            string[] mediumObstacleTexturesToLoad = Directory.GetFiles("Content\\Medium Obstacles");
-            foreach (string fileName in mediumObstacleTexturesToLoad)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                mediumObstacleTextures.Add(temp);
-            }
+                // medium obstacle frames
+                string[] mediumObstacleTexturesToLoad = Directory.GetFiles("Content\\Medium Obstacles");
+                foreach (string fileName in mediumObstacleTexturesToLoad)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                    mediumObstacleTextures.Add(temp);
+                }
 
-            // large obstacle frames
-            string[] largeObstacleTexturesToLoad = Directory.GetFiles("Content\\Large Obstacles");
-            foreach (string fileName in largeObstacleTexturesToLoad)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                Texture2D temp = Content.Load<Texture2D>(fileName.Substring(24));
-                largeObstacleTextures.Add(temp);
-            }
+                // large obstacle frames
+                string[] largeObstacleTexturesToLoad = Directory.GetFiles("Content\\Large Obstacles");
+                foreach (string fileName in largeObstacleTexturesToLoad)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(24));
+                    largeObstacleTextures.Add(temp);
+                }
 
-            // moving obstacle frames
-            string[] movingObstacleTexturesToLoad = Directory.GetFiles("Content\\Moving Obstacles");
-            foreach (string fileName in movingObstacleTexturesToLoad)
-            {
-                File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                movingObstacleTextures.Add(temp);
+                // moving obstacle frames
+                string[] movingObstacleTexturesToLoad = Directory.GetFiles("Content\\Moving Obstacles");
+                foreach (string fileName in movingObstacleTexturesToLoad)
+                {
+                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                    movingObstacleTextures.Add(temp);
+                }
+
+                contentLoaded = true;
             }
             #endregion
 
@@ -531,7 +537,9 @@ namespace Frosty_Cheeks
                     //Checks to see if enough time has passed for the spawner to create another powerup
                     //if(powerups.Count < 6)
                     //{
-                    powerups.Add(pSpawner.Spawn());
+                    Powerup pwr = pSpawner.TrySpawn();
+                    if (pwr != null)
+                        powerups.Add(pwr);
                     //}
 
                 }

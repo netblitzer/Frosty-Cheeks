@@ -35,15 +35,18 @@ namespace Frosty_Cheeks
             speed = gameSpeed;
             time = gameTime;
         }
-        public Powerup Spawn()
+        public Powerup TrySpawn()
         {
-            if(randoCalrission.Next(10) >= 5){
-                return(Spawn(0));
-            }
-            else
+            int r = randoCalrission.Next(51);
+            if (r <= 5)
             {
-                return(Spawn(0));
+                return (Spawn(0));
             }
+            else if (r >= 45)
+            {
+                return (Spawn(1));
+            }
+            else return null;
         }
         public Powerup Spawn(int type)//Input 0 to spawn a shorter powerup and 1 to spawn a longer powerup
         {
@@ -60,7 +63,7 @@ namespace Frosty_Cheeks
                     p = new ShorterPowerup(speed, longTex, spawnX);
                     break;
             }
-            spawnWait = randoCalrission.Next(1, (int)spawnWait);
+            spawnWait = randoCalrission.Next(5, (int)spawnWait);
             return p;
             
         }
