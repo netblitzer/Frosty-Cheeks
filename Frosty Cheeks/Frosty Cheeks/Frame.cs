@@ -109,7 +109,7 @@ namespace Frosty_Cheeks
                             {
                                 while ((obsType = reader.ReadInt32()) != null)
                                 {
-                                    obsPos = new Vector2(reader.ReadInt32(), reader.ReadInt32());
+                                    obsPos = new Vector2(reader.ReadInt32(), reader.ReadInt32() + 115);
                                     Obstacle obs = null;
                                     switch (obsType)
                                     {

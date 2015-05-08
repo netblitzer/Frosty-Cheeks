@@ -107,8 +107,8 @@ namespace FrostyCheeksEditor
                                 output.Write(3);
                             }
                             debugTextBox.Text += "obstacle at: " + obstacles[i].Location + " with speed: " + obsSpeeds[i] + Environment.NewLine;
-                            output.Write(obstacles[i].Location.X * (1024 / 400));
-                            output.Write(obstacles[i].Location.Y * (1024 / 400));
+                            output.Write(obstacles[i].Location.X * (int)(1024.0 / 380));
+                            output.Write(obstacles[i].Location.Y * (int)(1024.0 / 380));
                             output.Write(obsSpeeds[i]);
                         }
                         output.Close();
@@ -204,7 +204,7 @@ namespace FrostyCheeksEditor
                             while ((obstype = input.ReadInt32()) != null)
                             {
                                 PictureBox obs = new PictureBox();
-                                obs.Location = new System.Drawing.Point(input.ReadInt32() / (1024 / 400), input.ReadInt32() / (1024 / 400));
+                                obs.Location = new System.Drawing.Point(input.ReadInt32() / (int)(1024.0 / 380), input.ReadInt32() / (int)(1024.0 / 380));
 
                                 switch (obstype)
                                 {
@@ -305,8 +305,8 @@ namespace FrostyCheeksEditor
                             output.Write(3);
                         }
                         debugTextBox.Text += "obstacle at: " + obstacles[i].Location + " with speed: " + obsSpeeds[i] + Environment.NewLine;
-                        output.Write(obstacles[i].Location.X * (1024 / 400));
-                        output.Write(obstacles[i].Location.Y * (1024 / 400));
+                        output.Write(obstacles[i].Location.X * (int)(1024.0 / 380));
+                        output.Write(obstacles[i].Location.Y * (int)(1024.0 / 380));
                         output.Write(obsSpeeds[i]);
                     }
                     output.Close();

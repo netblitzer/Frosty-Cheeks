@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +33,10 @@ namespace Frosty_Cheeks
         private Vector2 startLoc;
         private bool gameOver;
         private PowerupSpawner pSpawner;
+        private List<Sprite> skyList;
+        private List<Sprite> backList;
+        private List<Sprite> foreList;
+        private List<Sprite> roadList;
 
         //Powerup Textures
         private Texture2D shorterPowerupTex;
@@ -69,6 +75,10 @@ namespace Frosty_Cheeks
         private List<Texture2D> normalFrameTextures;
         private List<Texture2D> windTunnelFrameTextures;
         private List<Texture2D> warmZoneFrameTextures;
+        private List<Texture2D> skyTextureList;
+        private List<Texture2D> backTextureList;
+        private List<Texture2D> foreTextureList;
+        private Texture2D roadTexture;
 
         private List<Texture2D> normalObstacleTextures;
         private List<Texture2D> mediumObstacleTextures;
@@ -102,10 +112,14 @@ namespace Frosty_Cheeks
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+        /// 
+
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             gameOver = false;
+
+            
 
             #region Score Stuff
             // scores
@@ -163,11 +177,15 @@ namespace Frosty_Cheeks
             #endregion
 
             // start location for player
-            startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
+            startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height * 2 / 3 - 20);
 
             Frame.InitializeFrames();
 
             frames = new List<Frame>();
+            skyList = new List<Sprite>();
+            backList = new List<Sprite>();
+            foreList = new List<Sprite>();
+            roadList = new List<Sprite>();
 
             //initialize the hypometer
             hypoMeter = new Meter(new Vector2(625, 20), new Sprite("thermometer.png", Vector2.Zero, 0, 64, 128));
@@ -180,7 +198,18 @@ namespace Frosty_Cheeks
 
             for (int i = 0; i < frames.Count; i++)
             {
-                frames[i].FrameSprite.SpriteLocation = new Vector2((1024 * i), frames[i].FrameSprite.SpriteLocation.Y);
+                if (i == 0)
+                    frames[i].FrameSprite.SpriteLocation = new Vector2(2048, frames[i].FrameSprite.SpriteLocation.Y);
+                else
+                    frames[i].FrameSprite.SpriteLocation = new Vector2((frames[i-1].FrameSprite.SpriteLocation.X + 1024 * i + rgenFrame.Next(1024)), frames[i].FrameSprite.SpriteLocation.Y);
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                skyList.Add(new Sprite("", new Vector2(1920 * i, 0), 0, 1536, 4096));
+                backList.Add(new Sprite("", new Vector2(480 * i, 0), 0, 1024, 1024));
+                foreList.Add(new Sprite("", new Vector2(1920 * i, 0), 0, 1024, 4096));
+                roadList.Add(new Sprite("", new Vector2(480 * i, 0), 0, 1024, 1024));
             }
 
             #region Menu Shit
@@ -291,7 +320,7 @@ namespace Frosty_Cheeks
             #endregion
 
             // TODO: Load in textures here - who has the textures?
-            spriteSheet = Content.Load<Texture2D>("newton.png"); // LOAD IN CHARACTER SPRITESHEET HERE
+            spriteSheet = Content.Load<Texture2D>("charspritesheet.png"); // LOAD IN CHARACTER SPRITESHEET HERE
             hypoMeter.GuiSprite.SpriteTexture = Content.Load<Texture2D>("thermometer.png"); // thermometer
             distanceFont = Content.Load<SpriteFont>("font");
 
@@ -351,6 +380,14 @@ namespace Frosty_Cheeks
                     }
                 }
             }
+
+            for (int i = 0; i < 3; i++)
+            {
+                skyList[i].SpriteTexture = Content.Load<Texture2D>("skybackdrop");
+                backList[i].SpriteTexture = Content.Load<Texture2D>("treebacklayer");
+                foreList[i].SpriteTexture = Content.Load<Texture2D>("treeforelayer");
+                roadList[i].SpriteTexture = Content.Load<Texture2D>("roadforelayer");
+            }
             #endregion
 
             #region Menu Shit
@@ -407,6 +444,24 @@ namespace Frosty_Cheeks
             // only run this update stuff if game is not in GameState.ScoreScreen
             if (gameState == GameState.Game)
             {
+                for (int i = 0; i < 3; i++)
+                {
+                    skyList[i].SpriteLocation = new Vector2(skyList[i].SpriteLocation.X - (player.Speed / 10), 0);
+                    if (skyList[i].SpriteLocation.X <= -1920)
+                        skyList[i].SpriteLocation = new Vector2(skyList[i].SpriteLocation.X + 5760, 0);
+
+                    backList[i].SpriteLocation = new Vector2(backList[i].SpriteLocation.X - (player.Speed / 6), 54);
+                    if (backList[i].SpriteLocation.X <= -480)
+                        backList[i].SpriteLocation = new Vector2(backList[i].SpriteLocation.X + 1440, 54);
+
+                    foreList[i].SpriteLocation = new Vector2(foreList[i].SpriteLocation.X - (player.Speed / 2), 0);
+                    if (foreList[i].SpriteLocation.X <= -1920)
+                        foreList[i].SpriteLocation = new Vector2(foreList[i].SpriteLocation.X + 5760, 0);
+                    
+                    roadList[i].SpriteLocation = new Vector2(roadList[i].SpriteLocation.X - player.Speed, 96);
+                    if (roadList[i].SpriteLocation.X <= -480)
+                        roadList[i].SpriteLocation = new Vector2(roadList[i].SpriteLocation.X + 1440, 96);
+                }
                 foreach (Frame frameUpdate in frames)
                 {
                     frameUpdate.FrameSprite.SpriteLocation = new Vector2(frameUpdate.FrameSprite.SpriteLocation.X - player.Speed, 0);
@@ -422,7 +477,7 @@ namespace Frosty_Cheeks
                 {
                     frames.RemoveAt(0);
                     frames.Add(new Frame(1));
-                    frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024, frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
+                    frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024 + rgenFrame.Next(1024), frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
 
                     #region Assign New Frame and Obstacle Textures
                     //handle frame texture
@@ -555,16 +610,24 @@ namespace Frosty_Cheeks
 
             if (gameState == GameState.Game)
             {
-                foreach (Frame frameDraw in frames)
+                #region background drawing
+                for (int i = 0; i < 3; i++)
                 {
-                    frameDraw.FrameSprite.DrawScale(gameTime, spriteBatch);
-                    foreach (Obstacle obstacle in frameDraw.Obstacles)
-                    {
-                        obstacle.SpriteObj.Draw(gameTime, spriteBatch);
-                        //obstacle.DrawBoundingBox(spriteBatch, boundingBoxTex);//Draw the bounding box for testing
-                    }
-
+                    skyList[i].DrawScale(gameTime, spriteBatch, 1920, 480);
                 }
+                for (int i = 0; i < 3; i++)
+                {
+                    backList[i].DrawScale(gameTime, spriteBatch);
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    foreList[i].DrawScale(gameTime, spriteBatch, 1680, 420);
+                }
+                #endregion
+                    foreach (Frame frameDraw in frames)
+                    {
+                        frameDraw.FrameSprite.DrawScale(gameTime, spriteBatch);
+                    }
 
                 #region coldMeter
                 hypoMeter.ColdMeter = 100 - player.Tempurature;
@@ -573,6 +636,20 @@ namespace Frosty_Cheeks
                 spriteBatch.Draw(hypoMeter.GuiSprite.SpriteTexture, hypoMeter.Position, new Rectangle(0, 0, (int)(hypoMeter.GuiSprite.SpriteTexture.Width * (hypoMeter.ColdMeter / 100)), hypoMeter.GuiSprite.SpriteTexture.Height), Color.Blue, 0, Vector2.Zero, 0.025f, SpriteEffects.None, 0);
                 #endregion
 
+                for (int i = 0; i < 3; i++)
+                {
+                    roadList[i].DrawScale(gameTime, spriteBatch);
+                }
+
+                foreach (Frame frameDraw in frames)
+                {
+                    foreach (Obstacle obstacle in frameDraw.Obstacles)
+                    {
+                        obstacle.SpriteObj.Draw(gameTime, spriteBatch);
+                        //obstacle.DrawBoundingBox(spriteBatch, boundingBoxTex);//Draw the bounding box for testing
+                    }
+
+                }
                 #region powerup drawing
                 foreach (Powerup p in powerups)
                 {//Loop through all spawned powerups 
@@ -687,7 +764,7 @@ namespace Frosty_Cheeks
             distanceScore = 0;
 
             // start location for player
-            startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height / 2);
+            startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height * 2 / 3 - 20);
             player = new Player(1, 1, 1, 3, spriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
 
             frames = new List<Frame>();
@@ -704,7 +781,10 @@ namespace Frosty_Cheeks
 
             for (int i = 0; i < frames.Count; i++)
             {
-                frames[i].FrameSprite.SpriteLocation = new Vector2((1024 * i), frames[i].FrameSprite.SpriteLocation.Y);
+                if (i == 0)
+                    frames[i].FrameSprite.SpriteLocation = new Vector2(2048, frames[i].FrameSprite.SpriteLocation.Y);
+                else
+                    frames[i].FrameSprite.SpriteLocation = new Vector2((frames[i - 1].FrameSprite.SpriteLocation.X + 1024 * i + rgenFrame.Next(1024)), frames[i].FrameSprite.SpriteLocation.Y);
             }
 
             #region Menu Shit

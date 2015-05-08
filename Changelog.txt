@@ -170,3 +170,11 @@ JordON 5/6
 -------------------------------------------------------------------------
 Ethan the Fuckbeast 5/7
 - Made the fucking game goddamn work in player.
+
+-------------------------------------------------------------------------
+Luke 5-7-15
+- Added art
+  - Backgrounds, layers, roads, character, shorts, almost everything :D
+- Got character sprite working, tweaked some position settings
+- Frames now are more random
+  - run-up time at start, frames have random spaces between each other

@@ -34,7 +34,7 @@ namespace Frosty_Cheeks
         public Powerup(float _speed, Texture2D texture, float spawnX)
             : base(_speed)
         {
-            Position = new Vector2(spawnX, 280);
+            Position = new Vector2(spawnX, 330);
             SpriteObj = new Sprite("", Position, (int)Position.Y, texture.Width, texture.Height);
             SpriteObj.SpriteTexture = texture;
         }

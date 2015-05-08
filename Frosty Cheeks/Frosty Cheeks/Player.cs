@@ -17,11 +17,11 @@ namespace Frosty_Cheeks
     {
         int frame; // frame of animation that is currently on
         double timePerFrame = 70; // set 100 ms per frame
-        int numFrames = 6; // # frames in whole animation
+        int numFrames = 15; // # frames in whole animation
         int framesElapsed; // frames elapsed since last checked for frames
         const int NEWTON_Y = 0; // how far down the sprite starts
         const int NEWTON_HEIGHT = 128; // how high the sprite box will be
-        const int NEWTON_WIDTH = 150; // how wide the sprite box will be
+        const int NEWTON_WIDTH = 128; // how wide the sprite box will be
         const int NEWTON_OFFSET = -10; // allows sprite to mirror properly
         bool jumping;
         float jumpspeed;
@@ -82,7 +82,7 @@ namespace Frosty_Cheeks
 
            //The player will slow down by 20% on hitting an obstacle
             /*string img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst*/
-            SpriteObj = new Sprite("", Position, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, NEWTON_HEIGHT, NEWTON_WIDTH, NEWTON_OFFSET);
+            SpriteObj = new Sprite("", Position, new Rectangle((frame % 4) * NEWTON_WIDTH, NEWTON_HEIGHT * (int)(frame / 4), NEWTON_WIDTH, NEWTON_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, NEWTON_HEIGHT, NEWTON_WIDTH, NEWTON_OFFSET);
             SpriteObj.SpriteLocation = originalPosition = origPos;
             SpriteObj.SpriteTexture = spriteSheet;
         }
@@ -157,7 +157,7 @@ namespace Frosty_Cheeks
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {
-            sb.Draw(SpriteObj.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(NEWTON_OFFSET + frame * NEWTON_WIDTH, NEWTON_Y, NEWTON_WIDTH, NEWTON_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            sb.Draw(SpriteObj.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle((frame % 4) * NEWTON_WIDTH, NEWTON_HEIGHT * (int)(frame / 4), NEWTON_WIDTH, NEWTON_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
         public void HitObstacle(Obstacle obs)
         {
