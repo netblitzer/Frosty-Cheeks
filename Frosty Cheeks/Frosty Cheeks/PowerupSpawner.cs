@@ -42,7 +42,7 @@ namespace Frosty_Cheeks
             }
             else
             {
-                return(Spawn(1));
+                return(Spawn(0));
             }
         }
         public Powerup Spawn(int type)//Input 0 to spawn a shorter powerup and 1 to spawn a longer powerup
@@ -60,7 +60,7 @@ namespace Frosty_Cheeks
                     p = new ShorterPowerup(speed, longTex, spawnX);
                     break;
             }
-            spawnWait = randoCalrission.Next(5, 15);
+            spawnWait = randoCalrission.Next(1, (int)spawnWait);
             return p;
             
         }

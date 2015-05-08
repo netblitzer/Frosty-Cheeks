@@ -95,7 +95,10 @@ namespace Frosty_Cheeks
         private enum GameState { StartMenu, HowToPlay, Credits, Exit, Game, ScoreScreen };
         private GameState gameState;
 
+        //Player Textures
         Texture2D spriteSheet; // sprite sheet to load
+        Texture2D shortsSpriteSheet;
+
         int startY;
         #endregion
 
@@ -118,8 +121,6 @@ namespace Frosty_Cheeks
         {
             // TODO: Add your initialization logic here
             gameOver = false;
-
-            
 
             #region Score Stuff
             // scores
@@ -177,7 +178,7 @@ namespace Frosty_Cheeks
             #endregion
 
             // start location for player
-            startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height * 2 / 3 - 20);
+            startLoc = new Vector2(Window.ClientBounds.Width / 4, Window.ClientBounds.Height * 2 / 3 - 20);
 
             Frame.InitializeFrames();
 
@@ -321,6 +322,7 @@ namespace Frosty_Cheeks
 
             // TODO: Load in textures here - who has the textures?
             spriteSheet = Content.Load<Texture2D>("charspritesheet.png"); // LOAD IN CHARACTER SPRITESHEET HERE
+            shortsSpriteSheet = Content.Load<Texture2D>("charshortsspritesheet.png"); 
             hypoMeter.GuiSprite.SpriteTexture = Content.Load<Texture2D>("thermometer.png"); // thermometer
             distanceFont = Content.Load<SpriteFont>("font");
 
@@ -334,9 +336,9 @@ namespace Frosty_Cheeks
 
             //Instantiating these here so we KNOW that the content has been loade before we try to use it
             powerups = new ArrayList();
-            pSpawner = new PowerupSpawner(5, shorterPowerupTex, longerPowerupTex, Window.ClientBounds.Width + (Window.ClientBounds.Width / 3));
+            pSpawner = new PowerupSpawner(10, shorterPowerupTex, longerPowerupTex, Window.ClientBounds.Width + (Window.ClientBounds.Width / 3));
 
-            player = new Player(1, 1, 1, 3, spriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
+            player = new Player(1, 1, 1, 3, spriteSheet, shortsSpriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
 
             #region Frame and Obstacle Texture Assignment Shit
             foreach (Frame frameLoad in frames)
@@ -542,7 +544,7 @@ namespace Frosty_Cheeks
                         {
                             if (!p.Destroyed)
                             {
-                                p.Update(gameTime);
+                                p.Update(gameTime,(int) player.Speed);
                             }
                         }
                     }
@@ -662,12 +664,13 @@ namespace Frosty_Cheeks
                 #endregion
 
                 #region player drawing
-                player.DrawBoundingBox(spriteBatch, boundingBoxTex);//Fills in bounding box for testing
+                //player.DrawBoundingBox(spriteBatch, boundingBoxTex);//Fills in bounding box for testing
                 player.Draw(spriteBatch);
                 #endregion
 
                 spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
                 spriteBatch.DrawString(distanceFont, "Speed: " + (int)player.Speed, new Vector2(20, 60), Color.White);
+                spriteBatch.DrawString(distanceFont, "ShortsLength: " + player.ShortsLength, new Vector2(20, 100), Color.White);
 
             }
             spriteBatch.End();
@@ -765,7 +768,7 @@ namespace Frosty_Cheeks
 
             // start location for player
             startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height * 2 / 3 - 20);
-            player = new Player(1, 1, 1, 3, spriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
+            player = new Player(1, 1, 1, 3, spriteSheet, shortsSpriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
 
             frames = new List<Frame>();
 

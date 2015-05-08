@@ -31,7 +31,7 @@ Added basic fields with properties to several classes
 	- float shorts length
 
 Have a happy day!
-
+------------------------------------------------------------------------
 Ethan Nichols 3/19/2015
 Added following classes:
 - Sprite
@@ -44,24 +44,28 @@ Joh 3/19/15
 - Added float speed and Vector2 velocity to MoveableGamepiece.cs
 - Added constructors to MoveableGamePiece, Player and GamePiece
 - Added method stubs to Player class for Jump, HitObstacle and PlayAnimation
+
 ------------------------------------------------------------------------
 Luke 3-27-15
 - Frame.cs
 	- InitializeFrames() method for creating all the frames
 	- Constructor (will) grab a random frame and make random obstacles
 	- Position, Obstacles, enum properties
+
 ----------------------------------------------------------------------------
 Joh 3/30/15
 - Fixed bugs with MoveableGamePiece child constructors
 - Added IsColliding() method to GamePiece that takes another GamePiece and checks to see if their sprites are colliding
 - Commented out duplicate SpriteHeight property in Sprite.cs
 - BUG: Sprite Draw method is trying to override Draw from something else but there's nothing there to override, so I commented it out for now.
+
 ----------------------------------------------------------------------------
 JordON 4/1/15
 -Only worked on Game.cs
 -Sir Issac Newton is now our player, haha
 -Player moves and jumps
 -Temporary Obstacle moves towards the player
+
 ----------------------------------------------------------------------------
 Luke 4- 1,2,3 -15
 - Frame.cs
@@ -76,7 +80,7 @@ Luke 4- 1,2,3 -15
 	- Randomly spawns objects when you click to place them
 	- Saves frames to be used
 ----------------------------------------------------------------------------
-Joh 4-13
+Joh 4/13
 - Fixed incorect bounding box locations
 - Removed crowded frames and replaced them with one frame, with one obstacle for easier testing
 - Linked cold meter in Game.cs to player.Tempurature
@@ -86,6 +90,7 @@ Joh 4-13
 - Added DBX ascii art to comments ;)
 - Cleaned up code in Player.cs
 - Added method stub for CalculateTempurate (will complete later tonight)
+
 ----------------------------------------------------------------------------
 JordON 4/16
 - Changed the HypoMeter, the meter now increases, filling in the blue part
@@ -94,18 +99,21 @@ JordON 4/16
 - Need to implement binary file for displaying and storing highscores (names will not be included)
 - There is a Dev Kill key for testing purposes. This key is Q
 - Did a small tidbit of cleanup
+
 -------------------------------------------------------------------------
-Joh 4-16
+Joh 4/16
 - Added PowerupSpawner class which is instantiated in Game.cs. It spawns in powerups after semi-random lengths of time.
 - Added standin art for longer shorts powerups and shorter shorts powerup
 - Powerups move to the right (at an arbitrary speed for now; player speed doesn't seem to sync up correctly)
 - Set up basework for Powerup collisions similarly to obstacle collisions
+
 -------------------------------------------------------------------------
 JordON 4/17
 - The end game logic now works
 - Game resets on hitting Start button, allowing the game to be played countless times
+
 -------------------------------------------------------------------------
-Joh 4-19
+Joh 4/19
 - Added SmallObstacle, MediumObstacle and LargeObstacle stub classes to help with FrameBuilder stuff
 - Powerups spawn off screen and scroll across with the same speed as background and obstacles
 - Powerups spawn 
@@ -113,8 +121,9 @@ Joh 4-19
 - Powerups spawn at random 5 - 15 second intervals
 - TODO: Powerups do not collide with / effect the player -- will fix
 - TODO: Powerups do not despawn when they are off the screen -- will fix
+
 -------------------------------------------------------------------------
-Joh 4-21
+Joh 4/21
 - Fixed issue with collisions where Frame stuff in Game.cs was only updating its obstacles' sprite position but not its object position
 - This ^ fix got powerup collisions working
 - Moved collision logic to its own method in Game.cs
@@ -122,16 +131,19 @@ Joh 4-21
 - Powerups dissapear when player collides with them
 - Added method in GamePiece to display all GamePieces' bounding boxes in red 
 - Found out that the reason collisions are getting triggered early is because of the empty space surrounding the Newton sprite.
+
 -------------------------------------------------------------------------
 JordON 4/23
 - Score screen is fully functional
 - We can change the location of what's on the screen at any time
 - Do I have added a .dat file and a blank text file for highscores
+
 -------------------------------------------------------------------------
 Luke 4-29-15
 - Frame.cs
 	- Fixed it to new standards
 - Frame Builder ¡COMPLETED!
+
 ----------------------------------------------------------------------------
 JordON 4/30
 - I did shit and stuff #frustration
@@ -141,8 +153,9 @@ JordON 4/30
 - Obstacles are either at a incorrect resolution or have incorrect coordinates (probably both)
 - I hate life
 - Removed some commented out stuff (clean up)
+
 -------------------------------------------------------------------------
-John 4/30
+John 4/30/15
 - Fixed bounding box not moving with player during jumps
 	- Player movement now totally uses spritePosition instead of GamePiece's position
 - player.Position is pretty much obsolete now. But we're going to leave it ther anyway because fuck logic.
@@ -154,6 +167,7 @@ JordON 4/30
 - On the editor I have fixed the obstacles positions to the player's relative position
 	- Also can be changed once we have our actual player
 - Implemented use of wind tunnels / warm zones (no temperature effect yet, will do tomorrow in GDAPS)
+
 -------------------------------------------------------------------------
 JordON 4/30
 - Wind tunnels and warm zones have temperature effects (balancing needed)
@@ -161,12 +175,14 @@ JordON 4/30
 	- These are found in the "Different Modes Folder", each labeled what it's being calculated on
 	- My third mode will need a bit of effort to formulate and write up so for now it is on hold
 - No changes to the main file, only to my copies, and please don't edit or delete them
+
 -------------------------------------------------------------------------
 JordON 5/6
 - The main Frost Cheeks file is now fully updated with the ability to add your own textures as a user
 - **NOTE** The main Content folder is deleted. The main content folder is now deleted, please add your 
   files to the Content folder in bin\WindowsGL\Debug\Content. Please also add them to the corresponding 
   folders. Any assets that aren't an object or frame, place inside "Needed Textures".
+
 -------------------------------------------------------------------------
 Ethan the Fuckbeast 5/7
 - Made the fucking game goddamn work in player.
@@ -178,3 +194,18 @@ Luke 5-7-15
 - Got character sprite working, tweaked some position settings
 - Frames now are more random
   - run-up time at start, frames have random spaces between each other
+
+-------------------------------------------------------------------------
+Joh 5/7/15
+-Turned off collisions with obstacles to test balance stuff and test shorts sprite length changing. 
+-Shorts animation works and matches player animation but shorts stop getting short at a certain point -- will fix 
+-PowerupSpawner now uses the random wait time given to it on instantiation rather than a 1 - 15 second range
+-Powerups spawn more frequently
+-Powerups move at the speed of the background
+-Added string draw that displays shorts length for testing
+-Added godmode bool to Player. dont mess with it, I'm gonna take it out tommorow prob
+-Moved the player to the left of the screen a little more
+Fun fact: Once your speed gets to 102, collisions are no longer a thing apperantly..
+Funny shit happens when you just let the game run in its current state. You will be amused.
+
+------------------------------------------------------------------------

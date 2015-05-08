@@ -38,9 +38,9 @@ namespace Frosty_Cheeks
             SpriteObj = new Sprite("", Position, (int)Position.Y, texture.Width, texture.Height);
             SpriteObj.SpriteTexture = texture;
         }
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, int playerSpeed)
         {
-           Position = new Vector2(Position.X - Speed, Position.Y);
+           Position = new Vector2(Position.X - playerSpeed, Position.Y);
            SpriteObj.SpriteLocation = Position;
         }
         public void Draw(SpriteBatch sb) // sprite with animation

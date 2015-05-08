@@ -19,17 +19,29 @@ namespace Frosty_Cheeks
         double timePerFrame = 70; // set 100 ms per frame
         int numFrames = 15; // # frames in whole animation
         int framesElapsed; // frames elapsed since last checked for frames
-        const int NEWTON_Y = 0; // how far down the sprite starts
-        const int NEWTON_HEIGHT = 128; // how high the sprite box will be
-        const int NEWTON_WIDTH = 128; // how wide the sprite box will be
-        const int NEWTON_OFFSET = -10; // allows sprite to mirror properly
+        const int PLAYER_Y = 0; // how far down the sprite starts
+        const int PLAYER_HEIGHT = 128; // how high the sprite box will be
+        const int PLAYER_WIDTH = 128; // how wide the sprite box will be
+        const int PLAYER_OFFSET = -10; // allows sprite to mirror properly
+
+        const int SHORTS_WIDTH = 128;
+        const int SHORTS_HEIGHT = 128;
+        const int SHORTS_OFFSET = 0;
         bool jumping;
         float jumpspeed;
         float startY;
         float totalAliveTime;
         float frameTimer;
 
-        private double shortsLength;
+        private Sprite shortsSprite;
+
+        private int shortsLength;
+
+        public int ShortsLength
+        {
+            get { return shortsLength; }
+            set { shortsLength = value; }
+        }
         private double maxSpeed;
         private const double MIN_SPEED = 2;
         
@@ -70,7 +82,8 @@ namespace Frosty_Cheeks
         private int verticalDirection;//0 = falling, 1 = jumping
         public bool invunderable = false;
 
-        public Player(float jump, float shorts, float temp, float _speed, Texture2D spriteSheet, Vector2 origPos)
+        public bool godmode = true;
+        public Player(float jump, float shorts, float temp, float _speed, Texture2D spriteSheet, Texture2D shortsSpriteSheet, Vector2 origPos)
             : base(2)
         {
 
@@ -79,12 +92,19 @@ namespace Frosty_Cheeks
 
             originalTemp = Tempurature = 100;
             totalAliveTime = totalAliveTime = 0;
-
-           //The player will slow down by 20% on hitting an obstacle
+            #region Init player drawing
+            //The player will slow down by 20% on hitting an obstacle
             /*string img, Vector2 loc, Rectangle rec, int frm, double tpf, int nf, int elaps, int sprty, int hght, int wdth, int offst*/
-            SpriteObj = new Sprite("", Position, new Rectangle((frame % 4) * NEWTON_WIDTH, NEWTON_HEIGHT * (int)(frame / 4), NEWTON_WIDTH, NEWTON_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, NEWTON_HEIGHT, NEWTON_WIDTH, NEWTON_OFFSET);
+            SpriteObj = new Sprite("", Position, new Rectangle((frame % 4) * PLAYER_WIDTH, PLAYER_HEIGHT * (int)(frame / 4), PLAYER_WIDTH, PLAYER_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_OFFSET);
             SpriteObj.SpriteLocation = originalPosition = origPos;
             SpriteObj.SpriteTexture = spriteSheet;
+            #endregion
+
+            #region Init shorts drawing
+            shortsSprite = new Sprite("", Position, new Rectangle(SHORTS_WIDTH * frame, shortsLength * (2048 - SHORTS_HEIGHT), SHORTS_WIDTH, SHORTS_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, SHORTS_HEIGHT, SHORTS_WIDTH, SHORTS_OFFSET);
+            shortsSprite.SpriteLocation = originalPosition = origPos;
+            shortsSprite.SpriteTexture = shortsSpriteSheet;
+            #endregion
         }
         private void AmbientTempuratureChange() {
             if (Tempurature > 0)
@@ -149,15 +169,17 @@ namespace Frosty_Cheeks
             #endregion 
 
             // dev kill
-            if (kState.IsKeyDown(Keys.Q))
+            //Commented out so we dont forget to remove it later
+            /*if (kState.IsKeyDown(Keys.Q))
             {
                 tempurature = 0;
-            }
+            }*/
             timePerFrame = 500 / Speed;
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {
-            sb.Draw(SpriteObj.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle((frame % 4) * NEWTON_WIDTH, NEWTON_HEIGHT * (int)(frame / 4), NEWTON_WIDTH, NEWTON_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            sb.Draw(SpriteObj.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle((frame % 4) * PLAYER_WIDTH, PLAYER_HEIGHT * (int)(frame / 4), PLAYER_WIDTH, PLAYER_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            sb.Draw(shortsSprite.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(frame * SHORTS_WIDTH,(2048 - (shortsLength * SHORTS_HEIGHT)),SHORTS_WIDTH,SHORTS_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
         public void HitObstacle(Obstacle obs)
         {
@@ -218,15 +240,19 @@ namespace Frosty_Cheeks
         }
         public bool IsColliding(GamePiece other)
         {
-            //Gets bounding box info from another GamePiece's sprite and uses MonoGame's built in method to check for a collision
-            bool collide = false;
-            Rectangle otherBoundingBox = other.GetBoundingBox();
-            //GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
+            if(godmode && other is Powerup){
+                //Gets bounding box info from another GamePiece's sprite and uses MonoGame's built in method to check for a collision
+                bool collide = false;
+                Rectangle otherBoundingBox = other.GetBoundingBox();
+                //GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
 
-            BoundingBox = new Rectangle((int)SpriteObj.SpriteLocation.X + 45, (int)SpriteObj.SpriteLocation.Y + 15, NEWTON_WIDTH - 95, NEWTON_HEIGHT - 20);
-            return BoundingBox.Intersects(otherBoundingBox);
+                BoundingBox = new Rectangle((int)SpriteObj.SpriteLocation.X + 45, (int)SpriteObj.SpriteLocation.Y + 15, PLAYER_WIDTH - 95, PLAYER_HEIGHT - 20);
+                return BoundingBox.Intersects(otherBoundingBox);
 
-            //return collide;
+                //return collide;
+            }else{
+                return false;
+            }
         }
         /*Write text to the debug console for testing stuffs*/
     }
