@@ -74,7 +74,7 @@ namespace Frosty_Cheeks
                 availObstacles.Add(o);
             }
             // Test value
-            diff = 100;
+            diff = Difficulty;
             frameType = rand.FrameType;
             obstacles = new List<Obstacle>();
             RandomizeObstacles();
@@ -85,7 +85,7 @@ namespace Frosty_Cheeks
         private Frame(int d, int type, Vector2 loc)
         {
             // Test value
-            diff = 100;
+            diff = 0;
             frameType = type;
         }
         public static void ReadFramesIn()
@@ -109,7 +109,7 @@ namespace Frosty_Cheeks
                             {
                                 while ((obsType = reader.ReadInt32()) != null)
                                 {
-                                    obsPos = new Vector2(reader.ReadInt32(), reader.ReadInt32() + 115);
+                                    obsPos = new Vector2(reader.ReadInt32() + 100, reader.ReadInt32() + 115);
                                     Obstacle obs = null;
                                     switch (obsType)
                                     {
@@ -162,17 +162,25 @@ namespace Frosty_Cheeks
         private void RandomizeObstacles()
         {
             int availObs = availObstacles.Count;
-            double reqObs = Math.Ceiling(availObs * (diff / 100.0));
-            for (int i = 0; i < reqObs; i++)
+            int reqObs = (int)Math.Round(diff / 5.0);
+            int i = 0;
+            while (i < reqObs)
             {
                 Thread.Sleep(10);
-                int rand = rgen.Next(2);
-                Obstacle ob = availObstacles[i];
-                Obstacle o = new Obstacle(ob.Speed);
-                o.Position = ob.Position;
-                o.SpriteObj = new Sprite(ob.SpriteObj.ImagePath, new Vector2(ob.SpriteObj.SpriteLocation.X, ob.SpriteObj.SpriteLocation.Y), 0, ob.SpriteObj.SpriteHeight, ob.SpriteObj.SpriteWidth);
-                o.ObsType = ob.ObsType;
-                obstacles.Add(o);
+                int rand = rgen.Next(8);
+                if (rand > 2)
+                {
+                    Obstacle ob = availObstacles[i];
+                    Obstacle o = new Obstacle(ob.Speed);
+                    o.Position = ob.Position;
+                    o.SpriteObj = new Sprite(ob.SpriteObj.ImagePath, new Vector2(ob.SpriteObj.SpriteLocation.X, ob.SpriteObj.SpriteLocation.Y), 0, ob.SpriteObj.SpriteHeight, ob.SpriteObj.SpriteWidth);
+                    o.ObsType = ob.ObsType;
+                    obstacles.Add(o);
+                }
+                i++;
+
+                if (i == availObs)
+                    break;
             }
         }
     }

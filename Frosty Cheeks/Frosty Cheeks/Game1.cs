@@ -38,6 +38,7 @@ namespace Frosty_Cheeks
         private List<Sprite> foreList;
         private List<Sprite> roadList;
         private bool contentLoaded;
+        private float elapsedSeconds;
 
         //Powerup Textures
         private Texture2D shorterPowerupTex;
@@ -180,6 +181,7 @@ namespace Frosty_Cheeks
 
             // start location for player
             startLoc = new Vector2(Window.ClientBounds.Width / 4, Window.ClientBounds.Height * 2 / 3 - 20);
+            elapsedSeconds = 0;
 
             Frame.InitializeFrames();
 
@@ -263,63 +265,84 @@ namespace Frosty_Cheeks
                 string[] normalFrameTexturesToLoad = Directory.GetFiles("Content\\Normal Frames");
                 foreach (string fileName in normalFrameTexturesToLoad)
                 {
-                    File.Copy(fileName, "Content\\" + fileName.Substring(23));
-                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(23));
-                    normalFrameTextures.Add(temp);
+                    if (fileName.Contains(".png"))
+                    {
+                        File.Copy(fileName, "Content\\" + fileName.Substring(22));
+                        Texture2D temp = Content.Load<Texture2D>(fileName.Substring(22));
+                        normalFrameTextures.Add(temp);
+                    }
                 }
 
                 // wind tunnel frames
                 string[] windTunnelFrameTexturesToLoad = Directory.GetFiles("Content\\Wind Tunnel Frames");
                 foreach (string fileName in windTunnelFrameTexturesToLoad)
                 {
-                    File.Copy(fileName, "Content\\" + fileName.Substring(26));
-                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(27));
-                    windTunnelFrameTextures.Add(temp);
+                    if (fileName.Contains(".png"))
+                    {
+                        File.Copy(fileName, "Content\\" + fileName.Substring(26));
+                        Texture2D temp = Content.Load<Texture2D>(fileName.Substring(27));
+                        windTunnelFrameTextures.Add(temp);
+                    }
                 }
 
                 // warm zone frames
                 string[] warmZoneFrameTexturesToLoad = Directory.GetFiles("Content\\Warm Zone Frames");
                 foreach (string fileName in warmZoneFrameTexturesToLoad)
                 {
-                    File.Copy(fileName, "Content\\" + fileName.Substring(25));
-                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                    warmZoneFrameTextures.Add(temp);
+                    if (fileName.Contains(".png"))
+                    {
+                        File.Copy(fileName, "Content\\" + fileName.Substring(25));
+                        Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                        warmZoneFrameTextures.Add(temp);
+                    }
                 }
 
                 // normal obstacle frames
                 string[] normalObstacleTexturesToLoad = Directory.GetFiles("Content\\Normal Obstacles");
                 foreach (string fileName in normalObstacleTexturesToLoad)
                 {
-                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                    normalObstacleTextures.Add(temp);
+                    if (fileName.Contains(".png"))
+                    {
+                        File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                        Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                        normalObstacleTextures.Add(temp);
+                    }
                 }
 
                 // medium obstacle frames
                 string[] mediumObstacleTexturesToLoad = Directory.GetFiles("Content\\Medium Obstacles");
                 foreach (string fileName in mediumObstacleTexturesToLoad)
                 {
-                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                    mediumObstacleTextures.Add(temp);
+                    if (fileName.Contains(".png"))
+                    {
+                        File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                        Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                        mediumObstacleTextures.Add(temp);
+                    }
                 }
 
                 // large obstacle frames
                 string[] largeObstacleTexturesToLoad = Directory.GetFiles("Content\\Large Obstacles");
                 foreach (string fileName in largeObstacleTexturesToLoad)
                 {
-                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(24));
-                    largeObstacleTextures.Add(temp);
+                    if (fileName.Contains(".png"))
+                    {
+                        File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                        Texture2D temp = Content.Load<Texture2D>(fileName.Substring(24));
+                        largeObstacleTextures.Add(temp);
+                    }
                 }
 
                 // moving obstacle frames
                 string[] movingObstacleTexturesToLoad = Directory.GetFiles("Content\\Moving Obstacles");
                 foreach (string fileName in movingObstacleTexturesToLoad)
                 {
-                    File.Copy(fileName, "Content\\" + fileName.Substring(24));
-                    Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
-                    movingObstacleTextures.Add(temp);
+                    if (fileName.Contains(".png"))
+                    {
+                        File.Copy(fileName, "Content\\" + fileName.Substring(24));
+                        Texture2D temp = Content.Load<Texture2D>(fileName.Substring(25));
+                        movingObstacleTextures.Add(temp);
+                    }
                 }
 
                 contentLoaded = true;
@@ -452,6 +475,9 @@ namespace Frosty_Cheeks
             // only run this update stuff if game is not in GameState.ScoreScreen
             if (gameState == GameState.Game)
             {
+                // Add to the elapsed game time for difficulty purposes
+                elapsedSeconds += gameTime.ElapsedGameTime.Milliseconds / 1000f;
+
                 for (int i = 0; i < 3; i++)
                 {
                     skyList[i].SpriteLocation = new Vector2(skyList[i].SpriteLocation.X - (player.Speed / 10), 0);
@@ -464,7 +490,7 @@ namespace Frosty_Cheeks
 
                     foreList[i].SpriteLocation = new Vector2(foreList[i].SpriteLocation.X - (player.Speed / 2), 0);
                     if (foreList[i].SpriteLocation.X <= -1920)
-                        foreList[i].SpriteLocation = new Vector2(foreList[i].SpriteLocation.X + 5760, 0);
+                        foreList[i].SpriteLocation = new Vector2(foreList[i].SpriteLocation.X + 5760 + rgenFrame.Next(960), 0);
                     
                     roadList[i].SpriteLocation = new Vector2(roadList[i].SpriteLocation.X - player.Speed, 96);
                     if (roadList[i].SpriteLocation.X <= -480)
@@ -484,8 +510,8 @@ namespace Frosty_Cheeks
                 if (frames[0].FrameSprite.SpriteLocation.X <= -1024)
                 {
                     frames.RemoveAt(0);
-                    frames.Add(new Frame(1));
-                    frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024 + rgenFrame.Next(1024), frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
+                    frames.Add(new Frame((int)(elapsedSeconds / 1)));
+                    frames[frames.Count - 1].FrameSprite.SpriteLocation = new Vector2(frames[frames.Count - 2].FrameSprite.SpriteLocation.X + 1024 + rgenFrame.Next((int)(1024 * (1.0 + player.Speed / 6.0))), frames[frames.Count - 1].FrameSprite.SpriteLocation.Y);
 
                     #region Assign New Frame and Obstacle Textures
                     //handle frame texture
@@ -560,6 +586,19 @@ namespace Frosty_Cheeks
 
                 player.PlayerUpdate(gameTime);
                 distanceScore = distanceScore + player.Speed;
+            }
+            if (gameState == GameState.ScoreScreen || gameState == GameState.StartMenu)
+            {
+                if (gameState == GameState.StartMenu)
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.Q))
+                        Exit();
+                }
+                if(Keyboard.GetState().IsKeyDown(Keys.R))
+                {
+                    this.GameReset();
+                    gameState = GameState.Game;
+                }
             }
 
             CollisionUpdate(gameTime);
@@ -677,8 +716,8 @@ namespace Frosty_Cheeks
                 #endregion
 
                 spriteBatch.DrawString(distanceFont, "Distance: " + (int)distanceScore / (1024 / 6) + " Meters", new Vector2(20, 20), Color.White);
-                spriteBatch.DrawString(distanceFont, "Speed: " + (int)player.Speed, new Vector2(20, 60), Color.White);
-                spriteBatch.DrawString(distanceFont, "ShortsLength: " + player.ShortsLength, new Vector2(20, 100), Color.White);
+                //spriteBatch.DrawString(distanceFont, "Speed: " + (int)player.Speed, new Vector2(20, 60), Color.White);
+                //spriteBatch.DrawString(distanceFont, "ShortsLength: " + player.ShortsLength, new Vector2(20, 100), Color.White);
 
             }
             spriteBatch.End();
@@ -773,6 +812,7 @@ namespace Frosty_Cheeks
             // TODO: Add your initialization logic here
             gameOver = false;
             distanceScore = 0;
+            elapsedSeconds = 0;
 
             // start location for player
             startLoc = new Vector2(Window.ClientBounds.Width / 3, Window.ClientBounds.Height * 2 / 3 - 20);

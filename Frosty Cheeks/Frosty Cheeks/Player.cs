@@ -121,6 +121,13 @@ namespace Frosty_Cheeks
         }
         public void PlayerUpdate(GameTime gameTime)
         {
+            // Back up stuff to make sure we don't freak out with speed
+            shortsLength = Clamp(shortsLength, 1, 12);
+            if (shortsLength > 12)
+                shortsLength = 12;
+            else if (shortsLength < 1)
+                shortsLength = 1;
+
             #region speed and temperature
             AmbientTempuratureChange();
             CalculateSpeed(gameTime);
@@ -187,15 +194,21 @@ namespace Frosty_Cheeks
         }  
         public void HitPowerup(Powerup powerup)  
         {
-                if(powerup is ShorterPowerup){
-                    tempChange += (shorterPowerupStrength * tempChange);//Takes a percentage of the current temp and takes it away from temperature
-                    shortsLength = Clamp(shortsLength + 1, 1, 12);
-                }else if(powerup is LongerPowerup){
-                    tempChange -= (longerPowerupStrength * tempChange);
-                    shortsLength = Clamp(shortsLength - 1, 1, 12);
-                }else if(powerup is SuperSaiyan){
-                    //Expand for a surprise...
-                    #region Kammmeeeeee..
+            // tempchange stuff is no longer needed. Temperature change is done based on shorts now
+            if(powerup is ShorterPowerup)
+            {
+                //tempChange += (shorterPowerupStrength * tempChange);//Takes a percentage of the current temp and takes it away from temperature
+                shortsLength = Clamp(shortsLength + 1, 1, 12);
+            }
+            else if(powerup is LongerPowerup)
+            {
+                //tempChange -= (longerPowerupStrength * tempChange);
+                shortsLength = Clamp(shortsLength - 1, 1, 12);
+            }
+            else if(powerup is SuperSaiyan)
+            {
+                //Expand for a surprise...
+                #region Kammmeeeeee..
                     /*
                      *          _
               -._ \'.
@@ -230,7 +243,7 @@ namespace Frosty_Cheeks
                          '-'
                      */
                     #endregion
-                }
+            }
             powerup.Destroyed = true;
         }
         public bool IsColliding(GamePiece other)

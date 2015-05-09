@@ -213,4 +213,10 @@ Luke - 5/8/15
 - Tweaked power up spawning to be more difficult but not insane
 - Tweaked temperature to increase and decrease based on shorts length
 - Tweaked speed so difficulty increases as time goes on
--------------------------------------------------------------------------
+------------------------------------------------------------------------
+Luke - 5/9/15
+- Added some more frames and frame art
+- Tweaked some balance stuff
+   - Added a frame difficulty, randomizes which obstacles show up
+   - Increases the number of obstacles that could show up as time goes on
+   - Made frames have more space between them the faster you're running so you don't jump straight into another frame
