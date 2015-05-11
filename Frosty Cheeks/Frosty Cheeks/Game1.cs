@@ -43,6 +43,7 @@ namespace Frosty_Cheeks
         //Powerup Textures
         private Texture2D shorterPowerupTex;
         private Texture2D longerPowerupTex;
+        private Texture2D rainbowPowerupTex;
 
         //Array to hold powerups. No more than 5 powerups in game at a time. Powerup is created in update but PowerupSpawner
         private ArrayList powerups;
@@ -359,15 +360,10 @@ namespace Frosty_Cheeks
             //TODO: Get final art for powerups
             shorterPowerupTex = Content.Load<Texture2D>("shorterPowerupTemp.png");
             longerPowerupTex = Content.Load<Texture2D>("longerPowerupTemp.png");
+            rainbowPowerupTex = Content.Load<Texture2D>("rainbowPowerupTemp.png");
 
             boundingBoxTex = new Texture2D(GraphicsDevice, 1, 1);
             boundingBoxTex.SetData(new[] { Color.White });
-
-            //Instantiating these here so we KNOW that the content has been loade before we try to use it
-            powerups = new ArrayList();
-            pSpawner = new PowerupSpawner(10, shorterPowerupTex, longerPowerupTex, Window.ClientBounds.Width + (Window.ClientBounds.Width / 3));
-
-            player = new Player(1, 1, 1, 3, spriteSheet, shortsSpriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
 
             #region Frame and Obstacle Texture Assignment Shit
             foreach (Frame frameLoad in frames)
@@ -430,8 +426,20 @@ namespace Frosty_Cheeks
             back = Content.Load<Texture2D>("back.png");
             playAgain = Content.Load<Texture2D>("playagain.png");
             #endregion
-        }
 
+            SpawnPlayer();
+            InitPowerupSpawner();
+        }
+        void InitPowerupSpawner()
+        {
+            powerups = new ArrayList();
+            pSpawner = new PowerupSpawner(10, shorterPowerupTex, longerPowerupTex, rainbowPowerupTex, Window.ClientBounds.Width + (Window.ClientBounds.Width / 3));
+        }
+        void SpawnPlayer()
+        {
+            player = new Player(1, 1, 1, 3, spriteSheet, shortsSpriteSheet, startLoc); // This needs to be after we load in the spritesheet. Here just to be sure
+
+        }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -564,9 +572,9 @@ namespace Frosty_Cheeks
                     //if(powerups.Count < 6)
                     //{
                     Powerup pwr = pSpawner.TrySpawn();
-                    if (pwr != null)
+                    if (pwr != null){
                         powerups.Add(pwr);
-                    //}
+                    }
 
                 }
                 //Call update on all the powerups to move them
@@ -647,6 +655,12 @@ namespace Frosty_Cheeks
                 // scores
                 scoreLocationY = 20;
                 scoreLocationX = 100;
+
+                spriteBatch.DrawString(distanceFont, "Your Score:", new Vector2(scoreLocationX + 300, scoreLocationY), Color.Black);
+                spriteBatch.DrawString(distanceFont, "" + (int)distanceScore / (1024 / 6), new Vector2(scoreLocationX + 300, scoreLocationY + 20), Color.Black);
+                spriteBatch.DrawString(distanceFont, "High Scores:", new Vector2(scoreLocationX, scoreLocationY), Color.Black);
+
+                scoreLocationY = 40;
 
                 // display the highscores
                 for (int i = 0; i < 10; i++)
@@ -877,7 +891,7 @@ namespace Frosty_Cheeks
                     {
                         if (player.IsColliding(p))//..and if the player is hitting it
                         {
-                            player.HitPowerup(p);//..then do stuff!!
+                            player.HitPowerup(p,gameTime);//..then do stuff!!
                         }
                     }
                 }

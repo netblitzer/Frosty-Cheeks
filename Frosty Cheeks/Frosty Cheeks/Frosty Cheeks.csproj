@@ -52,6 +52,7 @@
     <Compile Include="PowerupSpawner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RainbowPowerup.cs" />
     <Compile Include="ShorterPowerup.cs" />
     <Compile Include="Slider.cs" />
     <Compile Include="SmallObstacle.cs" />

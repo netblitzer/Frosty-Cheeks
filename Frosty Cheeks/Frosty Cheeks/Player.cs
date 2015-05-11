@@ -81,7 +81,13 @@ namespace Frosty_Cheeks
         private bool inFreefall = false;
         private float fallRate;
         private int verticalDirection;//0 = falling, 1 = jumping
+        
         public bool invunderable = false;
+        private bool rainbowMode = false;
+        private int rainbowStartTime;
+        private int rainbowModeLength = 5000;
+
+        private Color shortsColor = Color.Blue;
 
         public bool godmode = false;
         public Player(float jump, float shorts, float temp, float _speed, Texture2D spriteSheet, Texture2D shortsSpriteSheet, Vector2 origPos)
@@ -114,10 +120,25 @@ namespace Frosty_Cheeks
         }
         private void CalculateSpeed(GameTime gameTime)//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
         {
-            maxSpeedDelta += gameTime.ElapsedGameTime.Milliseconds / 12000f;
-            maxSpeed = Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f);
-            Speed += (float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500;
-            Speed = Clamp(Speed, 2f, maxSpeed);
+            if(!rainbowMode){
+                maxSpeedDelta += gameTime.ElapsedGameTime.Milliseconds / 12000f;
+                maxSpeed = Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f);
+                Speed += (float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500;
+                Speed = Clamp(Speed, 2f, maxSpeed);
+            }
+            else
+            {
+                if((gameTime.TotalGameTime.TotalMilliseconds - rainbowStartTime) >= rainbowModeLength){
+                    maxSpeedDelta += 4 * (gameTime.ElapsedGameTime.Milliseconds / 12000f);
+                    maxSpeed = 4 * (Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f));
+                    Speed += 4 * ((float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500);
+                    Speed = 4 * (Clamp(Speed, 2f, maxSpeed));
+                }
+                else
+                {
+                    LeaveRainbowMode();
+                }
+            }
         }
         public void PlayerUpdate(GameTime gameTime)
         {
@@ -181,7 +202,7 @@ namespace Frosty_Cheeks
         public void Draw(SpriteBatch sb) // sprite with animation
         {
             sb.Draw(SpriteObj.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle((frame % 4) * PLAYER_WIDTH, PLAYER_HEIGHT * (int)(frame / 4), PLAYER_WIDTH, PLAYER_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            sb.Draw(shortsSprite.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(frame * SHORTS_WIDTH,(2048 - (shortsLength * SHORTS_HEIGHT)),SHORTS_WIDTH,SHORTS_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            sb.Draw(shortsSprite.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(frame * SHORTS_WIDTH,(2048 - (shortsLength * SHORTS_HEIGHT)),SHORTS_WIDTH,SHORTS_HEIGHT), shortsColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
         public void HitObstacle(Obstacle obs)
         {
@@ -192,7 +213,7 @@ namespace Frosty_Cheeks
                 obs.Destroyed = true;
             }
         }  
-        public void HitPowerup(Powerup powerup)  
+        public void HitPowerup(Powerup powerup, GameTime gameTime)  
         {
             // tempchange stuff is no longer needed. Temperature change is done based on shorts now
             if(powerup is ShorterPowerup)
@@ -205,9 +226,10 @@ namespace Frosty_Cheeks
                 //tempChange -= (longerPowerupStrength * tempChange);
                 shortsLength = Clamp(shortsLength - 1, 1, 12);
             }
-            else if(powerup is SuperSaiyan)
+            else if(powerup is RainbowPowerup)
             {
                 //Expand for a surprise...
+                EnterRainbowMode(gameTime);
                 #region Kammmeeeeee..
                     /*
                      *          _
@@ -246,19 +268,31 @@ namespace Frosty_Cheeks
             }
             powerup.Destroyed = true;
         }
+        private void EnterRainbowMode(GameTime gameTime)
+        {
+            rainbowMode = true;
+            rainbowStartTime = (int)gameTime.TotalGameTime.TotalMilliseconds;
+            invunderable = true;
+            shortsColor = Color.Pink;
+        }
+        private void LeaveRainbowMode()
+        {
+            rainbowMode = false;
+            invunderable = false;
+            shortsColor = Color.Blue;
+        }
+
         public bool IsColliding(GamePiece other)
         {
-           
-                //Gets bounding box info from another GamePiece's sprite and uses MonoGame's built in method to check for a collision
-                bool collide = false;
-                Rectangle otherBoundingBox = other.GetBoundingBox();
-                //GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
+            //Gets bounding box info from another GamePiece's sprite and uses MonoGame's built in method to check for a collision
+            bool collide = false;
+            Rectangle otherBoundingBox = other.GetBoundingBox();
+            //GetBoundingBox().Intersects(ref otherBoundingBox, out collide);
 
-                BoundingBox = new Rectangle((int)SpriteObj.SpriteLocation.X + 45, (int)SpriteObj.SpriteLocation.Y + 15, PLAYER_WIDTH - 95, PLAYER_HEIGHT - 20);
-                return BoundingBox.Intersects(otherBoundingBox);
+            BoundingBox = new Rectangle((int)SpriteObj.SpriteLocation.X + 45, (int)SpriteObj.SpriteLocation.Y + 15, PLAYER_WIDTH - 95, PLAYER_HEIGHT - 20);
+            return BoundingBox.Intersects(otherBoundingBox);
 
-                //return collide;
-            
+            //return collide;
         }
 
         private int Clamp(int val, int min, int max)

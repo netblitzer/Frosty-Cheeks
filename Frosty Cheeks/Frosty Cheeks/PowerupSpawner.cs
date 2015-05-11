@@ -18,10 +18,10 @@ namespace Frosty_Cheeks
         private GameTime time;
         private double lastSpawn;
         private float speed;
-        private Texture2D shortTex, longTex;
+        private Texture2D shortTex, longTex, rainbowTex;
         float spawnX;
 
-        public PowerupSpawner(double _spawnWait, Texture2D _shortTex, Texture2D _longTex, float _spawnX)
+        public PowerupSpawner(double _spawnWait, Texture2D _shortTex, Texture2D _longTex, Texture2D _rainbowTex, float _spawnX)
         {
             randoCalrission = new Random();
             spawnWait = _spawnWait;
@@ -29,6 +29,7 @@ namespace Frosty_Cheeks
             lastSpawn = 0;
             shortTex = _shortTex;
             longTex = _longTex;
+            rainbowTex = _rainbowTex;
         }
         public void Update(GameTime gameTime, float gameSpeed)
         {
@@ -37,16 +38,16 @@ namespace Frosty_Cheeks
         }
         public Powerup TrySpawn()
         {
-            int r = randoCalrission.Next(51);
-            if (r <= 5)
-            {
-                return (Spawn(0));
+            int r = randoCalrission.Next(100);
+            Powerup p;
+            if(r < 33){
+               p = Spawn(2);
+            }else if(r >= 33 && r < 66){
+               p = Spawn(2);
+            }else{
+               p = Spawn(2);
             }
-            else if (r >= 45)
-            {
-                return (Spawn(1));
-            }
-            else return null;
+            return p;
         }
         public Powerup Spawn(int type)//Input 0 to spawn a shorter powerup and 1 to spawn a longer powerup
         {
@@ -58,6 +59,9 @@ namespace Frosty_Cheeks
                     break;
                 case 1:
                     p = new LongerPowerup(speed, longTex, spawnX);
+                    break;
+                case 2:
+                    p = new RainbowPowerup(speed, rainbowTex, spawnX);
                     break;
                 default:
                     p = new ShorterPowerup(speed, longTex, spawnX);

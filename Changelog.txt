@@ -6,7 +6,7 @@ V1 - Initial Release
 	- MethodsLibrary Impelemented
 		- Clamps (int, double, float, Vector2)
 		- InRange (int, double, float, Vector2)
-------------------------------------------------
+------------------------------------------------------------------------
 Joh 3-15-15
 Added basic object and character classes:
 - Powerup
@@ -144,7 +144,7 @@ Luke 4-29-15
 	- Fixed it to new standards
 - Frame Builder ¡COMPLETED!
 
-----------------------------------------------------------------------------
+-------------------------------------------------------------------------
 JordON 4/30
 - I did shit and stuff #frustration
 - Added an int for obs type, get over it or tell me why you actually need separate classes
