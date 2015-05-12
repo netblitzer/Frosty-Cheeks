@@ -41,9 +41,9 @@ namespace Frosty_Cheeks
             int r = randoCalrission.Next(100);
             Powerup p;
             if(r < 33){
-               p = Spawn(2);
-            }else if(r >= 33 && r < 66){
-               p = Spawn(2);
+               p = Spawn(0);
+            }else if(r >= 33 && r < 85){
+               p = Spawn(1);
             }else{
                p = Spawn(2);
             }

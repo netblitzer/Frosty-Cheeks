@@ -88,11 +88,15 @@ namespace Frosty_Cheeks
         private int rainbowModeLength = 5000;
 
         private Color shortsColor = Color.Blue;
+        private Color[] shortsColors;
+        private int randoColorIndex = 0;
 
         public bool godmode = false;
+        private Random randoCalrission;
         public Player(float jump, float shorts, float temp, float _speed, Texture2D spriteSheet, Texture2D shortsSpriteSheet, Vector2 origPos)
             : base(2)
         {
+            randoCalrission = new Random();
 
             shortsLength = 6;
             maxSpeed = shortsLength * 2;
@@ -112,6 +116,9 @@ namespace Frosty_Cheeks
             shortsSprite = new Sprite("", Position, new Rectangle(SHORTS_WIDTH * frame, shortsLength * (2048 - SHORTS_HEIGHT), SHORTS_WIDTH, SHORTS_HEIGHT), frame, timePerFrame, numFrames, framesElapsed, (int)originalPosition.Y, SHORTS_HEIGHT, SHORTS_WIDTH, SHORTS_OFFSET);
             shortsSprite.SpriteLocation = originalPosition = origPos;
             shortsSprite.SpriteTexture = shortsSpriteSheet;
+            Color red = Color.Red;
+
+            shortsColors = new Color[]{Color.Purple, Color.Lime, Color.LightGreen, Color.MediumSlateBlue, Color.LightGoldenrodYellow};
             #endregion
         }
         private void AmbientTempuratureChange() {
@@ -120,6 +127,7 @@ namespace Frosty_Cheeks
         }
         private void CalculateSpeed(GameTime gameTime)//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
         {
+            //While we're in normal mode
             if(!rainbowMode){
                 maxSpeedDelta += gameTime.ElapsedGameTime.Milliseconds / 12000f;
                 maxSpeed = Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f);
@@ -128,15 +136,17 @@ namespace Frosty_Cheeks
             }
             else
             {
-                if((gameTime.TotalGameTime.TotalMilliseconds - rainbowStartTime) >= rainbowModeLength){
-                    maxSpeedDelta += 4 * (gameTime.ElapsedGameTime.Milliseconds / 12000f);
-                    maxSpeed = 4 * (Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f));
-                    Speed += 4 * ((float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500);
-                    Speed = 4 * (Clamp(Speed, 2f, maxSpeed));
+                //If we've been in rainbow mode for a few seconds, leave it
+                if((gameTime.TotalGameTime.TotalMilliseconds - rainbowStartTime) > rainbowModeLength){
+                    LeaveRainbowMode();
                 }
                 else
                 {
-                    LeaveRainbowMode();
+                    //Raise all stats by 2 while in rainbow mode
+                    maxSpeedDelta += 1.3f * (gameTime.ElapsedGameTime.Milliseconds / 12000f);
+                    maxSpeed = 1.3f * (Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f));
+                    Speed += 1.3f * ((float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500);
+                    Speed = 1.3f * (Clamp(Speed, 2f, maxSpeed));
                 }
             }
         }
@@ -198,15 +208,27 @@ namespace Frosty_Cheeks
             if (kState.IsKeyDown(Keys.G))
                 godmode = !godmode;
             timePerFrame = 500 / Speed;
+
+            if (rainbowMode)
+            {   
+                randoColorIndex++;
+                if((randoColorIndex) >= shortsColors.Length - 1){
+                    randoColorIndex = 0;
+                }
+            }
         }
         public void Draw(SpriteBatch sb) // sprite with animation
         {
             sb.Draw(SpriteObj.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle((frame % 4) * PLAYER_WIDTH, PLAYER_HEIGHT * (int)(frame / 4), PLAYER_WIDTH, PLAYER_HEIGHT), drawColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-            sb.Draw(shortsSprite.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(frame * SHORTS_WIDTH,(2048 - (shortsLength * SHORTS_HEIGHT)),SHORTS_WIDTH,SHORTS_HEIGHT), shortsColor, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            if(rainbowMode){
+                sb.Draw(shortsSprite.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(frame * SHORTS_WIDTH,(2048 - (shortsLength * SHORTS_HEIGHT)),SHORTS_WIDTH,SHORTS_HEIGHT), shortsColors[Clamp(((frame / 3) * randoColorIndex), 0, shortsColors.Length - 1)], 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }else{
+                sb.Draw(shortsSprite.SpriteTexture, SpriteObj.SpriteLocation, new Rectangle(frame * SHORTS_WIDTH, (2048 - (shortsLength * SHORTS_HEIGHT)), SHORTS_WIDTH, SHORTS_HEIGHT), shortsColors[0], 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            }
         }
         public void HitObstacle(Obstacle obs)
         {
-            if(!obs.Destroyed){
+            if(!obs.Destroyed && !invunderable){
                 //Originally decremented temperature by 1/4 of the current temp but that led to obstacles doing very little damage near the end of the player's life
                 Speed -= Speed / 2;
                 Tempurature -= originalTemp / 5;
@@ -294,7 +316,6 @@ namespace Frosty_Cheeks
 
             //return collide;
         }
-
         private int Clamp(int val, int min, int max)
         {
             if (val < min)
@@ -307,13 +328,12 @@ namespace Frosty_Cheeks
 
         private float Clamp(float val, float min, float max)
         {
-            if (val < min)
+            if (val <= min)
                 return min;
-            else if (val > max)
+            else if (val >= max)
                 return max;
 
             return val;
         }
-        /*Write text to the debug console for testing stuffs*/
     }
 }

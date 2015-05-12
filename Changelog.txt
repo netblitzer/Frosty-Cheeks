@@ -220,3 +220,11 @@ Luke - 5/9/15
    - Added a frame difficulty, randomizes which obstacles show up
    - Increases the number of obstacles that could show up as time goes on
    - Made frames have more space between them the faster you're running so you don't jump straight into another frame
+------------------------------------------------------------------------
+Joh 5/11/13 and 5/12/13
+- Created art for Rainbow Shorts Powerup
+- Created new class for Rainbow
+- Added functionality to Player that makes the player move 1.3 times faster for 5 seconds after getting Rainbow powerup
+- Added voodoo bullshit multiplication stuff to the shorts drawing stuff to make the shorts blink different colors. It looks janky because it is janky.
+- There is a 15% chance of rainbow unicorn sperm powerup spawning
+------------------------------------------------------------------------
