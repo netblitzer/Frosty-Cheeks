@@ -64,6 +64,11 @@ namespace Frosty_Cheeks
         private MouseState mouseState;
         private MouseState prevState;
         private Texture2D boundingBoxTex;//Test to draw borders on bounding boxes
+        private Texture2D creditsBg; // credits background
+        private Texture2D startBg; // start screen background
+        private Texture2D howtoplayBg; // how to play background
+        private Texture2D gameLogo; // main game logo
+        private Texture2D studioLogo; // studio logo
 
         // score screen attributes
         private int[] score = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -220,10 +225,10 @@ namespace Frosty_Cheeks
             #region Menu Shit
             // enable mouse pointer
             IsMouseVisible = true;
-            startPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 50);
+            startPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 225);
             // for a fourth button backPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 350);
-            htpPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 150);
-            creditPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 250);
+            htpPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 300);
+            creditPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 375);
             exitPos = new Vector2(20, GraphicsDevice.Viewport.Height - 75);
             playAgainPos = new Vector2(GraphicsDevice.Viewport.Width - 220, GraphicsDevice.Viewport.Height - 75);
             backPos = exitPos;
@@ -425,6 +430,11 @@ namespace Frosty_Cheeks
             exit = Content.Load<Texture2D>("exit.png");
             back = Content.Load<Texture2D>("back.png");
             playAgain = Content.Load<Texture2D>("playagain.png");
+            creditsBg = Content.Load<Texture2D>("creditscreen.png"); // credits background screen
+            startBg = Content.Load<Texture2D>("start screen.png");
+            howtoplayBg = Content.Load<Texture2D>("howtoplayscreen.png");
+            gameLogo = Content.Load<Texture2D>("FrostyCheeksLogo.png");
+            studioLogo = Content.Load<Texture2D>("PowerShortsStudiosLogo");
             #endregion
 
             SpawnPlayer();
@@ -630,6 +640,9 @@ namespace Frosty_Cheeks
             #region Menu Shit
             if (gameState == GameState.StartMenu)
             {
+                spriteBatch.Draw(startBg, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
+                spriteBatch.Draw(gameLogo, new Rectangle((int)startPos.X - 200, 10, 200, 200), Color.SkyBlue);
+                spriteBatch.Draw(studioLogo, new Rectangle(GraphicsDevice.Viewport.Width - 100, 380, 100, 100), Color.White);
                 spriteBatch.Draw(start, startPos, Color.White);
                 spriteBatch.Draw(howtoplay, htpPos, Color.White);
                 spriteBatch.Draw(credits, creditPos, Color.White);
@@ -637,11 +650,14 @@ namespace Frosty_Cheeks
             }
             if (gameState == GameState.HowToPlay)
             {
+                spriteBatch.Draw(howtoplayBg, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                 spriteBatch.Draw(back, exitPos, Color.White);
             }
             if (gameState == GameState.Credits)
             {
+                spriteBatch.Draw(creditsBg, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                 spriteBatch.Draw(back, exitPos, Color.White);
+                spriteBatch.Draw(studioLogo, new Rectangle(GraphicsDevice.Viewport.Width - 100, 380, 100, 100), Color.White);
             }
             if (gameState == GameState.Exit)
             {
@@ -774,10 +790,7 @@ namespace Frosty_Cheeks
                 {
                     gameState = GameState.StartMenu;
                 }
-                if (clickRect.Intersects(playAgainRect))
-                {
-                    gameState = GameState.ScoreScreen;
-                }
+                
 
             }
             if (gameState == GameState.Credits)
@@ -786,10 +799,7 @@ namespace Frosty_Cheeks
                 {
                     gameState = GameState.StartMenu;
                 }
-                if (clickRect.Intersects(playAgainRect))
-                {
-                    gameState = GameState.StartMenu;
-                }
+                
             }
             if (gameState == GameState.ScoreScreen)
             {
@@ -853,10 +863,10 @@ namespace Frosty_Cheeks
             }
 
             #region Menu Shit
-            startPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 50);
+            startPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 225);
             // for a fourth button backPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 350);
-            htpPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 150);
-            creditPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 250);
+            htpPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 300);
+            creditPos = new Vector2((GraphicsDevice.Viewport.Width / 2) - 75, 375);
             exitPos = new Vector2(20, GraphicsDevice.Viewport.Height - 75);
             playAgainPos = new Vector2(GraphicsDevice.Viewport.Width - 220, GraphicsDevice.Viewport.Height - 75);
             backPos = exitPos;

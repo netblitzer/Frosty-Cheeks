@@ -127,10 +127,18 @@ namespace Frosty_Cheeks
         }
         private void CalculateSpeed(GameTime gameTime)//Will change the player's runnning speed based on his tempurater. Colder = slower, warmer = faster
         {
+            if (shortsLength > 12)
+            {
+                shortsLength = 12; // limit max shorts length
+            }
+            if (shortsLength < 1)
+            {
+                shortsLength = 1; // limit min shorts length
+            }
             //While we're in normal mode
             if(!rainbowMode){
                 maxSpeedDelta += gameTime.ElapsedGameTime.Milliseconds / 12000f;
-                maxSpeed = Clamp(shortsLength * 2f + maxSpeedDelta, 2f, 100f);
+                maxSpeed = Clamp(shortsLength * 1.5f + maxSpeedDelta, 2f, 100f);
                 Speed += (float)shortsLength * gameTime.ElapsedGameTime.Milliseconds / 2500;
                 Speed = Clamp(Speed, 2f, maxSpeed);
             }
@@ -194,7 +202,7 @@ namespace Frosty_Cheeks
                 if (kState.IsKeyDown(Keys.Space))
                 {
                     jumping = true;
-                    jumpspeed = -14; // upward thrust
+                    jumpspeed = -10.5f; // upward thrust
                 }
             }
             #endregion 
